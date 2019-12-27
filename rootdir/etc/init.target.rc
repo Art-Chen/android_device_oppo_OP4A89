@@ -76,6 +76,9 @@ on post-fs
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
 
+    # make the selinux kernel policy world-readable
+    chmod 0444 /sys/fs/selinux/policy
+
     mkdir /op2/recovery 0770 root system
 
     #ifdef VENDOR_EDIT
