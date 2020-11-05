@@ -459,9 +459,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.lineage.touch@1.0-service.oneplus_msmnile
 
+# Device Settings
+PRODUCT_PACKAGES += \
+    DeviceSettings
+
 # tri-state key
 PRODUCT_PACKAGES += \
-    KeyHandler \
     tri-state-key_daemon
 
 # Trust HAL
