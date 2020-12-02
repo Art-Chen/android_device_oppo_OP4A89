@@ -18,12 +18,8 @@
 package com.aosip.device.DeviceSettings;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import androidx.preference.Preference;
-import androidx.preference.Preference.OnPreferenceChangeListener;
-import androidx.preference.PreferenceManager;
 
-public class HBMModeSwitch implements OnPreferenceChangeListener {
+public class HBMModeSwitch {
 
     private static final String FILE = "/sys/kernel/oppo_display/hbm";
 
@@ -40,12 +36,5 @@ public class HBMModeSwitch implements OnPreferenceChangeListener {
 
     public static boolean isCurrentlyEnabled(Context context) {
         return Utils.getFileValueAsBoolean(getFile(), false);
-    }
-
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        Boolean enabled = (Boolean) newValue;
-        Utils.writeValue(getFile(), enabled ? "1" : "0");
-        return true;
     }
 }

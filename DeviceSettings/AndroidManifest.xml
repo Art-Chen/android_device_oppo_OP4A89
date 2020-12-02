@@ -114,6 +114,9 @@
             </intent-filter>
         </service>
 
+        <service android:name="com.aosip.device.DeviceSettings.HBMModeService"
+            android:exported="false" />
+
         <!-- Search indexing -->
         <provider
             android:name=".ConfigPanelSearchIndexablesProvider"
