@@ -347,19 +347,43 @@ function configure_zram_parameters() {
     # For >=2GB Non-Go device, size = 1GB
     # And enable lz4 zram compression for Go targets.
 
+    RamSizeGB=`echo "($MemTotal / 1048576 ) + 1" | bc`
+    zRamSizeBytes=`echo "$RamSizeGB * 1024 * 1024 * 1024 / 2" | bc`
+    if [ $zRamSizeBytes -gt 4294967296 ]; then
+        zRamSizeBytes=4294967296
+    fi
+
     if [ "$low_ram" == "true" ]; then
         echo lz4 > /sys/block/zram0/comp_algorithm
     fi
 
     if [ -f /sys/block/zram0/disksize ]; then
+
+#ifdef VENDOR_EDIT //Huacai.Zhou@PSW.Kernel.mm,config zramsize according to ramsize
+        echo lz4 > /sys/block/zram0/comp_algorithm
         if [ $MemTotal -le 524288 ]; then
             echo 402653184 > /sys/block/zram0/disksize
         elif [ $MemTotal -le 1048576 ]; then
             echo 805306368 > /sys/block/zram0/disksize
+        elif [ $MemTotal -le 2097152 ]; then
+            #config 1GB+256M zram size with memory 2 GB
+            echo 1342177280 > /sys/block/zram0/disksize
+        elif [ $MemTotal -le 3145728 ]; then
+            #config 1GB +512M+256M zram size with memory 3 GB
+            echo 1879048192 > /sys/block/zram0/disksize
+        elif [ $MemTotal -le 4194304 ]; then
+            #config 2GB zram size with memory 4 GB
+            echo 2147483648 > /sys/block/zram0/disksize
+        elif [ $MemTotal -le 6291456 ]; then
+            #config 2GB+512M zram size with memory 6 GB
+            echo 2684354560 > /sys/block/zram0/disksize
         else
-            # Set Zram disk size=1GB for >=2GB Non-Go targets.
-            echo 1073741824 > /sys/block/zram0/disksize
+            #config 2GB+256M zram size with memory greater than 6GB
+            echo 2415919104 > /sys/block/zram0/disksize
         fi
+        echo 160 > /proc/sys/vm/swappiness
+        echo 60 > /proc/sys/vm/direct_swappiness
+#endif /*VENDOR_EDIT*/
         mkswap /dev/block/zram0
         swapon /dev/block/zram0 -p 32758
     fi
@@ -418,40 +442,6 @@ function enable_swap() {
         mkswap /data/vendor/swap/swapfile
         swapon /data/vendor/swap/swapfile -p 32758
     fi
-}
-
-function configure_memplus_parameters() {
-    bootmode=`getprop ro.vendor.factory.mode`
-    if [ "$bootmode" == "ftm" ] || [ "$bootmode" == "wlan" ] || [ "$bootmode" == "rf" ];then
-        return
-    fi
-    if [ ! $memplus_post_config ];then
-        return
-    fi
-    setprop vendor.sys.memplus.postboot 1
-    memplus=`getprop persist.vendor.memplus.enable`
-    case "$memplus"	in
-        "false")
-            # use original settings
-            # remove swapfile to reclaim storage space
-            rm /data/vendor/swap/swapfile
-            swapoff /dev/block/zram0
-            ;;
-        *)
-            rm /data/vendor/swap/swapfile
-            # reset zram swapspace
-            swapoff /dev/block/zram0
-            echo 1 > /sys/block/zram0/reset
-            echo 2202009600 > /sys/block/zram0/disksize
-            echo 742M > /sys/block/zram0/mem_limit
-            mkswap /dev/block/zram0
-            swapon /dev/block/zram0 -p 32758
-            if [ $? -eq 0 ]; then
-                echo 1 > /sys/module/memplus_core/parameters/memory_plus_enabled
-            fi
-            ;;
-    esac
-    setprop vendor.sys.memplus.postboot 2
 }
 
 function configure_memory_parameters() {
@@ -525,9 +515,14 @@ else
             minfree_4="${minfree_3#*,}" ; rem_minfree_4="${minfree_4%%,*}"
             minfree_5="${minfree_4#*,}"
 
-            # Jared.Wu@ASTI, 2019/06/28, modify vmpressure_file_min value
-            vmpres_file_min=$((rem_minfree_3 + ((rem_minfree_4 - rem_minfree_3) * 2) / 3))
+            vmpres_file_min=$((minfree_5 + (minfree_5 - rem_minfree_4)))
             echo $vmpres_file_min > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
+
+#ifdef VENDOR_EDIT //Huacai.Zhou@PSW.Kernel.BSP.Memory, 2018/07/25, increase lmk minfree
+	        rem_minfree_0="${minfree_series%%,*}"
+	        rem_minfree_4=$((rem_minfree_4*3/2))
+	        rem_minfree_5=$((minfree_5*3/2))
+	        echo "$rem_minfree_0,$rem_minfree_1,$rem_minfree_2,$rem_minfree_3,$rem_minfree_4,$rem_minfree_5" > /sys/module/lowmemorykiller/parameters/minfree
         else
             # Set LMK series, vmpressure_file_min for 32 bit non-go targets.
             # Disable Core Control, enable KLMK for non-go 8909.
@@ -578,6 +573,10 @@ else
     # Set swappiness to 100 for all targets
     echo 0 > /sys/module/vmpressure/parameters/allocstall_threshold
     echo 100 > /proc/sys/vm/swappiness
+
+    # Disable wsf for all targets beacause we are using efk.
+    # wsf Range : 1..1000 So set to bare minimum value 1.
+    echo 1 > /proc/sys/vm/watermark_scale_factor
 
     configure_zram_parameters
 
@@ -3105,10 +3104,14 @@ case "$target" in
 
         case "$soc_id" in
             "355" | "369" | "377" | "380" | "384" )
-
-      # update frequencies
-      configure_sku_parameters
-      sku_identified=`getprop vendor.sku_identified`
+      target_type=`getprop ro.hardware.type`
+      if [ "$target_type" == "automotive" ]; then
+	# update frequencies
+	configure_sku_parameters
+	sku_identified=`getprop vendor.sku_identified`
+      else
+	sku_identified=0
+      fi
 
       # Core control parameters on silver
       echo 0 0 0 0 1 1 > /sys/devices/system/cpu/cpu0/core_ctl/not_preferred
@@ -3396,45 +3399,69 @@ case "$target" in
     echo 85 > /proc/sys/kernel/sched_group_downmigrate
     echo 100 > /proc/sys/kernel/sched_group_upmigrate
     echo 1 > /proc/sys/kernel/sched_walt_rotate_big_tasks
+    echo 0 > /proc/sys/kernel/sched_coloc_busy_hyst_ns
+    echo 0 > /proc/sys/kernel/sched_coloc_busy_hysteresis_enable_cpus
+    echo 0 > /proc/sys/kernel/sched_coloc_busy_hyst_max_ms
+
+    # disable unfiltering
+    echo 1 > /proc/sys/kernel/sched_task_unfilter_nr_windows
 
     # configure governor settings for silver cluster
     echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
     echo 0 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/up_rate_limit_us
     echo 0 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/down_rate_limit_us
-    echo 122880 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/hispeed_freq
+    echo 1228800 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/hispeed_freq
     echo 0 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/pl
     echo 576000 > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
+    echo 650000 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/rtg_boost_freq
 
     # configure governor settings for gold cluster
     echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy6/scaling_governor
     echo 0 > /sys/devices/system/cpu/cpufreq/policy6/schedutil/up_rate_limit_us
     echo 0 > /sys/devices/system/cpu/cpufreq/policy6/schedutil/down_rate_limit_us
-    echo 122880 > /sys/devices/system/cpu/cpufreq/policy6/schedutil/hispeed_freq
+    echo 1228800 > /sys/devices/system/cpu/cpufreq/policy6/schedutil/hispeed_freq
     echo 85 > /sys/devices/system/cpu/cpu6/cpufreq/schedutil/hispeed_load
     echo -6 >  /sys/devices/system/cpu/cpu6/sched_load_boost
     echo 0 > /sys/devices/system/cpu/cpufreq/policy6/schedutil/pl
     echo 672000 > /sys/devices/system/cpu/cpufreq/policy6/scaling_min_freq
+    echo 0 > /sys/devices/system/cpu/cpufreq/policy6/schedutil/rtg_boost_freq
 
     # configure governor settings for gold+ cluster
     echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy7/scaling_governor
     echo 0 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/up_rate_limit_us
     echo 0 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/down_rate_limit_us
-    echo 122880 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/hispeed_freq
-    echo 85 > /sys/devices/system/cpu/cpu6/cpufreq/schedutil/hispeed_load
+    echo 1228800 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/hispeed_freq
+    echo 85 > /sys/devices/system/cpu/cpu7/cpufreq/schedutil/hispeed_load
     echo -6 >  /sys/devices/system/cpu/cpu7/sched_load_boost
     echo 0 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/pl
     echo 672000 > /sys/devices/system/cpu/cpufreq/policy7/scaling_min_freq
+    echo 0 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/rtg_boost_freq
 
     # colocation v3 settings
-    echo 650000 > /proc/sys/kernel/sched_little_cluster_coloc_fmin_khz
     echo 51 > /proc/sys/kernel/sched_min_task_util_for_boost
-    echo 51 > /proc/sys/kernel/sched_min_task_util_for_colocation
+    echo 35 > /proc/sys/kernel/sched_min_task_util_for_colocation
 
-    echo "0:122880" > /sys/module/cpu_boost/parameters/input_boost_freq
-    echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
+    # Enable conservative pl
+    echo 1 > /proc/sys/kernel/sched_conservative_pl
+
+    echo "0:1228800" > /sys/devices/system/cpu/cpu_boost/input_boost_freq
+    echo 40 > /sys/devices/system/cpu/cpu_boost/input_boost_ms
 
     # Set Memory parameters
     configure_memory_parameters
+
+    if [ `cat /sys/devices/soc0/revision` == "2.0" ]; then
+         # r2.0 related changes
+         echo "0:1075200" > /sys/devices/system/cpu/cpu_boost/input_boost_freq
+         echo 610000 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/rtg_boost_freq
+         echo 1075200 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/hispeed_freq
+         echo 1152000 > /sys/devices/system/cpu/cpufreq/policy6/schedutil/hispeed_freq
+         echo 1401600 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/hispeed_freq
+         echo 614400 > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
+         echo 652800 > /sys/devices/system/cpu/cpufreq/policy6/scaling_min_freq
+         echo 806400 > /sys/devices/system/cpu/cpufreq/policy7/scaling_min_freq
+         echo 83 > /proc/sys/kernel/sched_asym_cap_sibling_freq_match_pct
+    fi
 
     # Enable bus-dcvs
     for device in /sys/devices/platform/soc
@@ -3469,8 +3496,9 @@ case "$target" in
             echo 1600 > $llccbw/bw_hwmon/idle_mbps
         done
 
-        for npubw in $device/*npu*-npu-ddr-bw/devfreq/*npu*-npu-ddr-bw
+        for npubw in $device/*npu*-ddr-bw/devfreq/*npu*-ddr-bw
         do
+            echo 1 > /sys/devices/virtual/npu/msm_npu/pwr
             echo "bw_hwmon" > $npubw/governor
             echo 40 > $npubw/polling_interval
             echo "1144 1720 2086 2929 3879 5931 6881 7980" > $npubw/bw_hwmon/mbps_zones
@@ -3482,7 +3510,24 @@ case "$target" in
             echo 0 > $npubw/bw_hwmon/guard_band_mbps
             echo 250 > $npubw/bw_hwmon/up_scale
             echo 0 > $npubw/bw_hwmon/idle_mbps
+            echo 0 > /sys/devices/virtual/npu/msm_npu/pwr
         done
+
+        for npullccbw in $device/*npu*-llcc-bw/devfreq/*npu*-llcc-bw
+	do
+            echo 1 > /sys/devices/virtual/npu/msm_npu/pwr
+	    echo "bw_hwmon" > $npullccbw/governor
+            echo 40 > $npullccbw/polling_interval
+            echo "2288 4577 7110 9155 12298 14236 16265" > $npullccbw/bw_hwmon/mbps_zones
+            echo 4 > $npullccbw/bw_hwmon/sample_ms
+            echo 100 > $npullccbw/bw_hwmon/io_percent
+            echo 20 > $npullccbw/bw_hwmon/hist_memory
+            echo 10 > $npullccbw/bw_hwmon/hyst_length
+            echo 30 > $npullccbw/bw_hwmon/down_thres
+            echo 0 > $npullccbw/bw_hwmon/guard_band_mbps
+            echo 250 > $npullccbw/bw_hwmon/up_scale
+            echo 0 > /sys/devices/virtual/npu/msm_npu/pwr
+	done
 
         #Enable mem_latency governor for L3, LLCC, and DDR scaling
 	for memlat in $device/*qcom,devfreq-l3/*cpu*-lat/devfreq/*cpu*-lat
@@ -3495,7 +3540,7 @@ case "$target" in
 	#Enable cdspl3 governor for L3 cdsp nodes
 	for l3cdsp in $device/*qcom,devfreq-l3/*cdsp-l3-lat/devfreq/*cdsp-l3-lat
 	do
-            echo "powersave" > $l3cdsp/governor
+            echo "cdspl3" > $l3cdsp/governor
 	done
 
 	#Enable mem_latency governor for LLCC and DDR scaling
@@ -3536,6 +3581,144 @@ case "$target" in
     # Turn on sleep modes
     echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
     ;;
+esac
+
+#Apply settings for atoll
+case "$target" in
+    "atoll")
+
+    # Core control parameters on silver
+    echo 0 0 0 0 1 1 > /sys/devices/system/cpu/cpu0/core_ctl/not_preferred
+    echo 4 > /sys/devices/system/cpu/cpu0/core_ctl/min_cpus
+    echo 60 > /sys/devices/system/cpu/cpu0/core_ctl/busy_up_thres
+    echo 40 > /sys/devices/system/cpu/cpu0/core_ctl/busy_down_thres
+    echo 100 > /sys/devices/system/cpu/cpu0/core_ctl/offline_delay_ms
+    echo 8 > /sys/devices/system/cpu/cpu0/core_ctl/task_thres
+    echo 0 > /sys/devices/system/cpu/cpu6/core_ctl/enable
+
+    # Setting b.L scheduler parameters
+    # default sched up and down migrate values are 95 and 85
+    echo 65 > /proc/sys/kernel/sched_downmigrate
+    echo 71 > /proc/sys/kernel/sched_upmigrate
+    # default sched up and down migrate values are 100 and 95
+    echo 85 > /proc/sys/kernel/sched_group_downmigrate
+    echo 100 > /proc/sys/kernel/sched_group_upmigrate
+    echo 1 > /proc/sys/kernel/sched_walt_rotate_big_tasks
+
+    #colocation v3 settings
+    echo 740000 > /proc/sys/kernel/sched_little_cluster_coloc_fmin_khz
+
+    # configure governor settings for little cluster
+    echo "schedutil" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us
+    echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us
+    echo 1248000 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/hispeed_freq
+    echo 576000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+
+    # configure governor settings for big cluster
+    echo "schedutil" > /sys/devices/system/cpu/cpu6/cpufreq/scaling_governor
+    echo 0 > /sys/devices/system/cpu/cpu6/cpufreq/schedutil/up_rate_limit_us
+    echo 0 > /sys/devices/system/cpu/cpu6/cpufreq/schedutil/down_rate_limit_us
+    echo 1267200 > /sys/devices/system/cpu/cpu6/cpufreq/schedutil/hispeed_freq
+    echo 652800 > /sys/devices/system/cpu/cpu6/cpufreq/scaling_min_freq
+
+    # sched_load_boost as -6 is equivalent to target load as 85. It is per cpu tunable.
+    echo -6 >  /sys/devices/system/cpu/cpu6/sched_load_boost
+    echo -6 >  /sys/devices/system/cpu/cpu7/sched_load_boost
+    echo 85 > /sys/devices/system/cpu/cpu6/cpufreq/schedutil/hispeed_load
+
+    echo "0:1248000" > /sys/module/cpu_boost/parameters/input_boost_freq
+    echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
+
+    # Set Memory parameters
+    configure_memory_parameters
+
+    # Enable bus-dcvs
+    for device in /sys/devices/platform/soc
+    do
+        for cpubw in $device/*cpu-cpu-llcc-bw/devfreq/*cpu-cpu-llcc-bw
+        do
+            echo "bw_hwmon" > $cpubw/governor
+            echo 50 > $cpubw/polling_interval
+            echo "2288 4577 7110 9155 12298 14236" > $cpubw/bw_hwmon/mbps_zones
+            echo 4 > $cpubw/bw_hwmon/sample_ms
+            echo 68 > $cpubw/bw_hwmon/io_percent
+            echo 20 > $cpubw/bw_hwmon/hist_memory
+            echo 0 > $cpubw/bw_hwmon/hyst_length
+            echo 80 > $cpubw/bw_hwmon/down_thres
+            echo 0 > $cpubw/bw_hwmon/guard_band_mbps
+            echo 250 > $cpubw/bw_hwmon/up_scale
+            echo 1600 > $cpubw/bw_hwmon/idle_mbps
+        done
+
+        for llccbw in $device/*cpu-llcc-ddr-bw/devfreq/*cpu-llcc-ddr-bw
+        do
+            echo "bw_hwmon" > $llccbw/governor
+            echo 40 > $llccbw/polling_interval
+            echo "1144 1720 2086 2929 3879 5931 6881 8137" > $llccbw/bw_hwmon/mbps_zones
+            echo 4 > $llccbw/bw_hwmon/sample_ms
+            echo 68 > $llccbw/bw_hwmon/io_percent
+            echo 20 > $llccbw/bw_hwmon/hist_memory
+            echo 0 > $llccbw/bw_hwmon/hyst_length
+            echo 80 > $llccbw/bw_hwmon/down_thres
+            echo 0 > $llccbw/bw_hwmon/guard_band_mbps
+            echo 250 > $llccbw/bw_hwmon/up_scale
+            echo 1600 > $llccbw/bw_hwmon/idle_mbps
+        done
+
+        for npubw in $device/*npu*-npu-ddr-bw/devfreq/*npu*-npu-ddr-bw
+        do
+            echo 1 > /sys/devices/virtual/npu/msm_npu/pwr
+            echo "bw_hwmon" > $npubw/governor
+            echo 40 > $npubw/polling_interval
+            echo "1144 1720 2086 2929 3879 5931 6881 8137" > $npubw/bw_hwmon/mbps_zones
+            echo 4 > $npubw/bw_hwmon/sample_ms
+            echo 80 > $npubw/bw_hwmon/io_percent
+            echo 20 > $npubw/bw_hwmon/hist_memory
+            echo 10 > $npubw/bw_hwmon/hyst_length
+            echo 30 > $npubw/bw_hwmon/down_thres
+            echo 0 > $npubw/bw_hwmon/guard_band_mbps
+            echo 250 > $npubw/bw_hwmon/up_scale
+            echo 0 > $npubw/bw_hwmon/idle_mbps
+            echo 0 > /sys/devices/virtual/npu/msm_npu/pwr
+        done
+
+        #Enable mem_latency governor for L3, LLCC, and DDR scaling
+        for memlat in $device/*cpu*-lat/devfreq/*cpu*-lat
+        do
+            echo "mem_latency" > $memlat/governor
+            echo 10 > $memlat/polling_interval
+            echo 400 > $memlat/mem_latency/ratio_ceil
+        done
+
+        #Enable cdspl3 governor for L3 cdsp nodes
+        for l3cdsp in $device/*cdsp-cdsp-l3-lat/devfreq/*cdsp-cdsp-l3-lat
+        do
+            echo "cdspl3" > $l3cdsp/governor
+        done
+
+        #Gold L3 ratio ceil
+        echo 4000 > /sys/class/devfreq/soc:qcom,cpu6-cpu-l3-lat/mem_latency/ratio_ceil
+
+        #Enable compute governor for gold latfloor
+        for latfloor in $device/*cpu*-ddr-latfloor*/devfreq/*cpu-ddr-latfloor*
+        do
+            echo "compute" > $latfloor/governor
+            echo 10 > $latfloor/polling_interval
+        done
+
+    done
+
+    # cpuset parameters
+    echo 0-5 > /dev/cpuset/background/cpus
+    echo 0-5 > /dev/cpuset/system-background/cpus
+
+    # Turn off scheduler boost at the end
+    echo 0 > /proc/sys/kernel/sched_boost
+
+    # Turn on sleep modes
+    echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
+  ;;
 esac
 
 
@@ -4291,21 +4474,9 @@ case "$target" in
 	echo 700 > /sys/module/cpu_boost/parameters/input_boost_ms
 	# endif VENDOR_EDIT
 
-	# ifdef VENDOR_EDIT
-	# simon.ma@SYSTEM, 2019/5/16, add for GCE-8382 to modify the minfree value of lmk
-	echo "18432,23040,27648,51256,150296,200640" > /sys/module/lowmemorykiller/parameters/minfree
-	# endif VENDOR_EDIT
-
 	# Disable wsf, beacause we are using efk.
 	# wsf Range : 1..1000 So set to bare minimum value 1.
-	# set watermark_scale_factor = 36MB * 1024 * 1024 * 10 / MemTotal
-	MemTotalStr=`cat /proc/meminfo | grep MemTotal`
-	MemTotal=${MemTotalStr:16:8}
-	factor=`expr 377487360 / $MemTotal`
-	echo $factor > /proc/sys/vm/watermark_scale_factor
-
-	# set min_free_kbytes = 32MB
-	echo 32768 > /proc/sys/vm/min_free_kbytes
+        echo 1 > /proc/sys/vm/watermark_scale_factor
 
         #ifdef VENDOR_EDIT
         #yankelong@BSP, 2019/5/8/, add for Enable ufs performance.
@@ -4436,8 +4607,6 @@ case "$target" in
 
     echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
     configure_memory_parameters
-    # Enable memplus
-    memplus_post_config=1
     ;;
 esac
 case "$target" in
@@ -5090,4 +5259,3 @@ misc_link=$(ls -l /dev/block/bootdevice/by-name/misc)
 real_path=${misc_link##*>}
 setprop persist.vendor.mmi.misc_dev_path $real_path
 
-configure_memplus_parameters

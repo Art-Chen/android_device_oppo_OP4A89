@@ -110,7 +110,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/listen_platform_info.xml:$(TARGET_COPY_OUT_VENDOR)/etc/listen_platform_info.xml \
     $(LOCAL_PATH)/audio/sound_trigger_mixer_paths.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sound_trigger_mixer_paths.xml \
     $(LOCAL_PATH)/audio/sound_trigger_mixer_paths_wcd9340.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sound_trigger_mixer_paths_wcd9340.xml \
-$(LOCAL_PATH)/audio/sound_trigger_mixer_paths_wcd9340_19081.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sound_trigger_mixer_paths_wcd9340_19081.xml \
+    $(LOCAL_PATH)/audio/sound_trigger_mixer_paths_wcd9340_19081.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sound_trigger_mixer_paths_wcd9340_19081.xml \
     $(LOCAL_PATH)/audio/sound_trigger_mixer_paths_wcd9340_qrd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sound_trigger_mixer_paths_wcd9340_qrd.xml \
     $(LOCAL_PATH)/audio/sound_trigger_platform_info.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sound_trigger_platform_info.xml \
     $(LOCAL_PATH)/audio/mixer_paths_19081.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_19081.xml \
@@ -153,36 +153,35 @@ PRODUCT_PACKAGES += \
 
 # Common init scripts
 PRODUCT_PACKAGES += \
-    coredump.sh \
-    ftm_power_config.sh \
     init.class_main.sh \
     init.crda.sh \
     init.mdm.sh \
-    init.msm.usb.configfs.rc \
-    init.oem.debug.rc \
-    init.oem.engineermode.sh \
-    init.oem.rc \
     init.qcom.class_core.sh \
     init.qcom.coex.sh \
     init.qcom.crashdata.sh \
     init.qcom.early_boot.sh \
     init.qcom.efs.sync.sh \
-    init.qcom.factory.rc \
     init.qcom.post_boot.sh \
-    init.qcom.rc \
     init.qcom.sdio.sh \
     init.qcom.sensors.sh \
     init.qcom.sh \
-    init.qcom.usb.rc \
     init.qcom.usb.sh \
     init.qti.fm.sh \
     init.qti.ims.sh \
-    init.recovery.qcom.rc \
+	 init.oppo.wifi.sh \
+    init.oppo.wifiAutoRecovery.sh \
+    init.oppo.bsp.common.rc \
+    init.oppo.debug.diag.rc \
+    init.msm.usb.configfs.rc \
+    init.oppo.sensor.rc \
+    init.oppo.vendor.motor.rc \
+    init.oppo.vendor.steppermotor.rc \
+    init.qcom.factory.rc \
+    init.qcom.rc \
+    init.qcom.usb.rc \
+    init.oppo.vendor.touchpress.rc \
     init.target.rc \
-    kmemleak.sh \
     ueventd.qcom.rc \
-    vendor.oem_ftm.rc \
-    vendor.oem_ftm_svc_disable.rc \
     fstab.qcom
 
 # Cryptfshw

@@ -27,11 +27,8 @@
 #
 #
 
-# kevin@system, 2019/06/08, add carrier rc
-import /vendor/etc/init/hw/init.oem.carrier.rc
-
 on early-init
-    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules audio_wglink audio_q6_pdr audio_q6_notifier audio_apr audio_adsp_loader audio_q6 audio_native audio_usf audio_pinctrl_wcd audio_swr audio_platform audio_hdmi audio_wcd_spi audio_stub audio_wcd_core audio_wsa881x audio_tfa9894 audio_wcd9360 audio_hdmi audio_machine_msmnile
+    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules audio_wglink audio_q6_pdr audio_q6_notifier audio_apr audio_adsp_loader audio_q6 audio_native audio_usf audio_pinctrl_wcd audio_swr audio_platform audio_hdmi audio_wcd_spi audio_stub audio_wcd_core audio_wsa881x audio_wcd9360 audio_hdmi audio_machine_msmnile audio_max98937
     write /proc/sys/kernel/sched_boost 1
     symlink /data/tombstones /tombstones
 
@@ -52,25 +49,33 @@ on early-fs
 
 on fs
     start hwservicemanager
+    #ifdef VENDOR_EDIT
+    #Xuefeng.Peng@PSW.AD.Storage.ReservePartition.1207580, 2018/11/19, Add for change opporeserve mount point for google GSI test
+    mkdir /mnt/vendor/opporeserve 0771 system system
+    #Xuefeng.Peng@PSW.AD.Storage.0, 2019/01/27, Add for remove 5G dump mountpoint to fstab
+    mkdir /mnt/vendor/modemdump 0771 system system
+    #endif /*VENDOR_EDIT*/
     mount_all /vendor/etc/fstab.qcom --early
-    chown root system /mnt/vendor/persist
-    chmod 0771 /mnt/vendor/persist
-    restorecon_recursive /mnt/vendor/persist
-    mkdir /mnt/vendor/persist/data 0700 system system
-#liuhaituo@MM.Audio, 2019/6/25, chmod to support audio_hal and sensor hal
-    chmod 0666 /dev/audio_ultrasound
-    chmod 0666 /dev/sensor_ultrasound
 
     #ifdef VENDOR_EDIT
-    mount ext4 /dev/block/bootdevice/by-name/op1 /op1 ro barrier=1 discard context=u:object_r:op1_file:s0
-    mount ext4 /dev/block/bootdevice/by-name/op2 /op2 noatime nosuid nodev barrier=1
-    chown system system /op2
+    #Xuefeng.Peng@PSW.AD.Storage.0, 2018/11/21, Add for 5G dump mountpoint
+    #wait /dev/block/bootdevice/by-name/modemdump
+    #mount ext4 /dev/block/bootdevice/by-name/modemdump /mnt/vendor/modemdump nosuid nodev barrier=1
+    chown root system /mnt/vendor/modemdump
+    chmod 0771 /mnt/vendor/modemdump
+    restorecon_recursive /mnt/vendor/modemdump
+    #endif/*VENDOR_EDIT*/
+
+    chown root system /mnt/vendor/persist
+    chmod 0771 /mnt/vendor/persist
+    chmod 0666 /dev/block/sdf6
+    restorecon_recursive /mnt/vendor/persist
+    mkdir /mnt/vendor/persist/data 0700 system system
+    restorecon -R -F /mnt/vendor/persist/sensors
+    #ifdef VENDOR_EDIT
+    #Zhao.Pan@PSW.MM.AudioDriver.Adsp 2018/12/03 Add for load adsp early
+    write /sys/kernel/boot_adsp/boot 1
     #endif
-    # bin.zhong@ASTI, 2019/6/17, add for smartboost
-    chown system system /sys/module/smartboost_core/parameters/page_cache_reside_switch
-    # ken.lin@ASTI, 2019/6/21, add for fsc
-    chown system system /sys/module/fsc/parameters/enable
-    chmod 0664 /sys/module/fsc/parameters/enable
 
 on post-fs
     # set RLIMIT_MEMLOCK to 64MB
@@ -79,18 +84,15 @@ on post-fs
     # make the selinux kernel policy world-readable
     chmod 0444 /sys/fs/selinux/policy
 
-    mkdir /op2/recovery 0770 root system
-
     #ifdef VENDOR_EDIT
     #start vendor.spdaemon
-    #start vendor.sec_nvm
     #endif
+    start vendor.sec_nvm
 
 on late-fs
     wait_for_prop hwservicemanager.ready true
     exec_start wait_for_keymaster
     mount_all /vendor/etc/fstab.qcom --late
-    # mount_reserve ext4 loop@/data/reserve/reserve.img /system/reserve ro context=u:object_r:system_file:s0
 
 on post-fs-data
     mkdir /vendor/data/tombstones 0771 system system
@@ -98,36 +100,24 @@ on post-fs-data
     mkdir /tombstones/lpass 0771 system system
     mkdir /tombstones/wcnss 0771 system system
     mkdir /tombstones/dsps 0771 system system
-    mkdir /data/vendor/hbtp 0750 system system
-    mkdir /data/vendor/tloc 0700 system drmrpc
+#ifndef VENDOR_EDIT
+#Cong.Dai@psw.bsp.tp 2018/11/20 del for closing hbtp
+#    mkdir /data/vendor/hbtp 0750 system system
+#endif
     mkdir /data/vendor/nnhal 0700 system system
-
+    #ifdef VENDOR_EDIT
+    mkdir /data/vendor/dolby 0770 media media
+    #endif /*VENDOR_EDIT*/
 on early-boot
     start vendor.sensors
 
-on boot
-    # overlay_oneplus overlay overlay /product/app lowerdir=/oneplus/app:/product/app,context=u:object_r:system_file:s0
-    # overlay_oneplus overlay overlay /product/priv-app lowerdir=/oneplus/priv-app:/product/priv-app,context=u:object_r:system_file:s0
-    # overlay_oneplus overlay overlay /product/etc lowerdir=/oneplus/etc:/product/etc,context=u:object_r:system_file:s0
-    # overlay_oneplus overlay overlay /product/framework lowerdir=/oneplus/framework:/product/framework,context=u:object_r:system_file:s0
-    # overlay_oneplus overlay overlay /product/media lowerdir=/oneplus/media:/product/media,context=u:object_r:system_file:s0
-    # overlay_oneplus overlay overlay /product/lib64 lowerdir=/oneplus/lib64:/product/lib64,context=u:object_r:system_lib_file:s0
-    # overlay_oneplus overlay overlay /product/lib lowerdir=/oneplus/lib:/product/lib,context=u:object_r:system_lib_file:s0
-    # overlay_oneplus overlay overlay /vendor/overlay lowerdir=/oneplus/overlay:/vendor/overlay,context=u:object_r:vendor_overlay_file:s0
-    # overlay_oneplus overlay overlay /system/reserve lowerdir=/oneplus/reserve:/system/reserve,context=u:object_r:system_file:s0
-    # mount_india ext4 loop@/data/india/india.img /system/india ro context=u:object_r:system_file:s0
-    # overlay_india overlay overlay /product/app lowerdir=/system/india/app:/product/app,context=u:object_r:system_file:s0
-    # overlay_india overlay overlay /product/priv-app lowerdir=/system/india/priv-app:/product/priv-app,context=u:object_r:system_file:s0
-    write /sys/devices/platform/soc/c80000.i2c/i2c-5/5-0048/tp_fw_update 0
-    write /sys/devices/platform/soc/c80000.i2c/i2c-5/5-0049/tp_fw_update 0
-#18857
-    write /sys/devices/platform/soc/c80000.i2c/i2c-4/4-0020/tp_fw_update 0
-#18865
-    write /sys/devices/platform/soc/c80000.i2c/i2c-5/5-0020/tp_fw_update 0
 # For cpusets initialize for Silver Only first and then Silver + Gold
 # Silver Only configuration cannot work with 0-7
 on boot
-    chown system system /sys/kernel/hbtp/display_pwr
+#ifndef VENDOR_EDIT
+#Cong.Dai@psw.bsp.tp 2018/11/20 del for closing hbtp
+#    chown system system /sys/kernel/hbtp/display_pwr
+#endif
     chown system system /sys/kernel/qvr_external_sensor/fd
     start rmt_storage
     start rfs_access
@@ -143,14 +133,6 @@ on boot
     write /dev/cpuset/background/cpus 0-7
     write /dev/cpuset/system-background/cpus 0-7
 
-    # ifdef VENDOR_EDIT
-    # chris.gao@SYSTEM, 2019/3/2, [GCE-9966] Optimize surfaceflinger
-    write /dev/cpuset/display/cpus 4-7
-    # endif VENDOR_EDIT
-
-    # lynn.guo@Multimedia, 2019/05/15, Add support for HBM mode
-    chown system system /sys/class/drm/card0-DSI-1/hbm_brightness
-    chmod 0644 /sys/class/drm/card0-DSI-1/hbm_brightness
 
 # Add a cpuset for the camera daemon
 # We want all cores for camera
@@ -160,7 +142,10 @@ on boot
     chown cameraserver cameraserver /dev/cpuset/camera-daemon
     chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
     chmod 0660 /dev/cpuset/camera-daemon/tasks
-
+# ifdef VENDOR_EDIT
+# natao.Lin@Camera 2019/9/20 for laser calibration
+    chmod 0666 /dev/stmvl53l1_ranging
+# endif
 #USB controller configuration
     setprop vendor.usb.rndis.func.name "gsi"
     setprop vendor.usb.rmnet.func.name "gsi"
@@ -169,42 +154,6 @@ on boot
     setprop vendor.usb.qdss.inst.name "qdss"
     setprop vendor.usb.controller a600000.dwc3
     setprop sys.usb.configfs 1
-
-#display add 2018/10/19  @lichao_display
-    chmod 0666 /sys/class/drm/card0-DSI-1/SRGB
-    chmod 0666 /sys/class/drm/card0-DSI-1/DCI_P3
-    chmod 0666 /sys/class/drm/card0-DSI-1/hbm
-    chmod 0666 /sys/class/drm/card0-DSI-1/aod
-    chmod 0666 /sys/class/drm/card0-DSI-1/night_mode
-    chmod 0666 /sys/class/drm/card0-DSI-1/panel_serial_number
-    chmod 0666 /sys/class/drm/card0-DSI-1/oneplus_mode
-    chmod 0666 /sys/class/drm/card0-DSI-1/adaption_mode
-    chmod 0666 /sys/class/drm/card0-DSI-1/notify_fppress
-    chmod 0666 /sys/class/drm/card0-DSI-1/dim_alpha
-    chmod 0666 /sys/class/drm/card0-DSI-1/notify_dim
-    chmod 0666 /sys/class/drm/card0-DSI-1/force_screenfp
-    chmod 0666 /sys/class/drm/card0-DSI-1/native_display_p3_mode
-    chmod 0666 /sys/class/drm/card0-DSI-1/native_display_wide_color_mode
-    chmod 0666 /sys/class/drm/card0-DSI-1/native_display_srgb_color_mode
-    chmod 0666 /sys/devices/platform/soc/soc:qcom,dsi-display-primary/dynamic_dsi_clock
-    chown radio radio /sys/devices/platform/soc/soc:qcom,dsi-display-primary/dynamic_dsi_clock
-    chmod 0666 /sys/class/drm/card0-DSI-1/native_display_loading_effect_mode
-    chmod 0666 /sys/class/drm/card0-DSI-1/native_display_customer_srgb_mode
-    chmod 0666 /sys/class/drm/card0-DSI-1/native_display_customer_p3_mode
-    chmod 0666 /sys/class/drm/card0-DSI-1/dsi_seed_command
-    chmod 0666 /sys/class/drm/card0-DSI-1/dimlayer_bl_en
-    chmod 0666 /sys/class/drm/card0-DSI-1/dither_en
-    chmod 0666 /sys/class/drm/card0-DSI-1/dp_en
-    chmod 0666 /sys/class/drm/card0-DSI-1/dimming_speed
-#liuhaituo@MM.Audio, 2019/6/17, add for dump audio related codec
-    chmod 0644 /d/regmap/tavil-slim-pgd/registers
-    chmod 0644 /d/regmap/0-0034/registers
-    chmod 0644 /d/regmap/0-0035/registers
-    chmod 0644 /d/regmap/0-0042/registers
-    restorecon /sys/kernel/debug/regmap/0-0034/registers
-    restorecon /sys/kernel/debug/regmap/0-0035/registers
-    restorecon /sys/kernel/debug/regmap/0-0042/registers
-    restorecon /sys/kernel/debug/regmap/tavil-slim-pgd/registers
 
 on property:vendor.display.lcd_density=560
    setprop dalvik.vm.heapgrowthlimit 256m
@@ -219,16 +168,7 @@ on property:vendor.usb.controller=*
     setprop sys.usb.controller ${vendor.usb.controller}
 
 #Load WLAN driver
-on property:wlan.driver.status=ok
-    start load_wlan_driver
-
-on property:vendor.load.ftm.wlan.driver=ok
-    start load_wlan_driver
-
-service load_wlan_driver /vendor/bin/sh /vendor/bin/load_wlan_driver.sh
-    class main
-    disabled
-    oneshot
+    insmod /vendor/lib/modules/qca_cld3_wlan.ko
 
 #pd-mapper
 service vendor.pd_mapper /vendor/bin/pd-mapper
@@ -260,25 +200,35 @@ on charger
     setprop sys.usb.controller a600000.dwc3
     setprop sys.usb.configfs 1
 
-service vendor.qseecomd /vendor/bin/qseecomd
+#ifdef VENDOR_EDIT
+#SunFaliang@BSP.Power.Basic, 2019/11/05, remove for homeidle current.
+#service vendor.spdaemon /vendor/bin/spdaemon
+#    class core
+#    user system
+#    group system
+#    shutdown critical
+#endif
+
+service vendor.sec_nvm /vendor/bin/sec_nvm
     class core
-    user root
-    group root
+    user system
+    group system
 
 service vendor.thermal-engine /vendor/bin/thermal-engine
    class main
-   user system
+   user root
    socket thermal-send-client stream 0666 system system
    socket thermal-recv-client stream 0660 system system
    socket thermal-recv-passive-client stream 0666 system system
    socket thermal-send-rule stream 0660 system system
-   group system
+   group root
 
 
 service vendor.lowi /vendor/bin/sscrpcd
    class core
    user system
-   group system
+   group system wakelock
+   capabilities BLOCK_SUSPEND
 
 service vendor.mdm_helper /vendor/bin/mdm_helper
     class core
@@ -289,31 +239,21 @@ service vendor.mdm_launcher /vendor/bin/sh /vendor/bin/init.mdm.sh
     class main
     oneshot
 
-
-on property:vold.decrypt=trigger_restart_framework
-    start cnss_diag
+#ifndef VENDOR_EDIT
+#Pan.Zhang@PSW.CN.WiFi.Basic.Log.1072015, 2016/08/03,
+#Remove for wifi log enhance function
+#on property:vold.decrypt=trigger_restart_framework
+#   start cnss_diag
+#endif
 
 service cnss_diag /system/vendor/bin/cnss_diag -q -f -t HELIUM
     class main
     user system
     group system wifi inet sdcard_rw media_rw diag
-    # bingham.fang@Connectivity, 2019/05/23, add for wlan logs function
     disabled
-    oneshot
 
 service vendor.energy-awareness /vendor/bin/energy-awareness
     class main
     user system
     group system
     oneshot
-
-#service vendor.hvdcp_opti /vendor/bin/hvdcp_opti
-#    class main
-#    user root
-#    group system wakelock
-
-#service vendor.tlocd /vendor/bin/tloc_daemon
-#    class late_start
-#    user system
-#    group drmrpc gps net_raw
-
