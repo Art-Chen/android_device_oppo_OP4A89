@@ -36,13 +36,13 @@ fi
 source "${HELPER}"
 
 # Initialize the helper for common
-setup_vendor "${DEVICE}" "${VENDOR}" "${LINEAGE_ROOT}" true
+setup_vendor "${DEVICE}" "${VENDOR}" "${LINEAGE_ROOT}"
 
 # Copyright headers and guards
 write_headers
 
 # The standard blobs
-write_makefiles "$MY_DIR"/proprietary-files.txt true
+write_makefiles "${MY_DIR}/proprietary-files.txt" true
 
 # Finish
 write_footers
