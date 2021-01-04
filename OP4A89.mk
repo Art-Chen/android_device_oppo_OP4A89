@@ -442,7 +442,11 @@ PRODUCT_PACKAGES += \
 
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service \
+    android.hardware.usb@1.0-service
+
+# Vibrator
+PRODUCT_PACKAGES += \
+    android.hardware.vibrator@1.2-service.oppo_OP4A89
 
 # VNDK
 PRODUCT_COPY_FILES += \
