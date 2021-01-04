@@ -68,8 +68,6 @@ cc_binary {
         "libbinder",
         "libutils",
         "libhidlbase",
-        "libhidltransport",
-        "libhwbinder",
         "android.hardware.sensors@1.0",
     ],
     arch: {

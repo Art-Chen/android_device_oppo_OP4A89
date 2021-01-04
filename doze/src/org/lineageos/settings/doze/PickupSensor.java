@@ -46,7 +46,7 @@ public class PickupSensor implements SensorEventListener {
     public PickupSensor(Context context) {
         mContext = context;
         mSensorManager = mContext.getSystemService(SensorManager.class);
-        mSensor = Utils.getSensor(mSensorManager, "oneplus.sensor.op_motion_detect");
+        mSensor = Utils.getSensor(mSensorManager, "android.sensor.tilt_detector");
         mExecutorService = Executors.newSingleThreadExecutor();
     }
 
@@ -65,7 +65,7 @@ public class PickupSensor implements SensorEventListener {
 
         mEntryTimestamp = SystemClock.elapsedRealtime();
 
-        if (event.values[0] == 1) {
+        if (event.values[0] == 0) {
             Utils.launchDozePulse(mContext);
         }
     }
