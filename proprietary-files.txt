@@ -1577,10 +1577,6 @@ vendor/lib64/libstagefrighthw.so
 
 # NFC
 etc/nfcee_access.xml
-vendor/bin/hw/android.hardware.nfc@1.2-service
-vendor/bin/hw/android.hardware.secure_element@1.1-service
-vendor/etc/init/android.hardware.nfc@1.2-service.rc
-vendor/etc/init/android.hardware.secure_element@1.1-service.rc
 vendor/bin/hw/vendor.nxp.hardware.nfc@1.2-service
 vendor/bin/hw/vendor.oppo.hardware.nfc@1.0-service
 vendor/bin/hw/vendor.qti.secure_element@1.0-service
@@ -2514,7 +2510,6 @@ bin/iwpriv
 vendor/bin/cnss-daemon
 vendor/bin/cnss_diag
 vendor/bin/fstman
-vendor/bin/iwpriv
 
 # QCOM HIDL Init
 vendor/etc/init/android.hardware.atrace@1.0-service.rc
@@ -2551,7 +2546,6 @@ vendor/etc/init/wfdvndservice.rc
 
 
 # Misc
-vendor/.fseventsd/fseventsd-uuid
 -vendor/app/CACertService/CACertService.apk
 -vendor/app/EidService/EidService.apk
 -vendor/app/pasrservice/pasrservice.apk
