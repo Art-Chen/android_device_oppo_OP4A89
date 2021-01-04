@@ -37,8 +37,7 @@
         <device name="SND_DEVICE_IN_CAPTURE_VI_FEEDBACK_MONO_1" acdb_id="151"/>
         <device name="SND_DEVICE_IN_CAPTURE_VI_FEEDBACK_MONO_2" acdb_id="152"/>
         <device name="SND_DEVICE_IN_UNPROCESSED_USB_HEADSET_MIC" acdb_id="133"/>
-        <!-- yewenliang@MM.Audio, 2019/07/08, Change acdb-id -->
-        <!-- <device name="SND_DEVICE_IN_UNPROCESSED_MIC" acdb_id="143"/> -->
+        <device name="SND_DEVICE_IN_UNPROCESSED_MIC" acdb_id="143"/>
         <device name="SND_DEVICE_IN_UNPROCESSED_STEREO_MIC" acdb_id="144"/>
         <device name="SND_DEVICE_IN_UNPROCESSED_THREE_MIC" acdb_id="145"/>
         <device name="SND_DEVICE_IN_UNPROCESSED_QUAD_MIC" acdb_id="146"/>
@@ -47,19 +46,6 @@
         <device name="SND_DEVICE_IN_USB_HEADSET_HEX_MIC_AEC" acdb_id="162"/>
         <device name="SND_DEVICE_IN_UNPROCESSED_USB_HEADSET_HEX_MIC" acdb_id="162"/>
         <device name="SND_DEVICE_IN_VOCE_RECOG_USB_HEADSET_HEX_MIC" acdb_id="162"/>
-        <!-- liuhaituo@MM.Audio, 2019/7/3, porting P headset-mic acdb config to Q -->
-        <device name="SND_DEVICE_IN_HEADSET_MIC" acdb_id="23"/>
-        <device name="SND_DEVICE_OUT_BT_A2DP" acdb_id="10"/>
-        <device name="SND_DEVICE_IN_UNPROCESSED_MIC" acdb_id="147"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_EXTERNAL_2" acdb_id="134"/>
-        <device name="SND_DEVICE_OUT_USB_HEADSET" acdb_id="10"/>
-        <device name="SND_DEVICE_OUT_USB_HEADPHONES" acdb_id="10"/>
-        <device name="SND_DEVICE_OUT_VOICE_USB_HEADPHONES" acdb_id="10"/>
-        <device name="SND_DEVICE_IN_SPEAKER_QMIC_AEC_NS" acdb_id="19"/>
-        <device name="SND_DEVICE_IN_HEADSET_MIC_FLUENCE" acdb_id="8"/>
-        <device name="SND_DEVICE_IN_SPEAKER_DMIC_AEC_NS" acdb_id="112"/>
-        <!--dujie@MM.Audio, 2018/7/22, Modify acdbid of the device, to solve the problem of small ear-back sound -->
-        <device name="SND_DEVICE_IN_VOICE_REC_HEADSET_MIC" acdb_id="23"/>
     </acdb_ids>
 
     <module_ids>
@@ -148,13 +134,10 @@
         <device name="SND_DEVICE_OUT_LINE" backend="headphones" interface="SLIMBUS_6_RX"/>
         <device name="SND_DEVICE_OUT_ANC_HEADSET" backend="headphones" interface="SLIMBUS_6_RX"/>
         <device name="SND_DEVICE_OUT_ANC_FB_HEADSET" backend="headphones" interface="SLIMBUS_6_RX"/>
-        <!--#ifdef VENDOR_EDIT
-        < dujie@MM.Audio, 2019/07/22, Configure speaker device of hw_interface_table -->
-        <device name="SND_DEVICE_OUT_SPEAKER_AND_HEADPHONES" backend="speaker-and-headphones" interface="QUAT_MI2S_RX-and-SLIMBUS_6_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_AND_LINE" backend="speaker-and-headphones" interface="QUAT_MI2S_RX-and-SLIMBUS_6_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_AND_ANC_HEADSET" backend="speaker-and-headphones" interface="QUAT_MI2S_RX-and-SLIMBUS_6_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_AND_ANC_FB_HEADSET" backend="speaker-and-headphones" interface="QUAT_MI2S_RX-and-SLIMBUS_6_RX"/>
-        <!-- #endif -->
+        <device name="SND_DEVICE_OUT_SPEAKER_AND_HEADPHONES" backend="speaker-and-headphones" interface="SLIMBUS_0_RX-and-SLIMBUS_6_RX"/>
+        <device name="SND_DEVICE_OUT_SPEAKER_AND_LINE" backend="speaker-and-headphones" interface="SLIMBUS_0_RX-and-SLIMBUS_6_RX"/>
+        <device name="SND_DEVICE_OUT_SPEAKER_AND_ANC_HEADSET" backend="speaker-and-headphones" interface="SLIMBUS_0_RX-and-SLIMBUS_6_RX"/>
+        <device name="SND_DEVICE_OUT_SPEAKER_AND_ANC_FB_HEADSET" backend="speaker-and-headphones" interface="SLIMBUS_0_RX-and-SLIMBUS_6_RX"/>
         <device name="SND_DEVICE_OUT_VOICE_HEADPHONES" backend="headphones" interface="SLIMBUS_6_RX"/>
         <device name="SND_DEVICE_OUT_VOICE_HEADSET" backend="headset" interface="SLIMBUS_6_RX"/>
         <device name="SND_DEVICE_OUT_VOICE_ANC_HEADSET" backend="headphones" interface="SLIMBUS_6_RX"/>
@@ -163,28 +146,9 @@
         <device name="SND_DEVICE_OUT_VOICE_TTY_FULL_HEADPHONES" backend="headphones" interface="SLIMBUS_6_RX"/>
         <device name="SND_DEVICE_OUT_VOICE_TTY_FULL_HEADSET" backend="headset" interface="SLIMBUS_6_RX"/>
         <device name="SND_DEVICE_OUT_VOICE_TTY_VCO_HEADPHONES" backend="headphones" interface="SLIMBUS_6_RX"/>
-        <!--#ifdef VENDOR_EDIT
-        < chenshuyun@MM.Audio,2019/08/03, modify TTY HCO and VCO backend to fix no sound issue -->
-        <!-- <device name="SND_DEVICE_OUT_VOICE_TTY_VCO_HEADSET" backend="headset" interface="SLIMBUS_6_RX"/> -->
-        <device name="SND_DEVICE_OUT_VOICE_TTY_VCO_HEADSET" backend="headphones" interface="SLIMBUS_6_RX"/>
-        <device name="SND_DEVICE_OUT_VOICE_TTY_HCO_HANDSET" backend="voice-tty-hco-handset"/>
-        <!-- #endif -->
-        <!--#ifdef VENDOR_EDIT
-        < dujie@MM.Audio, 2019/07/22, Configure speaker device of hw_interface_table -->
-        <device name="SND_DEVICE_OUT_SPEAKER_AND_BT_SCO" backend="speaker-and-bt-sco" interface="QUAT_MI2S_RX-and-SLIMBUS_7_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_AND_BT_SCO_WB" backend="speaker-and-bt-sco-wb" interface="QUAT_MI2S_RX-and-SLIMBUS_7_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_AND_BT_SCO_SWB" backend="speaker-and-bt-sco-swb" interface="QUAT_MI2S_RX-and-SLIMBUS_7_RX"/>
-        <!-- yewenliang@MM.Audio, 2019/08/02, Configure devices backend and hw_interface_table -->
-        <device name="SND_DEVICE_OUT_SPEAKER_AND_USB_HEADSET" backend="speaker-and-usb-headphones" interface="QUAT_MI2S_RX-and-USB_AUDIO_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_SAFE" backend="quat_i2s" interface="QUAT_MI2S_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_SAFE_AND_HEADPHONES" backend="speaker-and-headphones" interface="QUAT_MI2S_RX-and-SLIMBUS_6_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_SAFE_AND_LINE" backend="speaker-and-headphones" interface="QUAT_MI2S_RX-and-SLIMBUS_6_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_SAFE_AND_USB_HEADSET" backend="speaker-and-usb-headphones" interface="QUAT_MI2S_RX-and-USB_AUDIO_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_SAFE_AND_BT_A2DP" backend="speaker-and-bt-a2dp" interface="QUAT_MI2S_RX-and-SLIMBUS_7_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_SAFE_AND_BT_SCO" backend="speaker-and-bt-sco" interface="QUAT_MI2S_RX-and-SLIMBUS_7_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_SAFE_AND_BT_SCO_WB" backend="speaker-and-bt-sco-wb" interface="QUAT_MI2S_RX-and-SLIMBUS_7_RX"/>
-        <device name="SND_DEVICE_OUT_SPEAKER_SAFE_AND_BT_SCO_SWB" backend="speaker-and-bt-sco-swb" interface="QUAT_MI2S_RX-and-SLIMBUS_7_RX"/>
-        <!-- #endif -->
+        <device name="SND_DEVICE_OUT_VOICE_TTY_VCO_HEADSET" backend="headset" interface="SLIMBUS_6_RX"/>
+        <device name="SND_DEVICE_OUT_SPEAKER_AND_BT_SCO" backend="speaker-and-bt-sco" interface="SLIMBUS_0_RX-and-SLIMBUS_7_RX"/>
+        <device name="SND_DEVICE_OUT_SPEAKER_AND_BT_SCO_WB" backend="speaker-and-bt-sco-wb" interface="SLIMBUS_0_RX-and-SLIMBUS_7_RX"/>
         <device name="SND_DEVICE_IN_HEADSET_MIC" backend="headset-mic" interface="SLIMBUS_1_TX"/>
         <device name="SND_DEVICE_IN_HEADSET_MIC_FLUENCE" backend="headset-mic" interface="SLIMBUS_1_TX"/>
         <device name="SND_DEVICE_IN_VOICE_HEADSET_MIC" backend="headset-mic" interface="SLIMBUS_1_TX"/>

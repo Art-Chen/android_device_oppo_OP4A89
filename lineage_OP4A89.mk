@@ -8,8 +8,7 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# Inherit from guacamole device
-$(call inherit-product, device/oppo/OP4A89/device.mk)
+$(call inherit-product, device/oppo/OP4A89/OP4A89.mk)
 
 # Inherit some common Lineage stuff.
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)

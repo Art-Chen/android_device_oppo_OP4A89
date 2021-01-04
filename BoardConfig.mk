@@ -8,7 +8,7 @@ BUILD_BROKEN_DUP_RULES := true
 
 BOARD_VENDOR := oppo
 
-VENDOR_PATH := device/oppo/sm8150-common
+VENDOR_PATH := device/oppo/OP4A89
 
 # Architecture
 TARGET_ARCH := arm64
@@ -177,10 +177,6 @@ include device/qcom/sepolicy_vndr/SEPolicy.mk
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(VENDOR_PATH)/sepolicy/private
 BOARD_PLAT_PUBLIC_SEPOLICY_DIR += $(VENDOR_PATH)/sepolicy/public
 BOARD_SEPOLICY_DIRS += $(VENDOR_PATH)/sepolicy/vendor
-
-# Sensors
-SOONG_CONFIG_NAMESPACES += OPPO_MSMNILE_SENSORS
-SOONG_CONFIG_OPPO_MSMNILE_SENSORS := ALS_POS_X ALS_POS_Y
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
