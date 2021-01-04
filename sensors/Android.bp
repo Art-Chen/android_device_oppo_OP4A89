@@ -1,10 +1,13 @@
-oneplus_msmnile_sensors_hal_library_static {
-    name: "multihal-oneplus-msmnile",
+cc_library_static {
+    name: "multihal-oppo-OP4A89",
     vendor: true,
     srcs: [
         "multihal.cpp",
         "SensorEventQueue.cpp",
         "screenshot.cpp",
+    ],
+    header_libs: [
+        "libhardware_headers",
     ],
     shared_libs: [
         "liblog",
@@ -24,7 +27,7 @@ oneplus_msmnile_sensors_hal_library_static {
 }
 
 cc_library_shared {
-    name: "android.hardware.sensors@1.0-impl.oneplus_msmnile",
+    name: "android.hardware.sensors@1.0-impl.oppo_OP4A89",
     defaults: ["hidl_defaults"],
     proprietary: true,
     relative_install_path: "hw",
@@ -42,7 +45,7 @@ cc_library_shared {
     ],
     static_libs: [
         "android.hardware.sensors@1.0-convert",
-        "multihal-oneplus-msmnile",
+        "multihal-oneplus-OP4A89",
     ],
     cflags: [
         "-DNO_INPUT",
@@ -51,11 +54,11 @@ cc_library_shared {
 }
 
 cc_binary {
-    name: "android.hardware.sensors@1.0-service.oneplus_msmnile",
+    name: "android.hardware.sensors@1.0-service.oppo_OP4A89",
     defaults: ["hidl_defaults"],
     relative_install_path: "hw",
     vendor: true,
-    init_rc: ["android.hardware.sensors@1.0-service.oneplus_msmnile.rc"],
+    init_rc: ["android.hardware.sensors@1.0-service.oppo_OP4A89.rc"],
     srcs: ["service.cpp"],
     shared_libs: [
         "liblog",
@@ -65,6 +68,8 @@ cc_binary {
         "libbinder",
         "libutils",
         "libhidlbase",
+        "libhidltransport",
+        "libhwbinder",
         "android.hardware.sensors@1.0",
     ],
     arch: {

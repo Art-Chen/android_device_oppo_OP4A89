@@ -19,7 +19,7 @@
 #include <hardware/sensors.h>
 #include <hardware/hardware.h>
 
-#define SENSOR_TYPE_QTI_HARDWARE_LIGHT 33171030
+#define SENSOR_TYPE_QTI_HARDWARE_LIGHT 33171027
 
 static const char* MULTI_HAL_CONFIG_FILE_PATH = "/vendor/etc/sensors/hals.conf";
 

@@ -1,4 +1,4 @@
-service vendor.sensors-hal-1-0 /vendor/bin/hw/android.hardware.sensors@1.0-service.oneplus_msmnile
+service vendor.sensors-hal-1-0 /vendor/bin/hw/android.hardware.sensors@1.0-service.oppo_OP4A89
     class main
     user system
     group system input wakelock

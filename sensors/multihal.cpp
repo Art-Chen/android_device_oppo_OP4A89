@@ -17,7 +17,7 @@
 #include "SensorEventQueue.h"
 #include "multihal.h"
 
-#define LOG_TAG "sensors_multihal"
+//#define LOG_TAG "sensors_multihal"
 #define LOG_NDEBUG 1
 #include <cutils/log.h>
 #include <cutils/atomic.h>
@@ -554,7 +554,6 @@ static T get(const std::string& path, const T& def) {
 }
 
 int red_max_lux, green_max_lux, blue_max_lux, white_max_lux, max_brightness;
-int als_bias;
 
 /*
  * Fix the fields of the sensor
@@ -564,11 +563,10 @@ static void fix_sensor_fields(sensor_t& sensor) {
     if (sensor.type == SENSOR_TYPE_QTI_HARDWARE_LIGHT) {
         sensor.type = SENSOR_TYPE_LIGHT;
         ALOGV("Replaced QTI Light sensor with standard light sensor");
-        red_max_lux = get("/mnt/vendor/persist/engineermode/red_max_lux", 0);
-        green_max_lux = get("/mnt/vendor/persist/engineermode/green_max_lux", 0);
-        blue_max_lux = get("/mnt/vendor/persist/engineermode/blue_max_lux", 0);
-        white_max_lux = get("/mnt/vendor/persist/engineermode/white_max_lux", 0);
-        als_bias = get("/mnt/vendor/persist/engineermode/als_bias", 0);
+        red_max_lux = get("/proc/oppoAls/red_max_lux", 0);
+        green_max_lux = get("/proc/oppoAls/green_max_lux", 0);
+        blue_max_lux = get("/proc/oppoAls/blue_max_lux", 0);
+        white_max_lux = get("/proc/oppoAls/white_max_lux", 0);
         max_brightness = get("/sys/class/backlight/panel0-backlight/max_brightness", 255);
         ALOGV("max r = %d, max g = %d, max b = %d", red_max_lux, green_max_lux, blue_max_lux);
     }
@@ -583,6 +581,14 @@ void light_sensor_correction(sensors_event_t *ev) {
     ALOGV("Screen Color Above Sensor: %d, %d, %d", r, g, b);
     ALOGV("Original reading: %f", ev->light);
     int screen_brightness = get("/sys/class/backlight/panel0-backlight/brightness", 0);
+    if (red_max_lux == 0 && green_max_lux == 0 && blue_max_lux == 0 && white_max_lux == 0) {
+        ALOGV("Art_Chen: Maybe EngSensor not finished when init sensorservice, Try get it again");
+        red_max_lux = get("/proc/oppoAls/red_max_lux", 0);
+        green_max_lux = get("/proc/oppoAls/green_max_lux", 0);
+        blue_max_lux = get("/proc/oppoAls/blue_max_lux", 0);
+        white_max_lux = get("/proc/oppoAls/white_max_lux", 0);
+        ALOGV("re-get: max r = %d, max g = %d, max b = %d", red_max_lux, green_max_lux, blue_max_lux);
+    }
     float correction = 0.0f;
     if (red_max_lux > 0 && green_max_lux > 0 && blue_max_lux > 0 && white_max_lux > 0) {
         uint8_t rgb_min = std::min({r, g, b});
@@ -594,7 +600,6 @@ void light_sensor_correction(sensors_event_t *ev) {
         correction += ((float) g) / 255.0f * ((float) green_max_lux);
         correction += ((float) b) / 255.0f * ((float) blue_max_lux);
         correction = correction * (((float) screen_brightness) / ((float) max_brightness));
-        correction += als_bias;
     }
     ALOGV("Final correction: %f", correction);
     // Sensor is not accurate for low values

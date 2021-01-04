@@ -1,4 +1,4 @@
-#define LOG_TAG "sensors-screenshot-oneplus-msmnile"
+#define LOG_TAG "sensors-screenshot-reno-ace"
 #define LOG_NDEBUG 1
 #include <log/log.h>
 #include "screenshot.h"
@@ -21,8 +21,8 @@ void update_screen_buffer(void **out) {
         // Update Screenshot at most every second
         ScreenshotClient::capture(SurfaceComposerClient::getInternalDisplayToken(),
                                     ui::Dataspace::V0_SRGB, ui::PixelFormat::RGBA_8888,
-                                    Rect(ALS_POS_X, ALS_POS_Y, ALS_POS_X + 10, ALS_POS_Y + 10),
-                                    10, 10, true, ui::ROTATION_0, &screen_buffer);
+                                    Rect(677, 19, 30, 30),
+                                    30, 30, true, ui::ROTATION_0, &screen_buffer);
         last_screen_update = now.tv_sec;
     }
     screen_buffer->lock(GraphicBuffer::USAGE_SW_READ_OFTEN, out);
