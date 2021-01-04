@@ -226,9 +226,7 @@ PRODUCT_PACKAGES += \
 # Fingerprint
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-service.oppo_OP4A89 \
-    vendor.lineage.biometrics.fingerprint.inscreen@1.0-service.oppo_OP4A89 \
-    vendor.oneplus.fingerprint.extension@1.0.vendor \
-    vendor.oneplus.hardware.display@1.0.vendor
+    vendor.lineage.biometrics.fingerprint.inscreen@1.0-service.oppo_OP4A89
 
 # FOD
 EXTRA_FOD_ANIMATIONS := true
