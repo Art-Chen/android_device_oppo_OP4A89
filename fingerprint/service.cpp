@@ -14,35 +14,48 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service.oneplus_msmnile"
+#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service.oppo_OP4A89"
 
-#include <android/log.h>
-#include <hidl/HidlSupport.h>
+#include <android-base/logging.h>
 #include <hidl/HidlTransportSupport.h>
-#include <android/hardware/biometrics/fingerprint/2.1/IBiometricsFingerprint.h>
-#include <android/hardware/biometrics/fingerprint/2.1/types.h>
+
 #include "BiometricsFingerprint.h"
 
 using android::hardware::biometrics::fingerprint::V2_1::IBiometricsFingerprint;
 using android::hardware::biometrics::fingerprint::V2_1::implementation::BiometricsFingerprint;
 using android::hardware::configureRpcThreadpool;
 using android::hardware::joinRpcThreadpool;
+using android::OK;
 using android::sp;
+using android::status_t;
 
 int main() {
-    android::sp<IBiometricsFingerprint> bio = BiometricsFingerprint::getInstance();
+    sp<BiometricsFingerprint> biometricsFingerprint;
+    status_t status;
+
+    LOG(INFO) << "Fingerprint HAL Adapter service is starting.";
+
+    biometricsFingerprint = new BiometricsFingerprint();
+    if (biometricsFingerprint == nullptr) {
+        LOG(ERROR) << "Can not create an instance of Fingerprint HAL Adapter BiometricsFingerprint Iface, exiting.";
+        goto shutdown;
+    }
 
     configureRpcThreadpool(1, true /*callerWillJoin*/);
 
-    if (bio != nullptr) {
-        if (::android::OK != bio->registerAsService()) {
-            return 1;
-        }
-    } else {
-        ALOGE("Can't create instance of BiometricsFingerprint, nullptr");
+    status = biometricsFingerprint->registerAsService();
+    if (status != OK) {
+        LOG(ERROR) << "Could not register service for Fingerprint HAL Adapter BiometricsFingerprint Iface ("
+                   << status << ")";
+        goto shutdown;
     }
 
+    LOG(INFO) << "Fingerprint HAL Adapter service is ready.";
     joinRpcThreadpool();
+    // Should not pass this line
 
-    return 0; // should never get here
+shutdown:
+    // In normal operation, we don't expect the thread pool to shutdown
+    LOG(ERROR) << "Fingerprint HAL Adapter service is shutting down.";
+    return 1;
 }

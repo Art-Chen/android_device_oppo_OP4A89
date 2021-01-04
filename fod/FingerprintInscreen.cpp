@@ -17,26 +17,19 @@
 #define LOG_TAG "FingerprintInscreenService"
 
 #include "FingerprintInscreen.h"
-#include <android-base/logging.h>
 #include <hidl/HidlTransportSupport.h>
+#include <android-base/logging.h>
 #include <fstream>
+#include <cmath>
+#include <thread>
 
 #define FINGERPRINT_ACQUIRED_VENDOR 6
-#define FINGERPRINT_ERROR_VENDOR 8
 
-#define OP_ENABLE_FP_LONGPRESS 3
-#define OP_DISABLE_FP_LONGPRESS 4
-#define OP_RESUME_FP_ENROLL 8
-#define OP_FINISH_FP_ENROLL 10
-
-#define OP_DISPLAY_AOD_MODE 8
-#define OP_DISPLAY_NOTIFY_PRESS 9
-#define OP_DISPLAY_SET_DIM 10
-
-#define DC_DIM_PATH "/sys/class/drm/card0-DSI-1/dimlayer_bl_en"
-#define NATIVE_DISPLAY_P3 "/sys/class/drm/card0-DSI-1/native_display_p3_mode"
-#define NATIVE_DISPLAY_SRGB "/sys/class/drm/card0-DSI-1/native_display_srgb_color_mode"
-#define NATIVE_DISPLAY_WIDE "/sys/class/drm/card0-DSI-1/native_display_wide_color_mode"
+#define FP_PRESS_PATH "/sys/kernel/oppo_display/notify_fppress"
+#define DIMLAYER_PATH "/sys/kernel/oppo_display/dimlayer_hbm"
+#define AOD_MODE_PATH "/sys/kernel/oppo_display/aod_light_mode_set"
+#define NOTIFY_BLANK_PATH "/sys/kernel/oppo_display/notify_panel_blank"
+#define POWER_STATE "/sys/kernel/oppo_display/power_status"
 
 namespace vendor {
 namespace lineage {
@@ -46,7 +39,6 @@ namespace inscreen {
 namespace V1_0 {
 namespace implementation {
 
-int wide,p3,srgb;
 bool dcDimState;
 
 /*
@@ -69,74 +61,68 @@ static T get(const std::string& path, const T& def) {
 
 FingerprintInscreen::FingerprintInscreen() {
     this->mFodCircleVisible = false;
-    this->mVendorFpService = IVendorFingerprintExtensions::getService();
-    this->mVendorDisplayService = IOneplusDisplay::getService();
+	this->mFingerPressed = false;
+    this->mVendorFpService = IBiometricsFingerprint::getService();
+}
+
+Return<int32_t> FingerprintInscreen::getPositionX() {
+    return 445;
+}
+
+Return<int32_t> FingerprintInscreen::getPositionY() {
+    return 2061;
+}
+
+Return<int32_t> FingerprintInscreen::getSize() {
+    return 190;
 }
 
 Return<void> FingerprintInscreen::onStartEnroll() {
-    this->mVendorFpService->updateStatus(OP_DISABLE_FP_LONGPRESS);
-    this->mVendorFpService->updateStatus(OP_RESUME_FP_ENROLL);
-
     return Void();
 }
 
 Return<void> FingerprintInscreen::onFinishEnroll() {
-    this->mVendorFpService->updateStatus(OP_FINISH_FP_ENROLL);
-
     return Void();
 }
 
 Return<void> FingerprintInscreen::onPress() {
-    this->mVendorDisplayService->setMode(OP_DISPLAY_NOTIFY_PRESS, 1);
-
+    mFingerPressed = true;
+    if (mFingerPressed) {
+        set(FP_PRESS_PATH, 1);
+    }
     return Void();
 }
 
 Return<void> FingerprintInscreen::onRelease() {
-    this->mVendorDisplayService->setMode(OP_DISPLAY_NOTIFY_PRESS, 0);
-
+    
+    mFingerPressed = false;
+    set(FP_PRESS_PATH, 0);
+     
     return Void();
 }
 
 Return<void> FingerprintInscreen::onShowFODView() {
     if (!mFodCircleVisible) {
-        wide = get(NATIVE_DISPLAY_WIDE, 0);
-        p3 = get(NATIVE_DISPLAY_P3, 0);
-        srgb = get(NATIVE_DISPLAY_SRGB, 0);
         dcDimState = get(DC_DIM_PATH, 0);
         set(DC_DIM_PATH, 0);
-        set(NATIVE_DISPLAY_P3, 0);
-        set(NATIVE_DISPLAY_SRGB, 0);
-        set(NATIVE_DISPLAY_WIDE, 0);
-        this->mVendorDisplayService->setMode(16, 0);
-        this->mVendorDisplayService->setMode(17, 0);
-        this->mVendorDisplayService->setMode(18, 0);
-        this->mVendorDisplayService->setMode(20, 0);
-        this->mVendorDisplayService->setMode(21, 0);
-        this->mVendorDisplayService->setMode(17, 1);
     }
-    this->mFodCircleVisible = true;
-    this->mVendorDisplayService->setMode(OP_DISPLAY_SET_DIM, 1);
-
+    if(get(POWER_STATUS, 3) || get(POWER_STATUS, 4)) {
+	    set(NOTIFY_BLANK_PATH, 1);
+        set(AOD_MODE_PATH, 1);
+	}
+	this->mVendorFpService->setScreenState(::vendor::oppo::hardware::biometrics::fingerprint::V2_1::FingerprintScreenState::FINGERPRINT_SCREEN_ON);
+    set(DIMLAYER_PATH, 1);
     return Void();
 }
 
 Return<void> FingerprintInscreen::onHideFODView() {
     if (mFodCircleVisible) {
-        this->mVendorDisplayService->setMode(16, 0);
-        this->mVendorDisplayService->setMode(17, 0);
-        this->mVendorDisplayService->setMode(18, 0);
-        this->mVendorDisplayService->setMode(20, 0);
-        this->mVendorDisplayService->setMode(21, 0);
-        set(NATIVE_DISPLAY_WIDE, wide);
-        set(NATIVE_DISPLAY_P3, p3);
-        set(NATIVE_DISPLAY_SRGB, srgb);
         set(DC_DIM_PATH, dcDimState);
     }
     this->mFodCircleVisible = false;
-    this->mVendorDisplayService->setMode(OP_DISPLAY_AOD_MODE, 0);
-    this->mVendorDisplayService->setMode(OP_DISPLAY_SET_DIM, 0);
-    this->mVendorDisplayService->setMode(OP_DISPLAY_NOTIFY_PRESS, 0);
+	this->mVendorFpService->setScreenState(::vendor::oppo::hardware::biometrics::fingerprint::V2_1::FingerprintScreenState::FINGERPRINT_SCREEN_ON);
+    set(FP_PRESS_PATH, 0);
+    set(DIMLAYER_PATH, 0);
 
     return Void();
 }
@@ -169,13 +155,11 @@ Return<bool> FingerprintInscreen::handleAcquired(int32_t acquiredInfo, int32_t v
 }
 
 Return<bool> FingerprintInscreen::handleError(int32_t error, int32_t vendorCode) {
-    return error == FINGERPRINT_ERROR_VENDOR && vendorCode == 6;
+    LOG(ERROR) << "error: " << error << ", vendorCode: " << vendorCode << "\n";
+    return false;
 }
 
-Return<void> FingerprintInscreen::setLongPressEnabled(bool enabled) {
-    this->mVendorFpService->updateStatus(
-            enabled ? OP_ENABLE_FP_LONGPRESS : OP_DISABLE_FP_LONGPRESS);
-
+Return<void> FingerprintInscreen::setLongPressEnabled(bool) {
     return Void();
 }
 
@@ -194,18 +178,6 @@ Return<void> FingerprintInscreen::setCallback(const sp<IFingerprintInscreenCallb
     }
 
     return Void();
-}
-
-Return<int32_t> FingerprintInscreen::getPositionX() {
-    return FOD_POS_X;
-}
-
-Return<int32_t> FingerprintInscreen::getPositionY() {
-    return FOD_POS_Y;
-}
-
-Return<int32_t> FingerprintInscreen::getSize() {
-    return FOD_SIZE;
 }
 
 }  // namespace implementation

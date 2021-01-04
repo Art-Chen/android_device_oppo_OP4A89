@@ -17,8 +17,7 @@
 #define VENDOR_LINEAGE_BIOMETRICS_FINGERPRINT_INSCREEN_V1_0_FINGERPRINTINSCREEN_H
 
 #include <vendor/lineage/biometrics/fingerprint/inscreen/1.0/IFingerprintInscreen.h>
-#include <vendor/oneplus/fingerprint/extension/1.0/IVendorFingerprintExtensions.h>
-#include <vendor/oneplus/hardware/display/1.0/IOneplusDisplay.h>
+#include <vendor/oppo/hardware/biometrics/fingerprint/2.1/IBiometricsFingerprint.h>
 
 namespace vendor {
 namespace lineage {
@@ -31,8 +30,7 @@ namespace implementation {
 using ::android::sp;
 using ::android::hardware::Return;
 using ::android::hardware::Void;
-using ::vendor::oneplus::fingerprint::extension::V1_0::IVendorFingerprintExtensions;
-using ::vendor::oneplus::hardware::display::V1_0::IOneplusDisplay;
+using ::vendor::oppo::hardware::biometrics::fingerprint::V2_1::IBiometricsFingerprint;
 
 class FingerprintInscreen : public IFingerprintInscreen {
   public:
@@ -57,11 +55,11 @@ class FingerprintInscreen : public IFingerprintInscreen {
   private:
     bool mFodCircleVisible;
 
-    sp<IOneplusDisplay> mVendorDisplayService;
-    sp<IVendorFingerprintExtensions> mVendorFpService;
+    sp<IBiometricsFingerprint> mVendorFpService;
 
     std::mutex mCallbackLock;
     sp<IFingerprintInscreenCallback> mCallback;
+    bool mFingerPressed;
 };
 
 }  // namespace implementation
