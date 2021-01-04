@@ -6,12 +6,11 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter guacamole guacamoleb guacamoleg hotdog hotdogb,$(TARGET_DEVICE)),)
+ifeq ($(TARGET_DEVICE),OP4A89)
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
 include $(CLEAR_VARS)
 
-# A/B builds require us to create the mount points at compile time.
 # Just creating it for all cases since it does not hurt.
 FIRMWARE_MOUNT_POINT := $(TARGET_OUT_VENDOR)/firmware_mnt
 $(FIRMWARE_MOUNT_POINT): $(LOCAL_INSTALLED_MODULE)
