@@ -1819,10 +1819,8 @@ vendor/bin/hw/vendor.oppo.hardware.cryptoeng@1.0-service
 vendor/bin/hw/vendor.oppo.hardware.eid@1.0-service
 vendor/bin/hw/vendor.oppo.hardware.hypnus@1.0-service
 vendor/bin/hw/vendor.oppo.hardware.ktv@1.0-service
-vendor/bin/hw/vendor.oppo.hardware.lmvibrator@1.0-service
 vendor/bin/hw/vendor.oppo.hardware.mmdisplayfeature@1.0-service
 vendor/bin/hw/vendor.oppo.hardware.oiface@1.0-service
-vendor/bin/hw/vendor.oppo.hardware.vibrator@1.0-service
 vendor/bin/hw/vendor.oppo.wifi.sniffer@1.0-service
 vendor/bin/OppoKeybox
 vendor/bin/opposysd
@@ -1833,10 +1831,8 @@ vendor/etc/init/vendor.oppo.hardware.cryptoeng@1.0-service_FDE.rc
 vendor/etc/init/vendor.oppo.hardware.eid@1.0-service.rc
 vendor/etc/init/vendor.oppo.hardware.hypnus@1.0-service.rc
 vendor/etc/init/vendor.oppo.hardware.ktv@1.0-service.rc
-vendor/etc/init/vendor.oppo.hardware.lmvibrator@1.0-service.rc
 vendor/etc/init/vendor.oppo.hardware.mmdisplayfeature@1.0-service.rc
 vendor/etc/init/vendor.oppo.hardware.oiface@1.0-service.rc
-vendor/etc/init/vendor.oppo.hardware.vibrator@1.0-service.rc
 vendor/etc/init/vendor.oppo.wifi.sniffer@1.0-service.rc
 vendor/etc/OPPO_OLED_19081_AD_calib.cfg
 vendor/etc/OPPO_OLED_AD_calib.cfg
@@ -1882,7 +1878,6 @@ vendor/lib64/vendor.oppo.hardware.cryptoeng@1.0.so
 vendor/lib64/vendor.oppo.hardware.eid@1.0.so
 vendor/lib64/vendor.oppo.hardware.hypnus@1.0.so
 vendor/lib64/vendor.oppo.hardware.ktv@1.0.so
-vendor/lib64/vendor.oppo.hardware.lmvibrator@1.0.so
 vendor/lib64/vendor.oppo.hardware.mmdisplayfeature@1.0.so
 vendor/lib64/vendor.oppo.hardware.oiface@1.0.so
 vendor/lib64/vendor.oppo.hardware.radio.opporadio@1.0.so
@@ -2469,10 +2464,6 @@ vendor/lib64/libhbtpfrmwk.so
 
 # UBWC
 vendor/lib/libstreamparser.so
-
-# Vibrator
-vendor/lib/hw/vibrator.default.so
-vendor/lib64/hw/vibrator.default.so
 
 # Voice
 vendor/lib/vendor.qti.voiceprint@1.0.so
