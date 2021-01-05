@@ -1,14 +1,12 @@
 # Audio
-audio.offload.min.duration.secs=30
-persist.vendor.audio.hac.enable=false
-ro.audio.monitorRotation=true
+audio.offload.gapless.enabled=true
 
 # Bluetooth
-bt.max.hfpclient.connections=1
 vendor.bluetooth.soc=cherokee
 
 # Camera
 vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.oneplus.factorymode,com.oneplus.camera,com.oneplus.healthcheck
+vendor.camera.aux.blacklist = com.meitu.meiyancamera,com.tencent.mm
 
 # Charger
 ro.charger.enable_suspend=true
