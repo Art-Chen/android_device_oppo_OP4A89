@@ -29,7 +29,8 @@
 #define DIMLAYER_PATH "/sys/kernel/oppo_display/dimlayer_hbm"
 #define AOD_MODE_PATH "/sys/kernel/oppo_display/aod_light_mode_set"
 #define NOTIFY_BLANK_PATH "/sys/kernel/oppo_display/notify_panel_blank"
-#define POWER_STATE "/sys/kernel/oppo_display/power_status"
+#define POWER_STATUS "/sys/kernel/oppo_display/power_status"
+#define DC_DIM_PATH "/sys/kernel/oppo_display/dimlayer_bl_en"
 
 namespace vendor {
 namespace lineage {

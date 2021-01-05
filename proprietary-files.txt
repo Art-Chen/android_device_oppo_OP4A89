@@ -481,7 +481,6 @@ vendor/lib/libcapiv2vop.so
 vendor/lib/libcom.qti.chinodeutils.so
 vendor/lib/libcvface_api.so
 vendor/lib/libDxHdcp.so
-vendor/lib/libgui_vendor.so
 vendor/lib/libSNPE.so
 vendor/lib/libsnpe_dsp_domains_v2.so
 vendor/lib/libSNPE_G.so
@@ -883,7 +882,12 @@ vendor/lib64/mediadrm/libdrmclearkeyplugin.so
 vendor/lib64/mediadrm/libwvdrmengine.so
 
 # Display-Hardware
+vendor/bin/hw/vendor.qti.hardware.display.allocator-service
+vendor/etc/init/vendor.qti.hardware.display.allocator-service.rc
+vendor/lib/hw/android.hardware.graphics.mapper@2.0-impl-qti-display.so
+vendor/lib/hw/gralloc.msmnile.so
 vendor/lib/hw/hwcomposer.msmnile.so
+vendor/lib/hw/memtrack.msmnile.so
 vendor/lib/libdisplaydebug.so
 vendor/lib/libdisplayqos.so
 vendor/lib/libdpps.so
@@ -899,7 +903,22 @@ vendor/lib/libsdm-colormgr-algo.so
 vendor/lib/libsdmcore.so
 vendor/lib/libsdmextension.so
 vendor/lib/libsdmutils.so
+vendor/lib/vendor.display.config@1.0.so
+vendor/lib/vendor.display.config@1.1.so
+vendor/lib/vendor.display.config@1.10.so
+vendor/lib/vendor.display.config@1.11.so
+vendor/lib/vendor.display.config@1.2.so
+vendor/lib/vendor.display.config@1.3.so
+vendor/lib/vendor.display.config@1.4.so
+vendor/lib/vendor.display.config@1.5.so
+vendor/lib/vendor.display.config@1.6.so
+vendor/lib/vendor.display.config@1.7.so
+vendor/lib/vendor.display.config@1.8.so
+vendor/lib/vendor.display.config@1.9.so
+vendor/lib64/hw/android.hardware.graphics.mapper@2.0-impl-qti-display.so
+vendor/lib64/hw/gralloc.msmnile.so
 vendor/lib64/hw/hwcomposer.msmnile.so
+vendor/lib64/hw/memtrack.msmnile.so
 vendor/lib64/libdisplaydebug.so
 vendor/lib64/libdisplayqos.so
 vendor/lib64/libdpps.so
@@ -927,6 +946,19 @@ vendor/lib64/vendor.qti.hardware.display.mapperextensions@1.1.so
 vendor/lib/vendor.qti.hardware.display.mapper@2.0.so
 vendor/lib/vendor.qti.hardware.display.mapperextensions@1.0.so
 vendor/lib/vendor.qti.hardware.display.mapperextensions@1.1.so
+vendor/lib64/vendor.display.config@1.0.so
+vendor/lib64/vendor.display.config@1.1.so
+vendor/lib64/vendor.display.config@1.10.so
+vendor/lib64/vendor.display.config@1.11.so
+vendor/lib64/vendor.display.config@1.2.so
+vendor/lib64/vendor.display.config@1.3.so
+vendor/lib64/vendor.display.config@1.4.so
+vendor/lib64/vendor.display.config@1.5.so
+vendor/lib64/vendor.display.config@1.6.so
+vendor/lib64/vendor.display.config@1.7.so
+vendor/lib64/vendor.display.config@1.8.so
+vendor/lib64/vendor.display.config@1.9.so
+vendor/lib64/vendor.qti.hardware.display.allocator@1.0.so
 
 
 # Display-calibration
@@ -1128,7 +1160,6 @@ vendor/firmware/ufs/SAMSUNG-KLUDG4U1EA-B0C1.bin
 vendor/firmware/ufs/SAMSUNG-KLUEG8U1EA-B0C1.bin
 vendor/firmware/wigig/wigig.ini
 vendor/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
-vendor/firmware/wlan/qca_cld/wlan_mac.bin
 
 # aw8697 RTP Firmware
 vendor/firmware/barca_alarm_ring_RTP_120.bin
@@ -1251,6 +1282,17 @@ vendor/firmware/awinic_haptic_params.bin
 vendor/firmware/barca_incoming_ring_RTP_121.bin
 vendor/firmware/barca_notice_ring_RTP_122.bin
 
+# Goodix FP Firmware
+vendor/firmware/goodixfp.b00|a900502e0031e2c7b5f1ed932fc3830266077d84
+vendor/firmware/goodixfp.b01|e515e9efcb4b06bfd4d4c7a738143f2b4621f79d
+vendor/firmware/goodixfp.b02|df7a3df9ce51e330d50f30c093fe3b2be5157a23
+vendor/firmware/goodixfp.b03|d88f62d5bf5795d25e5285f084408f53fe043859
+vendor/firmware/goodixfp.b04|92130879417fef6fc6662ea08a3762e2945ff40f
+vendor/firmware/goodixfp.b05|f5e2d67692434b4e799e971dc0223163307073b6
+vendor/firmware/goodixfp.b06|b326ea997c82a98c6f6f761723cc3fbb55ca9299
+vendor/firmware/goodixfp.b07|9242522f71b6a25a93ff915d1f4e1e469de476ec
+vendor/firmware/goodixfp.mdt|c14b33ad37ebc792128f200838ea2673f6783e16
+
 # GPS
 etc/permissions/com.qti.location.sdk.xml
 etc/permissions/com.qualcomm.location.xml
@@ -1271,8 +1313,8 @@ vendor/bin/xtwifi-client
 vendor/bin/xtwifi-inet-agent
 vendor/etc/cacert_location.pem
 vendor/etc/init/android.hardware.gnss@2.0-service-qti.rc
-vendor/etc/vintf/manifest/android.hardware.gnss@2.0-service-qti.xml
-vendor/etc/vintf/manifest/vendor.qti.gnss@3.0-service.xml
+-vendor/etc/vintf/manifest/android.hardware.gnss@2.0-service-qti.xml
+-vendor/etc/vintf/manifest/vendor.qti.gnss@3.0-service.xml
 vendor/etc/xtra_root_cert.pem
 vendor/lib/hw/android.hardware.gnss@2.0-impl-qti.so
 vendor/lib/hw/vendor.qti.gnss@3.0-impl.so
@@ -1510,8 +1552,6 @@ vendor/lib/libvpptestutils.so
 vendor/lib/vendor.qti.hardware.vpp@1.1.so
 vendor/lib/vendor.qti.hardware.vpp@1.2.so
 vendor/lib/vendor.qti.hardware.vpp@1.3.so
-vendor/lib/vndk/libstagefright_foundation.so
-vendor/lib/vndk/libstagefright_omx.so
 vendor/lib64/libAlacSwDec.so
 vendor/lib64/libApeSwDec.so
 vendor/lib64/libFlacSwDec.so
@@ -1557,7 +1597,6 @@ vendor/lib/libOmxSwVdec.so
 vendor/lib/libOmxSwVencMpeg4.so
 vendor/lib/libOmxVdec.so
 vendor/lib/libOmxVenc.so
--vendor/lib/libplatformconfig.so
 vendor/lib/libstagefrighthw.so
 vendor/lib64/libarbitrarybytes.so
 vendor/lib64/libc2dcolorconvert.so
@@ -1572,11 +1611,10 @@ vendor/lib64/libOmxSwVdec.so
 vendor/lib64/libOmxSwVencMpeg4.so
 vendor/lib64/libOmxVdec.so
 vendor/lib64/libOmxVenc.so
--vendor/lib64/libplatformconfig.so
 vendor/lib64/libstagefrighthw.so
 
 # NFC
-etc/nfcee_access.xml
+etc/nfcee_access.xml|effa3ac255c23661b472b635ae90f3914f8abe37
 vendor/bin/hw/vendor.nxp.hardware.nfc@1.2-service
 vendor/bin/hw/vendor.oppo.hardware.nfc@1.0-service
 vendor/bin/hw/vendor.qti.secure_element@1.0-service

@@ -15,7 +15,7 @@
 -->
 <!-- Pixel specific wifi overlays -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.wifi.resources.oneplus_msmnile"
+    package="com.android.wifi.resources.oppo_OP4A89"
     android:versionCode="1"
     android:versionName="1.0">
     <application android:hasCode="false" />

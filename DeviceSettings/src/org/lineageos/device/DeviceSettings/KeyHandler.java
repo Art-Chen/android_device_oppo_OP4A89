@@ -60,8 +60,6 @@ import org.lineageos.device.DeviceSettings.Constants;
 import org.lineageos.device.DeviceSettings.DeviceSettings;
 import org.lineageos.device.DeviceSettings.R;
 
-import vendor.oneplus.camera.CameraHIDL.V1_0.IOnePlusCameraProvider;
-
 public class KeyHandler implements DeviceKeyHandler {
 
     private static final String TAG = KeyHandler.class.getSimpleName();
@@ -107,7 +105,6 @@ public class KeyHandler implements DeviceKeyHandler {
     private boolean mProximityWakeSupported;
     private boolean mDispOn;
     private ClientPackageNameObserver mClientObserver;
-    private IOnePlusCameraProvider mProvider;
     private boolean isOPCameraAvail;
     private Handler mHandler;
 
@@ -127,7 +124,7 @@ public class KeyHandler implements DeviceKeyHandler {
     public KeyHandler(Context context) {
         mContext = context;
         mResContext = getResContext(context);
-        mSysUiContext = ActivityThread.currentActivityThread().getSystemUiContext();        
+        mSysUiContext = ActivityThread.currentActivityThread().getSystemUiContext();
         mHandler = new Handler(Looper.getMainLooper());
         mDispOn = true;
         mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -335,13 +332,7 @@ public class KeyHandler implements DeviceKeyHandler {
         public void onEvent(int event, String file) {
             String pkgName = Utils.getFileValue(CLIENT_PACKAGE_PATH, "0");
             if (event == FileObserver.MODIFY) {
-                try {
-                    Log.d(TAG, "client_package" + file + " and " + pkgName);
-                    mProvider = IOnePlusCameraProvider.getService();
-                    mProvider.setPackageName(pkgName);
-                } catch (RemoteException e) {
-                    Log.e(TAG, "setPackageName error", e);
-                }
+               Log.d(TAG, "client_package" + file + " and " + pkgName);
             }
         }
     }

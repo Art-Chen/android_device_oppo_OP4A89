@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "android.hardware.vibrator@1.2-service.oneplus_msmnile"
+#define LOG_TAG "android.hardware.vibrator@1.2-service.oppo_OP4A89"
 
 #include <android-base/logging.h>
 #include <hidl/HidlTransportSupport.h>

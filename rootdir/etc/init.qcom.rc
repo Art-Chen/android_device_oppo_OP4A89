@@ -51,6 +51,10 @@ on early-init
     chown system graphics /sys/kernel/debug/dri/0/debug/recovery_dbgbus
     chown system graphics /sys/kernel/debug/dri/0/debug/recovery_vbif_dbgbus
 
+    # Change ownership of sw_sync node
+    chown system graphics /sys/kernel/debug/sync/sw_sync
+    chmod 0666 /sys/kernel/debug/sync/sw_sync
+
     chown root system /dev/kmsg
     chmod 0620 /dev/kmsg
     # Load WIGIG platform driver
@@ -117,7 +121,7 @@ on post-fs
     chmod 0755 /sys/kernel/debug/tracing
 
     # Vibrator
-    chown system system /sys/class/leds/vibrator/level
+    chown system system /sys/class/leds/vibrator/vmax
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -199,37 +203,7 @@ on boot
     chmod 0660 /dev/ttyHS2
     chown bluetooth bluetooth /dev/ttyHS2
 
-    chmod 0666 /sys/devices/platform/soc/soc:fingerprint_detect/sensor_version
-    chown system system /sys/devices/platform/soc/soc:fingerprint_detect/sensor_version
-    chmod 0664 /sys/devices/platform/soc/a90000.i2c/i2c-4/4-0020/fp_irq
-    chown system system /sys/devices/platform/soc/a90000.i2c/i2c-4/4-0020/fp_irq
-    chmod 0666 /proc/touchpanel/touch_hold
-    chown system system /proc/touchpanel/touch_hold
-    chmod 0664 sys/devices/platform/soc/soc:goodix_fp/screen_state
-    chown system system sys/devices/platform/soc/soc:goodix_fp/screen_state
-    chmod 0666 /dev/qseecom
     chmod 0666 /dev/goodix_fp
-
-    chmod 0660 /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/dimlayer_bl_en
-    chown system system /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/dimlayer_bl_en
-
-    # Graphics
-    chown system graphics /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/native_display_p3_mode
-    chmod 0666 /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/native_display_p3_mode
-    chown system graphics /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/hbm
-    chmod 0666 /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/hbm
-    chown system graphics /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/modes
-    chmod 0666 /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/modes
-
-    chown system graphics /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/native_display_p3_color_mode
-    chmod 0666 /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/native_display_p3_color_mode
-    chown system graphics /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/native_display_srgb_color_mode
-    chmod 0666 /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/native_display_srgb_color_mode
-    chown system graphics /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/native_display_wide_color_mode
-    chmod 0666 /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/native_display_wide_color_mode
-    chown system graphics /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/night_mode
-    chmod 0666 /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/night_mode
-
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/device/extldo
     chmod 0660 /sys/class/rfkill/rfkill0/device/extldo
 
@@ -245,6 +219,8 @@ on boot
     mkdir /persist/alarm 0770 system system
     mkdir /mnt/vendor/persist/time 0770 system system
     mkdir /mnt/vendor/persist/secnvm 0770 system system
+    mkdir /mnt/vendor/persist/iar_db 0770 system system
+    mkdir /mnt/vendor/spunvm 0770 system system
 
     #Create WIGIG socket area
     mkdir /dev/socket/wigig 0770 wifi wifi
@@ -294,6 +270,8 @@ on boot
 
     chown system system /sys/class/backlight/panel0-backlight/brightness
     chown system system /sys/class/backlight/panel0-backlight/max_brightness
+    chown system system /sys/class/backlight/panel1-backlight/brightness
+    chown system system /sys/class/backlight/panel1-backlight/max_brightness
 
     # Allow access to sensors device attributes
     chown system system /sys/class/sensors/MPU6050-accel/enable
@@ -403,6 +381,7 @@ on post-fs-data
     chown system system /sys/devices/platform/msm_sdcc.4/polling
 
     #Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
+    mkdir /data/system 0775 system system
     #symlink /data/misc/wifi/wpa_supplicant /data/system/wpa_supplicant
 
     #Create directories for Location services
@@ -444,6 +423,12 @@ on post-fs-data
     mkdir /data/vendor/perfd 0770 root system
     chmod 2770 /data/vendor/perfd
     rm /data/vendor/perfd/default_values
+
+#ifdef VENDOR_EDIT
+#wenjie.liu@CN.NFC.Basic.Hardware.1338555, 2018/04/09
+#add for:NFC Open Slowly
+    mkdir /data/vendor/nfc 0770 nfc nfc
+#end VENDOR_EDIT
 
     mkdir /data/vendor/secure_element 0777 system system
 
@@ -569,6 +554,127 @@ on property:persist.vendor.sys.rawdump_copy=1
 on property:persist.vendor.sys.rawdump_copy=0
     write /sys/kernel/dload/emmc_dload 0
 
+#ifdef VENDOR_EDIT
+#Min.Yi@PSW.CN.Wifi.Production.1065227, 2017/11/21
+#Add for  :start init.oppo.wifi.sh
+service wifiserver /vendor/bin/init.oppo.wifi.sh
+    class core
+    user root
+    oneshot
+#endif
+
+#ifdef VENDOR_EDIT
+#Min.Yi@EXP.CN.WiFi.Hardware.1178256, 2017/12/28
+#Add for receive command from the PC tools
+service wifi_diag_stop /vendor/bin/wifistopftmtest
+    class late_start
+    user root
+    seclabel u:r:rutilsdaemon:s0
+    group root
+    disabled
+    oneshot
+
+service wifitestdiag /vendor/bin/wifi_diag
+    class late_start
+    user root
+    seclabel u:r:rutilsdaemon:s0
+    group root
+    disabled
+    oneshot
+
+on property:oppo.wifi.ftmstoptest=1
+     start wifi_diag_stop
+
+on property:oppo.wifi.ftmstoptest=0
+     stop wifi_diag_stop
+
+on property:sys.usb.config=diag,adb && property:sys.usb.configfs=1
+    start wifitestdiag
+#endif /* VENDOR_EDIT */
+#ifdef VENDOR_EDIT
+#Min.Yi@PSW.CN.WiFi.Hardware.1075545, 2017/11/02
+#Add for : Wifi ftm from the engineer app
+service wifi_ftm /system/bin/wififtmtest
+    class late_start
+    user root
+    seclabel u:r:rutilsdaemon:s0
+    group root
+    disabled
+    oneshot
+
+on property:oppo.wifi.ftmtest=1
+     start wifi_ftm
+
+on property:oppo.wifi.ftmtest=0
+     stop wifi_ftm
+#endif /* VENDOR_EDIT */
+
+#ifdef VENDOR_EDIT
+#Qiulei@Connectivity.WiFi.Hardware.1075545, 2016/07/23
+#Add for : Wifi ftm
+service wififtm /system/vendor/bin/wififtm
+    class late_start
+    user root
+    group root
+    disabled
+    oneshot
+
+on property:oppo.wifi.ftm=1
+     start wififtm
+
+on property:oppo.wifi.ftm=0
+     stop wififtm
+#endif /* VENDOR_EDIT */
+
+#ifdef VENDOR_EDIT
+#Qiulei@PSW.CN.WiFi.Hardware.1075545, 2016/07/23
+#Add for : Wifi HW ftm
+service wifihwftm /system/bin/wifihwftm
+    class late_start
+    user root
+    seclabel u:r:rutilsdaemon:s0
+    group root
+    disabled
+    oneshot
+
+on property:oppo.wifi.hwtest=1
+     start wifihwftm
+
+on property:oppo.wifi.hwtest=0
+     stop wifihwftm
+
+on property:vendor.wifi.hwtest=1
+     start wifihwftm
+
+on property:vendor.wifi.hwtest=0
+     stop wifihwftm
+#endif /* VENDOR_EDIT */
+
+#ifdef VENDOR_EDIT
+#Qiulei@PSW.CN.WiFi.Hardware.1769918, 2019/01/02
+#Add for : Wifi BDF version
+service WifibdfVersion /vendor/bin/vendor.autochmod.sh "WifibdfVersion"
+    class late_start
+    user root
+    seclabel u:r:rutilsdaemon:s0
+    group root
+    oneshot
+#endif /* VENDOR_EDIT */
+
+#Lei.Zhang@PSW.CN.WiFi.Basic., 2018/12/24
+#Add for wifi sar setting on Android P
+service wifisar /system/vendor/bin/wifisar
+    class main
+    user root
+    group root
+    disabled
+    oneshot
+
+# Any property change trigger wifisar setting
+on property:oppo.wifi.sar.idx=*
+    start wifisar
+#endif /* VENDOT_EDIT */
+
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
     #Reset read ahead for dm-0 and dm-1 to 512kb
@@ -624,11 +730,25 @@ service qcom-c_core-sh  /vendor/bin/init.qcom.class_core.sh
 service qcom-c_main-sh /vendor/bin/init.class_main.sh
     class main
     user root
+    group root system
     oneshot
 
 on property:vold.decrypt=trigger_restart_framework
     start qcom-c_main-sh
+#ifdef VENDOR_EDIT
+#laichenhui@PSW.Bsp.Tp, 2018/08/21, Add to aceess data fw files
+    start bspFwUpdate
+#endif /* VENDOR_EDIT */
     start wcnss-service
+
+# ifdef VENDOR_EDIT
+# Xiong.xing@BSP.TP, 2018/03/01, Add for start fw update service
+on property:ro.crypto.state=unencrypted
+    start bspFwUpdate
+
+on property:ro.crypto.state=unsupported
+    start bspFwUpdate
+# endif
 
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
@@ -691,7 +811,8 @@ service qmiproxy /system/bin/qmiproxy
 service vendor.sensors /vendor/bin/sscrpcd sensorspd
     class early_hal
     user system
-    group system
+    group system wakelock
+    capabilities BLOCK_SUSPEND
 
 service vendor.sensors.qti /vendor/bin/sensors.qti
     class core
@@ -706,6 +827,38 @@ on property:ro.data.large_tcp_window_size=true
 
 on property:sys.sysctl.tcp_adv_win_scale=*
     write /proc/sys/net/ipv4/tcp_adv_win_scale ${sys.sysctl.tcp_adv_win_scale}
+
+#ifndef VENDOR_EDIT
+#Tao.Hui@PSW.CN.WiFi.Basic.Log.1072015, 2015/04/24,
+#Modify for:close defualt debug log of wpa_supplicant
+#service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
+#    -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface=1 -dd \
+#    -g@android:vendor_wpa_wlan0
+#   we will start as root and wpa_supplicant will switch to user wifi
+#   after setting up the capabilities required for WEXT
+#   user wifi
+#   group wifi inet keystore
+#    interface android.hardware.wifi.supplicant@1.0::ISupplicant default
+#    interface android.hardware.wifi.supplicant@1.1::ISupplicant default
+#    class main
+#    socket vendor_wpa_wlan0 dgram 660 wifi wifi
+#    disabled
+#    oneshot
+#else
+service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
+    -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface=1 \
+    -g@android:vendor_wpa_wlan0
+#   we will start as root and wpa_supplicant will switch to user wifi
+#   after setting up the capabilities required for WEXT
+#   user wifi
+#   group wifi inet keystore
+    interface android.hardware.wifi.supplicant@1.0::ISupplicant default
+    interface android.hardware.wifi.supplicant@1.1::ISupplicant default
+    class main
+    socket vendor_wpa_wlan0 dgram 660 wifi wifi
+    disabled
+    oneshot
+#endif
 
 service vendor.wigig_supplicant /vendor/bin/hw/wpa_supplicant \
     -iwigig0 -Dnl80211 -c/data/vendor/wifi/wigig_supplicant.conf \
@@ -850,20 +1003,17 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
     disabled
     oneshot
 
-#ifdef VENDOR_EDIT
-#Disable connection security service
-#service ssgqmigd /vendor/bin/ssgqmigd
-#    class late_start
-#    user radio
-#    group radio gps system
-#    socket ssgqmig seqpacket 0660 radio inet
-#
-#service ssgtzd /vendor/bin/ssgtzd
-#    class late_start
-#    user system
-#    group system
-#    socket ssgtzd stream 0660 system inet
-#endif
+service ssgqmigd /vendor/bin/ssgqmigd
+    class late_start
+    user radio
+    group radio gps system
+    socket ssgqmig seqpacket 0660 radio inet
+
+service ssgtzd /vendor/bin/ssgtzd
+    class late_start
+    user system
+    group system
+    socket ssgtzd stream 0660 system inet
 
 service mlid /vendor/bin/mlid
     class late_start
@@ -1007,7 +1157,9 @@ service profiler_daemon /system/bin/profiler_daemon
 
 service charger /system/bin/charger
     class charger
-    group system graphics
+    user system
+    group system graphics input
+    capabilities SYS_BOOT
     seclabel u:r:charger:s0
 
 service vendor.ssr_diag /system/vendor/bin/ssr_diag
@@ -1042,19 +1194,56 @@ on property:sys.qbcharger.enable=true
 on property:sys.qbcharger.enable=false
     stop qbcharger
 
-service diag_mdlog_start /system/vendor/bin/diag_mdlog -c
+##ifndef VENDOR_EDIT
+#Wentian.mai@PSW.NW.EM.1139269, 2017/10/31
+#modify for on Rftoolkit
+#service diag_mdlog_start /system/vendor/bin/diag_mdlog
+#    class late_start
+#    user shell
+#    group system oem_2901 sdcard_rw sdcard_r media_rw
+##else /*VENDOR_EDIT*/
+service diag_mdlog_start /vendor/bin/diag_mdlog -c
     class late_start
     user shell
-    group system diag sdcard_rw sdcard_r media_rw oem_2901
+    group system diag  oem_2901 sdcard_rw sdcard_r media_rw
+##endif /*VENDOR_EDIT*/
+    disabled
+    oneshot
+#ifdef VENDOR_EDIT
+#natao.lin@Camera for Laser daemon, 2019/09/20
+service vl53l1_daemon_main /vendor/bin/vl53l1_daemon_main
+    class late_start
+    user root
+    group root
+    socket vl53l1_daemon stream 660 root system
+#endif
+
+##ifndef VENDOR_EDIT
+#Wentian.mai@PSW.NW.EM.1139269, 2017/10/31
+#modify for on device log permission
+#service diag_mdlog_stop /system/vendor/bin/diag_mdlog -k
+#    class late_start
+#    user shell
+#    group system oem_2901 sdcard_rw sdcard_r media_rw
+##else /*VENDOR_EDIT*/
+service diag_mdlog_stop /vendor/bin/diag_mdlog -k
+    class late_start
+    user shell
+    group system diag  oem_2901 sdcard_rw sdcard_r media_rw
+##endif /*VENDOR_EDIT*/
     disabled
     oneshot
 
-service diag_mdlog_stop /system/vendor/bin/diag_mdlog -k
+#ifdef VENDOR_EDIT
+#zhengpeng.tan@PSW.NW.EM.1139269, 2017/10/31
+#Add for device log on nrt mode
+service diag_mdlog_nrt /vendor/bin/diag_mdlog -c -b
     class late_start
     user shell
-    group system diag sdcard_rw sdcard_r media_rw oem_2901
+    group system diag  oem_2901 sdcard_rw sdcard_r media_rw
     disabled
     oneshot
+#endif VENDOR_EDIT
 
 service qlogd /system/xbin/qlogd
     socket qlogd stream 0662 system system
@@ -1116,6 +1305,7 @@ service esepmdaemon /system/vendor/bin/esepmdaemon
 
 on charger
     setprop persist.sys.usb.config mass_storage
+    load_system_props
     start qcom-post-boot
 
 #add poweroffhandler
@@ -1153,10 +1343,10 @@ on property:vendor.rild.libpath=*
 on property:ro.vendor.radio.noril=*
     setprop ro.radio.noril ${ro.vendor.radio.noril}
 
-#service seemp_healthd /vendor/bin/seemp_healthd
-#    class late_start
-#    user system
-#    group system
+service seemp_healthd /vendor/bin/seemp_healthd
+    class late_start
+    user system
+    group system
 
 service vendor.power_off_alarm /vendor/bin/power_off_alarm
     class core
@@ -1190,7 +1380,7 @@ service vendor.audio-hal-2-0 /vendor/bin/hw/android.hardware.audio@2.0-service
     class hal
     user audioserver
     # media gid needed for /dev/fm (radio) and for /data/misc/media (tee)
-    group audio camera drmrpc inet media mediadrm net_bt net_bt_admin net_bw_acct oem_2901 wakelock
+    group audio camera drmrpc inet media mediadrm net_bt net_bt_admin net_bw_acct oem_2901 wakelock readproc
     capabilities BLOCK_SUSPEND
     ioprio rt 4
     writepid /dev/cpuset/foreground/tasks /dev/stune/foreground/tasks
@@ -1202,7 +1392,105 @@ service vendor.audio-hal-2-0 /vendor/bin/hw/android.hardware.audio@2.0-service
     interface android.hardware.audio@4.0::IDevicesFactory default
     interface android.hardware.audio@2.0::IDevicesFactory default
 
-service dashd /system/bin/dashd
+
+#ifdef VENDOR_EIDT
+#wushuxun@PSW.CN.Wifi.Network.internet.1074197, 2018/11/08,
+#Add for make WCNSS_qcom_cfg.ini Rom-update.
+on post-fs-data
+    chmod 0666 /mnt/vendor/persist/WCNSS_qcom_cfg.ini
+
+# To rename ini_temp.txt into WCNSS_qcom_cfg.ini
+on property:oppo.wifi.iniromupdate=*
+    copy /mnt/vendor/persist/ini_temp.txt /mnt/vendor/persist/WCNSS_qcom_cfg.ini
+    chmod 0666 /mnt/vendor/persist/WCNSS_qcom_cfg.ini
+
+# To enable /mnt/vendor/persist folder access right for ini romupdate feature
+on property:oppo.wifi.enablepersistaccess=*
+    chmod 0777 /mnt/vendor/persist
+
+# To restore /mnt/vendor/persist folder access right for ini romupdate feature
+on property:oppo.wifi.restorepersistaccess=*
+    chmod 0771 /mnt/vendor/persist
+#endif /* VENDOR_EDIT */
+
+#ifdef VENDOR_EDIT
+#Qiang.shao@PSW.AD.OppoFeature.CommonSoft.1181235, 2016/07/30, Add for self_init domain to access block_device for init prop
+service prop-adap-core /vendor/bin/self-init core
     class core
-    critical
-    group root system
+    user root
+    oneshot
+    seclabel u:r:rutilsdaemon:s0
+service prop-adap-main /vendor/bin/self-init main
+    class main
+    user root
+    oneshot
+    seclabel u:r:rutilsdaemon:s0
+service media-resource-reconciliation /vendor/bin/self-init reconcile_media_resource
+    user root
+    oneshot
+    disabled
+    seclabel u:r:rutilsdaemon:s0
+service prop-adap-core-gsi /vendor/bin/self-init gsicore
+    class core
+    user root
+    group root system radio
+    oneshot
+
+service prop-adap-main-gsi /vendor/bin/self-init gsimain
+    class main
+    user root
+    group root system radio
+    oneshot
+
+
+on property:ro.oppo.reconcile_media_resource=1
+    start media-resource-reconciliation
+#endif
+#ifdef VENDOR_EDIT
+#zhunn@OnLineRD.AirService.RIL, 2015/1/28, Add for cdma card cannot send sms in Yiwu
+#WeiHong.Li@Mobile.Network, 2015/09/11, Add suid_dumpable to capture rild's tombstone according to case 02090380
+#Zhengpeng@OnLineRD.AirService.RIL, 2013/11/4, Add for create opponvitems dir
+on boot
+    mkdir /data/opponvitems  0771 radio radio
+    write /proc/sys/fs/suid_dumpable 1
+    setprop persist.vendor.radio.force_on_dc true
+    chmod 0660 /dev/mdmreason
+    chown system system /dev/mdmreason
+#endif
+#ifdef VENDOR_EDIT
+#WeiHong.Li@Mobile.Network, 2015/09/11, disalbe suid_dumpable if release_type=true to pass cts test
+on property:ro.build.release_type=true
+    write /proc/sys/fs/suid_dumpable 0
+#endif
+
+#ifdef VENDOR_EDIT
+#Guotian.Wu@PSW.CN.WiFi.Hardware.1070277 2019/07/24  Add for wifi rf testing
+service wifirfmodetest /system/bin/wifirftest
+    class main
+    socket wifirf stream 0660 system system
+    user root
+    oneshot
+    disabled
+
+on property:oppo.wifirftest.enable=1
+    start wifirfmodetest
+
+on property:oppo.wifirftest.enable=0
+    stop wifirfmodetest
+#endif
+
+#ifdef VENDOR_EDIT
+#Wei.Peng@PSW.NW.SIM.1854617,2019/10/22
+#Modify for dynamic switch sim config to dual or single
+on property:ro.vendor.oppo.radio.multisim.config=*
+    setprop persist.radio.multisim.config ${ro.vendor.oppo.radio.multisim.config}
+#endif VENDOR_EDIT
+
+#ifdef VENDOR_EDIT
+#Yupeng.Shan@TECH.AD.Performance, 2020/03/17, for benchmark
+on property:sys.oppo.high.performance.spec=1
+    setprop vendor.display.enable_rotator_ui 1
+
+on property:sys.oppo.high.performance.spec=0
+    setprop vendor.display.enable_rotator_ui 0
+#endif VENDOR_EDIT

@@ -45,7 +45,7 @@ cc_library_shared {
     ],
     static_libs: [
         "android.hardware.sensors@1.0-convert",
-        "multihal-oneplus-OP4A89",
+        "multihal-oppo-OP4A89",
     ],
     cflags: [
         "-DNO_INPUT",
