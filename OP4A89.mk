@@ -77,6 +77,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.atrace@1.0-service
 
+# AliPay Fingerprint Pay
+PRODUCT_PACKAGES += \
+    ifaamanager
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/ifaamanager/etc/permissions/org.ifaa.android.manager.permissions.xml:/$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/org.ifaa.android.manager.permissions.xml
+
 # Audio
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-service \
