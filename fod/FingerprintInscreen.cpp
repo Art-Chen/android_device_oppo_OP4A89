@@ -107,10 +107,11 @@ Return<void> FingerprintInscreen::onShowFODView() {
         dcDimState = get(DC_DIM_PATH, 0);
         set(DC_DIM_PATH, 0);
     }
-    if(get(POWER_STATUS, 3) || get(POWER_STATUS, 4)) {
+    if (get(POWER_STATUS, 3) || get(POWER_STATUS, 4)) {
 	    set(NOTIFY_BLANK_PATH, 1);
         set(AOD_MODE_PATH, 1);
 	}
+    this->mFodCircleVisible = true;
 	this->mVendorFpService->setScreenState(::vendor::oppo::hardware::biometrics::fingerprint::V2_1::FingerprintScreenState::FINGERPRINT_SCREEN_ON);
     set(DIMLAYER_PATH, 1);
     return Void();
