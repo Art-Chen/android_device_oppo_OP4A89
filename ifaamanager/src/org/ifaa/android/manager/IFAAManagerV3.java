@@ -1,5 +1,5 @@
 package org.ifaa.android.manager;
-import android.annotation.UnsupportedAppUsage;
+import android.compat.annotation.UnsupportedAppUsage;
 
 public abstract class IFAAManagerV3 extends IFAAManagerV2 {
     @UnsupportedAppUsage
@@ -16,7 +16,7 @@ public abstract class IFAAManagerV3 extends IFAAManagerV2 {
 
     @UnsupportedAppUsage
     public abstract String getExtInfo(int i, String str);
-    
+
     @UnsupportedAppUsage
     public abstract void setExtInfo(int i, String str, String str2);
 }
