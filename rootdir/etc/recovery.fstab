@@ -24,5 +24,5 @@
 /devices/platform/soc/*.ssusb/*.dwc3/xhci-hcd.*.auto*    /storage/usbotg    vfat    nosuid,nodev    wait,voldmanaged=usbotg:auto
 /dev/block/bootdevice/by-name/opporeserve2      /mnt/vendor/opporeserve             ext4   nosuid,nodev,noatime,barrier=1                           wait,check
 
-/dev/block/bootdevice/by-name/boot /boot emmc defaults recoveryonly
-/dev/block/bootdevice/by-name/vendor /vendor ext4 ro,barrier=1,discard
+/dev/block/bootdevice/by-name/boot                      /boot                  emmc    defaults                  recoveryonly
+/dev/block/bootdevice/by-name/vendor                    /vendor           ext4    ro,barrier=1,discard      wait
