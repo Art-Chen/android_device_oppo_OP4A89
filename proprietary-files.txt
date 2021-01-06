@@ -1159,7 +1159,6 @@ vendor/firmware/ufs/move_target_ufs_fw_to_opporeserve1.sh
 vendor/firmware/ufs/SAMSUNG-KLUDG4U1EA-B0C1.bin
 vendor/firmware/ufs/SAMSUNG-KLUEG8U1EA-B0C1.bin
 vendor/firmware/wigig/wigig.ini
-vendor/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
 
 # aw8697 RTP Firmware
 vendor/firmware/barca_alarm_ring_RTP_120.bin
@@ -1282,16 +1281,16 @@ vendor/firmware/awinic_haptic_params.bin
 vendor/firmware/barca_incoming_ring_RTP_121.bin
 vendor/firmware/barca_notice_ring_RTP_122.bin
 
-# Goodix FP Firmware
+# Goodix FP Firmware | Android P
 vendor/firmware/goodixfp.b00|a900502e0031e2c7b5f1ed932fc3830266077d84
-vendor/firmware/goodixfp.b01|e515e9efcb4b06bfd4d4c7a738143f2b4621f79d
-vendor/firmware/goodixfp.b02|df7a3df9ce51e330d50f30c093fe3b2be5157a23
-vendor/firmware/goodixfp.b03|d88f62d5bf5795d25e5285f084408f53fe043859
-vendor/firmware/goodixfp.b04|92130879417fef6fc6662ea08a3762e2945ff40f
-vendor/firmware/goodixfp.b05|f5e2d67692434b4e799e971dc0223163307073b6
-vendor/firmware/goodixfp.b06|b326ea997c82a98c6f6f761723cc3fbb55ca9299
-vendor/firmware/goodixfp.b07|9242522f71b6a25a93ff915d1f4e1e469de476ec
-vendor/firmware/goodixfp.mdt|c14b33ad37ebc792128f200838ea2673f6783e16
+vendor/firmware/goodixfp.b01|698ace10475b60a44f33a5a82b6483b65890bed9
+vendor/firmware/goodixfp.b02|ed366271f8d9320cd146078f46a236fb6d84bf76
+vendor/firmware/goodixfp.b03|c3fcfb665e16ce38caa24c1906620620fca04ee4
+vendor/firmware/goodixfp.b04|bdc6488ed5daa8d8426565ca5635ecb2964e962c
+vendor/firmware/goodixfp.b05|a4734cbc97ebc41b704b5a58717682e7ce0e126e
+vendor/firmware/goodixfp.b06|821e3e7b0c546d8945278068f4a1b25ced498b89
+vendor/firmware/goodixfp.b07|4a82a9529f50d0ea15e8cd4449308fa18caeb36d
+vendor/firmware/goodixfp.mdt|a873c57d0671f49c489bb9c093ee6d9daee7f6ff
 
 # GPS
 etc/permissions/com.qti.location.sdk.xml
@@ -1515,6 +1514,9 @@ product/lib/vendor.qti.hardware.vpp@1.3.so
 product/lib64/vendor.qti.hardware.vpp@1.1.so
 product/lib64/vendor.qti.hardware.vpp@1.2.so
 product/lib64/vendor.qti.hardware.vpp@1.3.so
+vendor/bin/hw/vendor.qti.media.c2@1.0-service
+vendor/etc/init/vendor.qti.media.c2@1.0-service.rc
+vendor/etc/system_properties.xml
 vendor/lib/libAlacSwDec.so
 vendor/lib/libApeSwDec.so
 vendor/lib/libdsd2pcm.so
@@ -1597,7 +1599,6 @@ vendor/lib/libOmxSwVdec.so
 vendor/lib/libOmxSwVencMpeg4.so
 vendor/lib/libOmxVdec.so
 vendor/lib/libOmxVenc.so
-vendor/lib/libstagefrighthw.so
 vendor/lib64/libarbitrarybytes.so
 vendor/lib64/libc2dcolorconvert.so
 vendor/lib64/libmm-omxcore.so
@@ -1611,7 +1612,6 @@ vendor/lib64/libOmxSwVdec.so
 vendor/lib64/libOmxSwVencMpeg4.so
 vendor/lib64/libOmxVdec.so
 vendor/lib64/libOmxVenc.so
-vendor/lib64/libstagefrighthw.so
 
 # NFC
 etc/nfcee_access.xml|effa3ac255c23661b472b635ae90f3914f8abe37
@@ -2438,6 +2438,10 @@ vendor/etc/thermal-engine.conf
 vendor/lib/libthermalclient.so
 vendor/lib64/libthermalclient.so
 
+# Thermal-Hardware
+vendor/lib/hw/thermal.msmnile.so
+vendor/lib64/hw/thermal.msmnile.so
+
 # Time
 -vendor/app/TimeService/TimeService.apk
 vendor/bin/time_daemon
@@ -2700,12 +2704,6 @@ vendor/euclid/product.img
 vendor/euclid/version.19081.img
 vendor/euclid_build.prop
 vendor/lib/android.frameworks.faceservice@1.0.so
-vendor/lib/android.hardware.audio.common-util.so
-vendor/lib/android.hardware.audio.common@2.0-util.so
-vendor/lib/android.hardware.audio.common@4.0-util.so
-vendor/lib/android.hardware.audio.common@5.0-util.so
-vendor/lib/android.hardware.camera.provider@2.4-external.so
-vendor/lib/android.hardware.camera.provider@2.4-legacy.so
 vendor/lib/hw/awinic.haptic.effect.so
 vendor/lib/hw/vendor.qti.hardware.audiohalext@1.0-impl.so
 vendor/lib/hw/vendor.qti.hardware.capabilityconfigstore@1.0-impl.so
@@ -2888,3 +2886,8 @@ vendor/lib64/vendor.qti.hardware.capabilityconfigstore@1.0.so
 vendor/lib64/vendor.qti.hardware.cryptfshw@1.0.so
 vendor/lib64/vendor.qti.hardware.qseecom@1.0.so
 vendor/lib64/vendor.qti.hardware.sigma_miracast@1.0.so
+
+# Wifi Display
+vendor/lib/vendor.qti.hardware.wifidisplaysession@1.0.so
+vendor/lib/vendor.qti.hardware.wifidisplaysessionl@1.0-halimpl.so
+vendor/lib64/vendor.qti.hardware.wifidisplaysession@1.0.so
