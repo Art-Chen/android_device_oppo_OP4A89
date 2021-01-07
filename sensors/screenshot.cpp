@@ -13,7 +13,7 @@ time_t last_screen_update = 0;
 
 void update_screen_buffer(void **out) {
     if (screen_buffer == NULL) {
-        screen_buffer = new GraphicBuffer(10, 10, PIXEL_FORMAT_RGB_888, GraphicBuffer::USAGE_SW_READ_OFTEN | GraphicBuffer::USAGE_SW_WRITE_OFTEN);
+        screen_buffer = new GraphicBuffer(30, 30, PIXEL_FORMAT_RGB_888, GraphicBuffer::USAGE_SW_READ_OFTEN | GraphicBuffer::USAGE_SW_WRITE_OFTEN);
     }
     struct timespec now;
     clock_gettime(CLOCK_MONOTONIC, &now);

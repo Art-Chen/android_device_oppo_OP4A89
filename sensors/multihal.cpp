@@ -19,6 +19,7 @@
 
 //#define LOG_TAG "sensors_multihal"
 #define LOG_NDEBUG 1
+//#undef NDEBUG
 #include <cutils/log.h>
 #include <cutils/atomic.h>
 #include <cutils/properties.h>
@@ -553,7 +554,7 @@ static T get(const std::string& path, const T& def) {
     return file.fail() ? def : result;
 }
 
-int red_max_lux, green_max_lux, blue_max_lux, white_max_lux, max_brightness;
+int red_max_lux, green_max_lux, blue_max_lux, white_max_lux, max_brightness, row_coe, cali_coe;
 
 /*
  * Fix the fields of the sensor
@@ -567,6 +568,8 @@ static void fix_sensor_fields(sensor_t& sensor) {
         green_max_lux = get("/proc/oppoAls/green_max_lux", 0);
         blue_max_lux = get("/proc/oppoAls/blue_max_lux", 0);
         white_max_lux = get("/proc/oppoAls/white_max_lux", 0);
+        row_coe = get("/proc/oppoAls/row_coe", 0);
+        cali_coe = get("/proc/oppoAls/cali_coe", 0);
         max_brightness = get("/sys/class/backlight/panel0-backlight/max_brightness", 255);
         ALOGV("max r = %d, max g = %d, max b = %d", red_max_lux, green_max_lux, blue_max_lux);
     }
@@ -587,6 +590,8 @@ void light_sensor_correction(sensors_event_t *ev) {
         green_max_lux = get("/proc/oppoAls/green_max_lux", 0);
         blue_max_lux = get("/proc/oppoAls/blue_max_lux", 0);
         white_max_lux = get("/proc/oppoAls/white_max_lux", 0);
+        row_coe = get("/proc/oppoAls/row_coe", 0);
+        cali_coe = get("/proc/oppoAls/cali_coe", 0);
         ALOGV("re-get: max r = %d, max g = %d, max b = %d", red_max_lux, green_max_lux, blue_max_lux);
     }
     float correction = 0.0f;
@@ -603,10 +608,12 @@ void light_sensor_correction(sensors_event_t *ev) {
     }
     ALOGV("Final correction: %f", correction);
     // Sensor is not accurate for low values
-    if (ev->light < correction) {
+    if (ev->light - correction >= 0) {
+        ev->light -= correction;
+    } else {
         ev->light = correction;
     }
-
+    ALOGV("Final correction lux: %f", ev->light);
     free_screen_buffer();
 }
 
