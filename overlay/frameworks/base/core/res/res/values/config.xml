@@ -798,8 +798,8 @@
         <item>0:2:15</item> <!-- ID0:Fingerprint:Strong -->
     </string-array>
 
-    <!-- Whether device has warp charging support -->
-    <bool name="config_hasWarpCharger">true</bool>
+    <!-- Whether device has vooc charging support -->
+    <bool name="config_hasVoocCharger">true</bool>
 
      <!-- Smart charging -->
     <bool name="config_smartChargingAvailable">true</bool>
