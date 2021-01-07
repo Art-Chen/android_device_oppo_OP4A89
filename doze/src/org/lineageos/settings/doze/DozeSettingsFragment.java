@@ -49,6 +49,9 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
     private SwitchPreference mAlwaysOnDisplayPreference;
 
     private SwitchPreference mPickUpPreference;
+    private SwitchPreference mHandwavePreference;
+    private SwitchPreference mPocketPreference;
+    private SwitchPreference mMotionPreference;
 
     private Handler mHandler = new Handler();
 
@@ -73,16 +76,38 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
 
         PreferenceCategory pickupSensorCategory = (PreferenceCategory) getPreferenceScreen().
                 findPreference(Utils.CATEG_PICKUP_SENSOR);
-
+        PreferenceCategory proximitySensorCategory = (PreferenceCategory) getPreferenceScreen().
+                findPreference(Utils.CATEG_PROX_SENSOR);
+        PreferenceCategory motionSensorCategory = (PreferenceCategory) getPreferenceScreen().
+                findPreference(Utils.CATEG_MOTION_SENSOR);
         mPickUpPreference = (SwitchPreference) findPreference(Utils.GESTURE_PICK_UP_KEY);
         mPickUpPreference.setEnabled(dozeEnabled);
         mPickUpPreference.setOnPreferenceChangeListener(this);
+
+        mHandwavePreference = (SwitchPreference) findPreference(Utils.GESTURE_HAND_WAVE_KEY);
+        mHandwavePreference.setEnabled(dozeEnabled);
+        mHandwavePreference.setOnPreferenceChangeListener(this);
+
+        mPocketPreference = (SwitchPreference) findPreference(Utils.GESTURE_POCKET_KEY);
+        mPocketPreference.setEnabled(dozeEnabled);
+        mPocketPreference.setOnPreferenceChangeListener(this);
+
+        mMotionPreference = (SwitchPreference) findPreference(Utils.GESTURE_MOTION_KEY);
+        mMotionPreference.setEnabled(dozeEnabled);
+        mMotionPreference.setOnPreferenceChangeListener(this);
+
+        // Hide proximity sensor related features if the device doesn't support them
+        if (!Utils.getProxCheckBeforePulse(getActivity())) {
+            getPreferenceScreen().removePreference(proximitySensorCategory);
+        }
 
         // Hide AOD if not supported and set all its dependents otherwise
         if (!Utils.alwaysOnDisplayAvailable(getActivity())) {
             getPreferenceScreen().removePreference(mAlwaysOnDisplayPreference);
         } else {
             pickupSensorCategory.setDependency(Utils.ALWAYS_ON_DISPLAY);
+            proximitySensorCategory.setDependency(Utils.ALWAYS_ON_DISPLAY);
+            motionSensorCategory.setDependency(Utils.ALWAYS_ON_DISPLAY);
         }
     }
 
@@ -141,6 +166,9 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
         mAlwaysOnDisplayPreference.setEnabled(isChecked);
 
         mPickUpPreference.setEnabled(isChecked);
+        mHandwavePreference.setEnabled(isChecked);
+        mPocketPreference.setEnabled(isChecked);
+        mMotionPreference.setEnabled(isChecked);
     }
 
     @Override
