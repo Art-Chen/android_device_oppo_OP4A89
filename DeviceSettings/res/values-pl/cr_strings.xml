@@ -12,8 +12,8 @@
      limitations under the License.
 -->
 <resources>
-    <string name="device_title">Ustawienia OnePlus</string>
-    <string name="device_summary">Ustawienia OnePlus dotyczące tego urządzenia</string>
+    <string name="device_title">Ustawienia OPPO</string>
+    <string name="device_summary">Ustawienia OPPO dotyczące tego urządzenia</string>
     <!-- Display modes -->
     <string name="display_title">Tryby wyświetlacza</string>
     <string name="display_summary">Dostosuj ustawienia i preferencje wyświetlania</string>
@@ -24,7 +24,7 @@
     <string name="dc_mode_summary"></string>
     <string name="dc_mode_title">Tryb zmniejszania napięcia wyświetlacza</string>
     <string name="adaptive_mode_title">Tryb adaptacyjny</string>
-    <string name="oneplus_mode_title">Tryb OnePlus</string>
+    <string name="OPPO_mode_title">Tryb OPPO</string>
     <string name="dci_mode_summary"></string>
     <string name="dci_mode_title">Tryb szerokiej gamy kolorów DCI-P3</string>
     <string name="Night_mode_summary"></string>

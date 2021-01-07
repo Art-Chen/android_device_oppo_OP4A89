@@ -12,8 +12,8 @@
      limitations under the License.
 -->
 <resources>
-    <string name="device_title">OnePlus Ayarları</string>
-    <string name="device_summary">OnePlus\'a özel cihaz ayarlarını düzenleyin</string>
+    <string name="device_title">OPPO Ayarları</string>
+    <string name="device_summary">OPPO\'a özel cihaz ayarlarını düzenleyin</string>
     <!-- Display modes -->
     <string name="display_title">Görüntü modları</string>
     <string name="display_summary">Görüntü için ayarları ve tercihleri ayarlayın</string>
@@ -24,7 +24,7 @@
     <string name="dc_mode_summary"></string>
     <string name="dc_mode_title">DC-Karartma</string>
     <string name="adaptive_mode_title">Uyarlanabilir mod</string>
-    <string name="oneplus_mode_title">OnePlus modu</string>
+    <string name="OPPO_mode_title">OPPO modu</string>
     <string name="dci_mode_summary"></string>
     <string name="dci_mode_title">DCI-P3 geniş renk gamı modu</string>
     <string name="Night_mode_summary"></string>

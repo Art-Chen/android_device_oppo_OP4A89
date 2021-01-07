@@ -61,40 +61,6 @@ limitations under the License
             android:text="@string/srgb_mode_title"
             android:textAppearance="@*android:style/TextAppearance.DeviceDefault.Subhead"
             android:paddingStart="20dp" />
-
-        <RadioButton
-            android:id="@+id/dci_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="?android:attr/listPreferredItemHeightSmall"
-            android:gravity="center_vertical"
-            android:text="@string/dci_mode_title_new"
-            android:textAppearance="@*android:style/TextAppearance.DeviceDefault.Subhead"
-            android:paddingStart="20dp" />
     </RadioGroup>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:paddingTop="20dp" >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_info_outline_24dp"
-            android:contentDescription="@null"
-            android:layout_gravity="center_vertical"
-            android:paddingStart="4dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/panel_mode_info"
-            android:paddingStart="24dp"
-            android:layout_gravity="center_vertical"/>
-    </LinearLayout>
 </LinearLayout>

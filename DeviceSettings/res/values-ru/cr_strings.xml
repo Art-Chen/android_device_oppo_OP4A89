@@ -12,8 +12,8 @@
      limitations under the License.
 -->
 <resources>
-    <string name="device_title">Настройки OnePlus</string>
-    <string name="device_summary">Отрегулируйте настройки устройства OnePlus</string>
+    <string name="device_title">Настройки OPPO</string>
+    <string name="device_summary">Отрегулируйте настройки устройства OPPO</string>
     <!-- Display modes -->
     <string name="display_title">Режимы экрана</string>
     <string name="display_summary">Настройки и параметры экрана</string>
@@ -24,7 +24,7 @@
     <string name="dc_mode_summary"></string>
     <string name="dc_mode_title">DC-Dimming</string>
     <string name="adaptive_mode_title">Адаптивный режим</string>
-    <string name="oneplus_mode_title">Режим OnePlus</string>
+    <string name="OPPO_mode_title">Режим OPPO</string>
     <string name="dci_mode_summary"></string>
     <string name="dci_mode_title">Режим широкой цветовой гаммы DCI-P3</string>
     <string name="Night_mode_summary"></string>

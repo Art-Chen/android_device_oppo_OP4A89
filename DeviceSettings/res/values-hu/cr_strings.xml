@@ -12,8 +12,8 @@
      limitations under the License.
 -->
 <resources>
-    <string name="device_title">OnePlus beállítások</string>
-    <string name="device_summary">OnePlus specifikus készülékbeállítások</string>
+    <string name="device_title">OPPO beállítások</string>
+    <string name="device_summary">OPPO specifikus készülékbeállítások</string>
     <!-- Display modes -->
     <string name="display_title">Megjelenítési módok</string>
     <string name="display_summary">Beállítások finomhangolása a kijelző igényei szerint</string>
@@ -24,7 +24,7 @@
     <string name="dc_mode_summary"></string>
     <string name="dc_mode_title">DC-Dimming</string>
     <string name="adaptive_mode_title">Adaptív mód</string>
-    <string name="oneplus_mode_title">OnePlus mód</string>
+    <string name="OPPO_mode_title">OPPO mód</string>
     <string name="dci_mode_summary"></string>
     <string name="dci_mode_title">DCI-P3 széles színskála mód</string>
     <string name="Night_mode_summary"></string>

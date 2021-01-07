@@ -12,8 +12,8 @@
      limitations under the License.
 -->
 <resources>
-    <string name="device_title">Cài đặt OnePlus</string>
-    <string name="device_summary">Điều chỉnh cài đặt cho thiết bị OnePlus</string>
+    <string name="device_title">Cài đặt OPPO</string>
+    <string name="device_summary">Điều chỉnh cài đặt cho thiết bị OPPO</string>
     <!-- Display modes -->
     <string name="display_title">Chế độ Hiển thị</string>
     <string name="display_summary">Điều chỉnh cài đặt và tùy chọn màn hình</string>
@@ -24,7 +24,7 @@
     <string name="dc_mode_summary"></string>
     <string name="dc_mode_title">DC - Làm mờ</string>
     <string name="adaptive_mode_title">Chế độ Thích nghi</string>
-    <string name="oneplus_mode_title">Chế độ OnePlus</string>
+    <string name="OPPO_mode_title">Chế độ OPPO</string>
     <string name="dci_mode_summary"></string>
     <string name="dci_mode_title">Chế độ Dải màu rộng DCI-P3</string>
     <string name="Night_mode_summary"></string>

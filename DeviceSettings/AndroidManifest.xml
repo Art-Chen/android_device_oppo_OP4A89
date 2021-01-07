@@ -52,7 +52,6 @@
         </activity>
 
         <activity android:name=".DeviceSettings" />
-        <activity android:name=".KeyHandler" />
 
         <activity
             android:name="org.lineageos.device.DeviceSettings.PanelSettingsActivity"
@@ -81,18 +80,6 @@
                 <action
                     android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
-        </service>
-
-        <service
-            android:name="org.lineageos.device.DeviceSettings.HBMModeTileService"
-            android:icon="@drawable/ic_hbm_tile"
-            android:label="@string/tile_hbm_mode"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action
-                    android:name="android.service.quicksettings.action.QS_TILE"/>
-            </intent-filter>
-
         </service>
 
         <service

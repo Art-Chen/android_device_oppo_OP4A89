@@ -12,8 +12,8 @@
      limitations under the License.
 -->
 <resources>
-    <string name="device_title">Definições OnePlus</string>
-    <string name="device_summary">Ajustar definições específicas de dispositivos OnePlus</string>
+    <string name="device_title">Definições OPPO</string>
+    <string name="device_summary">Ajustar definições específicas de dispositivos OPPO</string>
     <!-- Display modes -->
     <string name="display_title">Modos de tela</string>
     <string name="display_summary">Ajustar as configurações e preferências para tela</string>
@@ -24,7 +24,7 @@
     <string name="dc_mode_summary"></string>
     <string name="dc_mode_title">DC - Escurecendo</string>
     <string name="adaptive_mode_title">Modo adaptivo</string>
-    <string name="oneplus_mode_title">Modo OnePlus</string>
+    <string name="OPPO_mode_title">Modo OPPO</string>
     <string name="dci_mode_summary"></string>
     <string name="dci_mode_title">Modo de gama de cores DCI-P3</string>
     <string name="Night_mode_summary"></string>

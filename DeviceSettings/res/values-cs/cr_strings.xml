@@ -12,8 +12,8 @@
      limitations under the License.
 -->
 <resources>
-    <string name="device_title">OnePlus nastavení</string>
-    <string name="device_summary">Upravte konkrétní nastavení pro zařízení OnePlus</string>
+    <string name="device_title">OPPO nastavení</string>
+    <string name="device_summary">Upravte konkrétní nastavení pro zařízení OPPO</string>
     <!-- Display modes -->
     <string name="display_title">Režimy obrazovky</string>
     <string name="display_summary">Upravte nastavení a předvolby obrazovky</string>
@@ -24,7 +24,7 @@
     <string name="dc_mode_summary"></string>
     <string name="dc_mode_title">DC – Ztlumení</string>
     <string name="adaptive_mode_title">Adaptivní režim</string>
-    <string name="oneplus_mode_title">Režim OnePlus</string>
+    <string name="OPPO_mode_title">Režim OPPO</string>
     <string name="dci_mode_summary"></string>
     <string name="dci_mode_title">Režim širokého barevného spektra DCI-P3</string>
     <string name="Night_mode_summary"></string>

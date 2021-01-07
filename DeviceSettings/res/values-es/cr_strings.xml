@@ -12,8 +12,8 @@
      limitations under the License.
 -->
 <resources>
-    <string name="device_title">Configuraciones de OnePlus</string>
-    <string name="device_summary">Ajuste para dispositivo especifico de OnePlus</string>
+    <string name="device_title">Configuraciones de OPPO</string>
+    <string name="device_summary">Ajuste para dispositivo especifico de OPPO</string>
     <!-- Display modes -->
     <string name="display_title">Modos de visualización</string>
     <string name="display_summary">Ajustar la configuración y preferencias para la pantalla</string>
@@ -24,7 +24,7 @@
     <string name="dc_mode_summary"></string>
     <string name="dc_mode_title">Ajuste de Brillo alternativo [DC-Diming]</string>
     <string name="adaptive_mode_title">Modo adaptativo</string>
-    <string name="oneplus_mode_title">Modo OnePlus</string>
+    <string name="OPPO_mode_title">Modo OPPO</string>
     <string name="dci_mode_summary"></string>
     <string name="dci_mode_title">Modo de amplia gama de colores DCI-P3</string>
     <string name="Night_mode_summary"></string>

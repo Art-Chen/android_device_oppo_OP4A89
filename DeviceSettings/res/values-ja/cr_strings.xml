@@ -12,8 +12,8 @@
      limitations under the License.
 -->
 <resources>
-    <string name="device_title">OnePlus 設定</string>
-    <string name="device_summary">OnePlus 専用の端末設定を調整する</string>
+    <string name="device_title">OPPO 設定</string>
+    <string name="device_summary">OPPO 専用の端末設定を調整する</string>
     <!-- Display modes -->
     <string name="display_title">ディスプレイモード</string>
     <string name="display_summary">ディスプレイの表示設定を調整する</string>
@@ -24,7 +24,7 @@
     <string name="dc_mode_summary"></string>
     <string name="dc_mode_title">DC 調光</string>
     <string name="adaptive_mode_title">自動モード</string>
-    <string name="oneplus_mode_title">OnePlus モード</string>
+    <string name="OPPO_mode_title">OPPO モード</string>
     <string name="dci_mode_summary"></string>
     <string name="dci_mode_title">DCI-P3 高色域モード</string>
     <string name="Night_mode_summary"></string>
