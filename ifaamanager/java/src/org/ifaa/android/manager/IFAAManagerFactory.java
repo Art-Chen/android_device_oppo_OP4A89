@@ -80,7 +80,7 @@ public class IFAAManagerFactory {
         }
 
         public String getDeviceModel() {
-            return "OPPO-R9071";
+            return "OPPO-R9081";
         }
 
         public int getVersion() {
