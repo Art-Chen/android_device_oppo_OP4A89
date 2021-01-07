@@ -50,14 +50,14 @@ static constexpr AwEffect WAVEFORM_CLICK_EFFECT {
     .loops = std::array<uint8_t, 8>({ 0, 0, 0, 0, 0, 0, 0, 0 }),
     .vmax = VMAX,
     .gain = GAIN,
-    .timeMS = 0
+    .timeMS = 1
 };
 static constexpr AwEffect WAVEFORM_TICK_EFFECT {
     .sequences = std::array<uint8_t, 8>({ 1, 0, 0, 0, 0, 0, 0, 0 }),
     .loops = std::array<uint8_t, 8>({ 0, 0, 0, 0, 0, 0, 0, 0 }),
     .vmax = VMAX,
     .gain = GAIN,
-    .timeMS = 0
+    .timeMS = 1
 };
 static constexpr AwEffect WAVEFORM_DOUBLE_CLICK_EFFECT {
     .sequences = std::array<uint8_t, 8>({ 1, 0, 0, 0, 0, 0, 0, 0 }),
@@ -105,6 +105,7 @@ static void set(const std::string& path, const T& value) {
         LOG(ERROR) << "Unable to open: " << path << " (" <<  strerror(errno) << ")";
         return;
     }
+    LOG(ERROR) << "Art_Chen: set file " << path << " (" << value <<  ")";
 
     file << value;
 }
@@ -243,27 +244,21 @@ Return<void> Vibrator::performEffect(Effect effect, EffectStrength strength, per
 
     switch (effect) {
         case Effect::CLICK:
-            LOG(ERROR) << "Art_Chen set Effect CLICK ";
             setEffect(WAVEFORM_CLICK_EFFECT, timeMS);
             break;
         case Effect::DOUBLE_CLICK:
-            LOG(ERROR) << "Art_Chen set Effect DOUBLE_CLICK ";
             setEffect(WAVEFORM_DOUBLE_CLICK_EFFECT, timeMS);
             break;
         case Effect::TICK:
-            LOG(ERROR) << "Art_Chen set Effect TICK ";
             setEffect(WAVEFORM_TICK_EFFECT, timeMS);
             break;
         case Effect::HEAVY_CLICK:
-            LOG(ERROR) << "Art_Chen set Effect HEAVY_CLICK ";
             setEffect(WAVEFORM_HEAVY_CLICK_EFFECT, timeMS);
             break;
         case Effect::POP:
-            LOG(ERROR) << "Art_Chen set Effect POP ";
             setEffect(WAVEFORM_POP_EFFECT, timeMS);
             break;
         case Effect::THUD:
-            LOG(ERROR) << "Art_Chen set Effect THUD ";
             setEffect(WAVEFORM_THUD_EFFECT, timeMS);
             break;
         default:
