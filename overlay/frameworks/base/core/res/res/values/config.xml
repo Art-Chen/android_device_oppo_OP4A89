@@ -357,11 +357,7 @@
     <integer translatable="false" name="config_brightness_ramp_rate_fast">400</integer>
 
     <!-- Radius of the software rounded corners. -->
-    <dimen name="rounded_corner_radius">140px</dimen>
-
-    <!-- Radius of the software rounded corners at the bottom of the display
-         in its natural orientation. If zero, the value of rounded_corner_radius is used. -->
-    <dimen name="rounded_corner_radius_bottom">100px</dimen>
+    <dimen name="rounded_corner_radius">80px</dimen>
 
      <!-- The default peak refresh rate for a given device. -->
     <integer name="config_defaultPeakRefreshRate">90</integer>
@@ -801,10 +797,34 @@
     <!-- Whether device has vooc charging support -->
     <bool name="config_hasVoocCharger">true</bool>
 
-     <!-- Smart charging -->
+    <!-- Smart charging -->
     <bool name="config_smartChargingAvailable">true</bool>
     
     <!-- Whether to post reset runnable for all clients. Needed for some older vendor fingerprint HAL implementations. -->
     <bool name="config_fingerprintPostResetRunnableForAllClients">true</bool>
+    
+    <string translatable="false" name="config_mainBuiltInDisplayCutout">
+        M -200,0
+        C -15,0,-60,68,0,68
+        C 60,68,15,0,200,0
+        Z
+    </string>
+
+    <!-- Like config_mainBuiltInDisplayCutout, but this path is used to report the
+         one single bounding rect per device edge to the app via
+         {@link DisplayCutout#getBoundingRect}. Note that this path should try to match the visual
+         appearance of the cutout as much as possible, and may be smaller than
+         config_mainBuiltInDisplayCutout -->
+    <string translatable="false" name="config_mainBuiltInDisplayCutoutRectApproximation">
+        M -52,0
+        V 30
+        A 52 52 180 0 0 52,30
+        V 0
+        Z
+    </string>
+
+    <!-- Whether the display cutout region of the main built-in display should be forced to
+         black in software (to avoid aliasing or emulate a cutout that is not physically existent). -->
+    <bool name="config_fillMainBuiltInDisplayCutout">true</bool>
 
 </resources>
