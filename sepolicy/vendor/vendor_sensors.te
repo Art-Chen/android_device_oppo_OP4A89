@@ -1,2 +1,4 @@
-# Allow vendor_sensors to get vendor_sensors_prop
-get_prop(vendor_sensors, vendor_sensors_prop)
+# Allow vendor_sensors to get oppo prop
+get_prop(vendor_sensors, oppo_vendor_prop)
+get_prop(vendor_sensors, exported_default_prop)
+get_prop(vendor_sensors, engineer_vendor_prop)

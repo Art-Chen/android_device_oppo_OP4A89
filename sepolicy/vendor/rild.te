@@ -2,7 +2,5 @@
 allow rild vendor_data_file:dir rw_dir_perms;
 allow rild vendor_data_file:file create_file_perms;
 
-# Allow rild to read, write and create files in wifi_nv_data_file
-allow rild wifi_nv_data_file:dir rw_dir_perms;
-allow rild wifi_nv_data_file:file create_file_perms;
-
+get_prop(rild, engineer_vendor_prop)
+set_prop(rild, engineer_vendor_prop)

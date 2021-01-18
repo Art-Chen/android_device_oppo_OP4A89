@@ -15,7 +15,8 @@ binder_call(hal_livedisplay_oppo_OP4A89, hal_graphics_composer_default)
 
 # Allow hal_livedisplay_oppo_OP4A89 to write to DisplayMode nodes
 allow hal_livedisplay_oppo_OP4A89 sysfs_graphics:dir r_dir_perms;
-allow hal_livedisplay_oppo_OP4A89 sysfs_fod:file rw_file_perms;
+allow hal_livedisplay_oppo_OP4A89 sysfs_graphics_ffl:file rw_file_perms;
+allow hal_livedisplay_oppo_OP4A89 alpha_sysfs:file rw_file_perms;
 allow hal_livedisplay_oppo_OP4A89 sysfs_livedisplay_tuneable:file rw_file_perms;
 
 # Allow hal_livedisplay_oppo_OP4A89 to store files under /data/vendor/display and access them

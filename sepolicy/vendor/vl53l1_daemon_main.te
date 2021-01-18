@@ -9,7 +9,3 @@ allow vl53l1_daemon_main self:{
     netlink_kobject_uevent_socket
     netlink_socket
 } create_socket_perms_no_ioctl;
-
-# Allow vl53l1_daemon_main to read and write to sysfs_vl53l1
-allow vl53l1_daemon_main sysfs_vl53l1:dir search;
-allow vl53l1_daemon_main sysfs_vl53l1:file rw_file_perms;
