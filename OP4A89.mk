@@ -206,13 +206,16 @@ PRODUCT_PACKAGES += \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
     libdisplayconfig \
+	 libdisplayconfig.qti \
     libdisplayconfig.vendor \
     libqdMetaData \
     libqdMetaData.system \
     libqdMetaData.vendor \
     libminijail \
     libtinyxml \
-    libvulkan
+    libvulkan \
+	 vendor.display.config@2.0 \
+	 libwfdaac_vendor
 
 # Doze
 PRODUCT_PACKAGES += \
@@ -336,6 +339,7 @@ PRODUCT_PACKAGES += \
 
 # OMX
 PRODUCT_PACKAGES += \
+    libavservices_minijail \
     libavservices_minijail_vendor \
     libc2dcolorconvert \
     libcodec2_hidl@1.0.vendor \
@@ -485,3 +489,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_BOOT_JARS += \
     WfdCommon
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/seccomp/wfdservice.policy:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/seccomp_policy/wfdservice.policy
