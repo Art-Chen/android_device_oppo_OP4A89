@@ -17,7 +17,7 @@ $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 PRODUCT_NAME := lineage_OP4A89
 PRODUCT_DEVICE := OP4A89
 PRODUCT_BRAND := OPPO
-PRODUCT_MODEL := OPPO Reno Ace
+PRODUCT_MODEL := PCLM10
 PRODUCT_MANUFACTURER := OPPO
 
 PRODUCT_AAPT_CONFIG := xxhdpi
