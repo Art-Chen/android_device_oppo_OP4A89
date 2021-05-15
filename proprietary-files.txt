@@ -1434,6 +1434,15 @@ vendor/lib64/libsdm-diag.so
 vendor/lib64/libsdm-disp-vndapis.so
 vendor/lib64/libtinyxml2_1.so
 
+# Health
+vendor/bin/hw/android.hardware.health@2.1-service
+vendor/etc/init/android.hardware.health@2.1-service.rc
+vendor/etc/vintf/manifest/android.hardware.health@2.1.xml
+vendor/lib/hw/android.hardware.health@2.0-impl-2.1-qti.so
+vendor/lib/hw/android.hardware.health@2.0-impl-2.1.so
+vendor/lib64/hw/android.hardware.health@2.0-impl-2.1-qti.so
+vendor/lib64/hw/android.hardware.health@2.0-impl-2.1.so
+
 # IPA-Firmware
 vendor/firmware/ipa_fws.b00
 vendor/firmware/ipa_fws.b01
