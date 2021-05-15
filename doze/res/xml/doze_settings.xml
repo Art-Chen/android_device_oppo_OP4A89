@@ -34,18 +34,14 @@
             android:title="@string/pick_up_gesture_title"
             android:summary="@string/pick_up_gesture_summary" />
 
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:key="motion_sensor"
-        android:title="@string/motion_sensor_title">
-
         <SwitchPreference
-            android:key="gesture_motion"
             android:defaultValue="false"
-            android:title="@string/motion_gesture_title"
-            android:summary="@string/motion_gesture_summary" />
+            android:key="gesture_smart_wake"
+            android:summary="@string/smart_wake_gesture_summary"
+            android:title="@string/smart_wake_gesture_title" />
 
     </PreferenceCategory>
+
     <PreferenceCategory
         android:key="proximity_sensor"
         android:title="@string/proximity_sensor_title">

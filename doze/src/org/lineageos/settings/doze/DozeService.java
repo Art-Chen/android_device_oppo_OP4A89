@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 The CyanogenMod Project
+ * Copyright (C) 2015 The CyanogenMod Project
  *               2017-2018 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,14 +31,14 @@ public class DozeService extends Service {
 
     private ProximitySensor mProximitySensor;
     private PickupSensor mPickupSensor;
-    private MoveDetectSensor mMoveDetectSensor;
+    private MovementSensor mMovementSensor;
 
     @Override
     public void onCreate() {
         if (DEBUG) Log.d(TAG, "Creating service");
         mProximitySensor = new ProximitySensor(this);
         mPickupSensor = new PickupSensor(this);
-        mMoveDetectSensor = new MoveDetectSensor(this);
+        mMovementSensor = new MovementSensor(this);
 
         IntentFilter screenStateFilter = new IntentFilter();
         screenStateFilter.addAction(Intent.ACTION_SCREEN_ON);
@@ -57,9 +57,9 @@ public class DozeService extends Service {
         if (DEBUG) Log.d(TAG, "Destroying service");
         super.onDestroy();
         this.unregisterReceiver(mScreenStateReceiver);
-        mMoveDetectSensor.disable();
         mProximitySensor.disable();
         mPickupSensor.disable();
+        mMovementSensor.disable();
     }
 
     @Override
@@ -69,28 +69,28 @@ public class DozeService extends Service {
 
     private void onDisplayOn() {
         if (DEBUG) Log.d(TAG, "Display on");
-        if (Utils.isPickUpEnabled(this)) {
+        if (DozeUtils.isPickUpEnabled(this)) {
             mPickupSensor.disable();
         }
-        if (Utils.isMotionGestureEnabled(this)) {
-            mMoveDetectSensor.disable();
+        if (DozeUtils.isSmartWakeEnabled(this)) {
+            mMovementSensor.disable();
         }
-        if (Utils.isHandwaveGestureEnabled(this) ||
-                Utils.isPocketGestureEnabled(this)) {
+        if (DozeUtils.isHandwaveGestureEnabled(this) ||
+                DozeUtils.isPocketGestureEnabled(this)) {
             mProximitySensor.disable();
         }
     }
 
     private void onDisplayOff() {
         if (DEBUG) Log.d(TAG, "Display off");
-        if (Utils.isPickUpEnabled(this)) {
+        if (DozeUtils.isPickUpEnabled(this)) {
             mPickupSensor.enable();
         }
-        if (Utils.isMotionGestureEnabled(this)) {
-            mMoveDetectSensor.enable();
+        if (DozeUtils.isSmartWakeEnabled(this) && DozeUtils.isPickUpEnabled(this)) {
+            mMovementSensor.enable();
         }
-        if (Utils.isHandwaveGestureEnabled(this) ||
-                Utils.isPocketGestureEnabled(this)) {
+        if (DozeUtils.isHandwaveGestureEnabled(this) ||
+                DozeUtils.isPocketGestureEnabled(this)) {
             mProximitySensor.enable();
         }
     }

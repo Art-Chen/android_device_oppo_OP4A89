@@ -16,8 +16,7 @@
  limitations under the License.
  -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Motion sensor -->
-    <string name="motion_sensor_title">运动传感器</string>
-    <string name="motion_gesture_title">设备运动</string>
-    <string name="motion_gesture_summary">晃动设备时唤醒屏幕</string>
+    <!-- Smart Wake -->
+    <string name="smart_wake_gesture_title">智能唤醒</string>
+    <string name="smart_wake_gesture_summary">当设备发生微小动作时显示指纹按钮和通知，抬起设备时则唤醒设备</string>
 </resources>

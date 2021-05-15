@@ -29,30 +29,24 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class MoveDetectSensor implements SensorEventListener {
+public class MovementSensor implements SensorEventListener {
 
-    private static final boolean DEBUG = true;
-    private static final String TAG = "MoveDetectSensor";
+    private static final boolean DEBUG = false;
+    private static final String TAG = "MovementSensor";
 
-    private static final String MOVE_DETECT_SENSOR = "qti.sensor.move_detect";
-
-    private static final int MIN_PULSE_INTERVAL_MS = 1000;
+    private static final int MIN_PULSE_INTERVAL_MS = 2000;
 
     private SensorManager mSensorManager;
     private Sensor mSensor;
-    private Sensor mProximitySensor;
     private Context mContext;
     private ExecutorService mExecutorService;
 
     private long mEntryTimestamp;
 
-    private static boolean isNear = false;
-
-    public MoveDetectSensor(Context context) {
+    public MovementSensor(Context context) {
         mContext = context;
         mSensorManager = mContext.getSystemService(SensorManager.class);
-        mSensor = Utils.getSensor(mSensorManager, MOVE_DETECT_SENSOR);
-        mProximitySensor = Utils.getSensor(mSensorManager, "android.sensor.proximity");
+        mSensor = DozeUtils.getSensor(mSensorManager, "qti.sensor.move_detect");
         mExecutorService = Executors.newSingleThreadExecutor();
     }
 
@@ -65,14 +59,15 @@ public class MoveDetectSensor implements SensorEventListener {
         if (DEBUG) Log.d(TAG, "Got sensor event: " + event.values[0]);
 
         long delta = SystemClock.elapsedRealtime() - mEntryTimestamp;
+
         if (delta < MIN_PULSE_INTERVAL_MS) {
             return;
         }
 
         mEntryTimestamp = SystemClock.elapsedRealtime();
 
-        if (event.values[0] == 2.0f && !isNear) {
-            Utils.launchDozePulse(mContext);
+        if (event.values[0] == 2) {
+            DozeUtils.launchDozePulse(mContext);
         }
     }
 
@@ -84,29 +79,16 @@ public class MoveDetectSensor implements SensorEventListener {
     protected void enable() {
         if (DEBUG) Log.d(TAG, "Enabling");
         submit(() -> {
+            mEntryTimestamp = SystemClock.elapsedRealtime();
             mSensorManager.registerListener(this, mSensor,
                     SensorManager.SENSOR_DELAY_NORMAL);
-            mSensorManager.registerListener(mProximitySensorListener, mProximitySensor,
-                    SensorManager.SENSOR_DELAY_NORMAL);
-            mEntryTimestamp = SystemClock.elapsedRealtime();
         });
     }
 
     protected void disable() {
         if (DEBUG) Log.d(TAG, "Disabling");
         submit(() -> {
-            mSensorManager.unregisterListener(mProximitySensorListener, mProximitySensor);
             mSensorManager.unregisterListener(this, mSensor);
         });
     }
-
-    private final SensorEventListener mProximitySensorListener = new SensorEventListener() {
-        public void onSensorChanged(SensorEvent event) {
-            isNear = (event.values[0] == 0.0f);
-            Log.i(TAG,"isNear: " + isNear);
-        }
-
-        public void onAccuracyChanged(Sensor sensor, int i) {
-        }
-    };
 }

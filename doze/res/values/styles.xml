@@ -25,7 +25,8 @@
         <item name="switchPreferenceStyle">@style/Theme.Main.SwitchPreferenceStyle</item>
     </style>
 
-    <style name="Theme.Main.DialogPreferenceStyle" parent="@style/Theme.Main.PreferenceStyle" />
+    <style name="Theme.Main.DialogPreferenceStyle" parent="@style/Theme.Main.PreferenceStyle">
+    </style>
 
     <style name="Theme.Main.PreferenceCategoryStyle" parent="@*android:style/Preference.DeviceDefault.Category">
         <item name="allowDividerAbove">true</item>
