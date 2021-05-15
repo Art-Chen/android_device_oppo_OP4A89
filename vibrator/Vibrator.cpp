@@ -105,7 +105,6 @@ static void set(const std::string& path, const T& value) {
         LOG(ERROR) << "Unable to open: " << path << " (" <<  strerror(errno) << ")";
         return;
     }
-    LOG(ERROR) << "Art_Chen: set file " << path << " (" << value <<  ")";
 
     file << value;
 }
