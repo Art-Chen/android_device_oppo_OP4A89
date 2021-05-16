@@ -109,7 +109,7 @@ Return<void> FingerprintInscreen::onShowFODView() {
     }
     if (get(POWER_STATUS, 3) || get(POWER_STATUS, 4)) {
 	    set(NOTIFY_BLANK_PATH, 1);
-        set(AOD_MODE_PATH, 1);
+        set(AOD_MODE_PATH, 0);
 	}
     this->mFodCircleVisible = true;
 	this->mVendorFpService->setScreenState(::vendor::oppo::hardware::biometrics::fingerprint::V2_1::FingerprintScreenState::FINGERPRINT_SCREEN_ON);
