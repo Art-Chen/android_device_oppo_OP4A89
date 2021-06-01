@@ -69,6 +69,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
     vendor/lineage/config/permissions/vendor.lineage.biometrics.fingerprint.inscreen.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/vendor.lineage.biometrics.fingerprint.inscreen.xml
 
+# Freeform Multiwindow
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.freeform_window_management.xml
+
 # ANT+
 PRODUCT_PACKAGES += \
     AntHalService
@@ -86,11 +90,9 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    android.hardware.audio@2.0-service \
-    android.hardware.audio@5.0-impl \
-    android.hardware.audio.effect@5.0-impl \
-    android.hardware.audio.common@2.0-util \
-    android.hardware.audio.common@5.0-util \
+    android.hardware.audio.service \
+    android.hardware.audio@6.0-impl \
+    android.hardware.audio.effect@6.0-impl \
     android.hardware.soundtrigger@2.1-impl \
     android.hardware.bluetooth.audio@2.0-impl \
     audio.a2dp.default \
@@ -209,7 +211,7 @@ PRODUCT_PACKAGES += \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
     libdisplayconfig \
-	 libdisplayconfig.qti \
+    libdisplayconfig.qti \
     libdisplayconfig.vendor \
     libqdMetaData \
     libqdMetaData.system \
@@ -217,8 +219,8 @@ PRODUCT_PACKAGES += \
     libminijail \
     libtinyxml \
     libvulkan \
-	 vendor.display.config@2.0 \
-	 libwfdaac_vendor
+    vendor.display.config@2.0 \
+    libwfdaac_vendor
 
 # Doze
 PRODUCT_PACKAGES += \
@@ -297,6 +299,10 @@ PRODUCT_PACKAGES += \
 # Lights
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.oppo_msmnile
+
+# LiveDisplay
+PRODUCT_PACKAGES += \
+    vendor.lineage.livedisplay@2.1-service.oppo_OP4A89
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -440,10 +446,6 @@ PRODUCT_PACKAGES += \
 # Touch
 PRODUCT_PACKAGES += \
     vendor.lineage.touch@1.0-service.oppo_OP4A89
-
-# Device Settings
-PRODUCT_PACKAGES += \
-    DeviceSettings
 
 # Trust HAL
 PRODUCT_PACKAGES += \
