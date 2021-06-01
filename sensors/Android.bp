@@ -59,6 +59,7 @@ cc_binary {
     relative_install_path: "hw",
     vendor: true,
     init_rc: ["android.hardware.sensors@1.0-service.oppo_OP4A89.rc"],
+    vintf_fragments: ["android.hardware.sensors@1.0-service.oppo_OP4A89.xml"],
     srcs: ["service.cpp"],
     shared_libs: [
         "liblog",

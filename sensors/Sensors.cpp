@@ -125,7 +125,13 @@ Return<void> Sensors::getSensorsList(getSensorsList_cb _hidl_cb) {
         SensorInfo *dst = &out[i];
 
         convertFromSensor(*src, dst);
+
+        if (src->resolution == 0) {
+            dst->resolution = src->maxRange;
+        }
     }
+
+
 
     _hidl_cb(out);
 

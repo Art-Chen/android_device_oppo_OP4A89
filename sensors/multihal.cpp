@@ -64,21 +64,26 @@ static std::vector<hw_module_t *> *sub_hw_modules = NULL;
  * A module index is the module's index in sub_hw_modules.
  * A local handle is the handle the sub-module assigns to a sensor.
  */
-struct FullHandle {
+struct FullHandle
+{
     int moduleIndex;
     int localHandle;
 
-    bool operator<(const FullHandle &that) const {
-        if (moduleIndex < that.moduleIndex) {
+    bool operator<(const FullHandle &that) const
+    {
+        if (moduleIndex < that.moduleIndex)
+        {
             return true;
         }
-        if (moduleIndex > that.moduleIndex) {
+        if (moduleIndex > that.moduleIndex)
+        {
             return false;
         }
         return localHandle < that.localHandle;
     }
 
-    bool operator==(const FullHandle &that) const {
+    bool operator==(const FullHandle &that) const
+    {
         return moduleIndex == that.moduleIndex && localHandle == that.localHandle;
     }
 };
@@ -87,7 +92,8 @@ std::map<int, FullHandle> global_to_full;
 std::map<FullHandle, int> full_to_global;
 int next_global_handle = 1;
 
-static int assign_global_handle(int module_index, int local_handle) {
+static int assign_global_handle(int module_index, int local_handle)
+{
     int global_handle = next_global_handle++;
     FullHandle full_handle;
     full_handle.moduleIndex = module_index;
@@ -98,8 +104,10 @@ static int assign_global_handle(int module_index, int local_handle) {
 }
 
 // Returns the local handle, or -1 if it does not exist.
-static int get_local_handle(int global_handle) {
-    if (global_to_full.count(global_handle) == 0) {
+static int get_local_handle(int global_handle)
+{
+    if (global_to_full.count(global_handle) == 0)
+    {
         ALOGW("Unknown global_handle %d", global_handle);
         return -1;
     }
@@ -108,46 +116,56 @@ static int get_local_handle(int global_handle) {
 
 // Returns the sub_hw_modules index of the module that contains the sensor associates with this
 // global_handle, or -1 if that global_handle does not exist.
-static int get_module_index(int global_handle) {
-    if (global_to_full.count(global_handle) == 0) {
+static int get_module_index(int global_handle)
+{
+    if (global_to_full.count(global_handle) == 0)
+    {
         ALOGW("Unknown global_handle %d", global_handle);
         return -1;
     }
     FullHandle f = global_to_full[global_handle];
     ALOGV("FullHandle for global_handle %d: moduleIndex %d, localHandle %d",
-            global_handle, f.moduleIndex, f.localHandle);
+          global_handle, f.moduleIndex, f.localHandle);
     return f.moduleIndex;
 }
 
 // Returns the global handle for this full_handle, or -1 if the full_handle is unknown.
-static int get_global_handle(FullHandle* full_handle) {
+static int get_global_handle(FullHandle *full_handle)
+{
     int global_handle = -1;
-    if (full_to_global.count(*full_handle)) {
+    if (full_to_global.count(*full_handle))
+    {
         global_handle = full_to_global[*full_handle];
-    } else {
+    }
+    else
+    {
         ALOGW("Unknown FullHandle: moduleIndex %d, localHandle %d",
-            full_handle->moduleIndex, full_handle->localHandle);
+              full_handle->moduleIndex, full_handle->localHandle);
     }
     return global_handle;
 }
 
 static const int SENSOR_EVENT_QUEUE_CAPACITY = 36;
 
-struct TaskContext {
-  sensors_poll_device_t* device;
-  SensorEventQueue* queue;
+struct TaskContext
+{
+    sensors_poll_device_t *device;
+    SensorEventQueue *queue;
 };
 
-void *writerTask(void* ptr) {
+void *writerTask(void *ptr)
+{
     ALOGV("writerTask STARTS");
-    TaskContext* ctx = (TaskContext*)ptr;
-    sensors_poll_device_t* device = ctx->device;
-    SensorEventQueue* queue = ctx->queue;
-    sensors_event_t* buffer;
+    TaskContext *ctx = (TaskContext *)ptr;
+    sensors_poll_device_t *device = ctx->device;
+    SensorEventQueue *queue = ctx->queue;
+    sensors_event_t *buffer;
     int eventsPolled;
-    while (1) {
+    while (1)
+    {
         pthread_mutex_lock(&queue_mutex);
-        if (queue->waitForSpace(&queue_mutex)) {
+        if (queue->waitForSpace(&queue_mutex))
+        {
             ALOGV("writerTask waited for space");
         }
         int bufferSize = queue->getWritableRegion(SENSOR_EVENT_QUEUE_CAPACITY, &buffer);
@@ -157,8 +175,10 @@ void *writerTask(void* ptr) {
         ALOGV("writerTask before poll() - bufferSize = %d", bufferSize);
         eventsPolled = device->poll(device, buffer, bufferSize);
         ALOGV("writerTask poll() got %d events.", eventsPolled);
-        if (eventsPolled <= 0) {
-            if (eventsPolled < 0) {
+        if (eventsPolled <= 0)
+        {
+            if (eventsPolled < 0)
+            {
                 ALOGV("writerTask ignored error %d from %s", eventsPolled, device->common.module->name);
                 ALOGE("ERROR: Fix %s so it does not return error from poll()", device->common.module->name);
             }
@@ -167,7 +187,8 @@ void *writerTask(void* ptr) {
         pthread_mutex_lock(&queue_mutex);
         queue->markAsWritten(eventsPolled);
         ALOGV("writerTask wrote %d events", eventsPolled);
-        if (waiting_for_data) {
+        if (waiting_for_data)
+        {
             ALOGV("writerTask - broadcast data_available_cond");
             pthread_cond_broadcast(&data_available_cond);
         }
@@ -181,50 +202,52 @@ void *writerTask(void* ptr) {
  * Cache of all sensors, with original handles replaced by global handles.
  * This will be handled to get_sensors_list() callers.
  */
-static struct sensor_t const* global_sensors_list = NULL;
+static struct sensor_t const *global_sensors_list = NULL;
 static int global_sensors_count = -1;
 
 /*
  * Extends a sensors_poll_device_1 by including all the sub-module's devices.
  */
-struct sensors_poll_context_t {
+struct sensors_poll_context_t
+{
     /*
      * This is the device that SensorDevice.cpp uses to make API calls
      * to the multihal, which fans them out to sub-HALs.
      */
     sensors_poll_device_1 proxy_device; // must be first
 
-    void addSubHwDevice(struct hw_device_t*);
+    void addSubHwDevice(struct hw_device_t *);
 
     int activate(int handle, int enabled);
     int setDelay(int handle, int64_t ns);
-    int poll(sensors_event_t* data, int count);
+    int poll(sensors_event_t *data, int count);
     int batch(int handle, int flags, int64_t period_ns, int64_t timeout);
     int flush(int handle);
     int inject_sensor_data(struct sensors_poll_device_1 *dev, const sensors_event_t *data);
     int close();
 
-    std::vector<hw_device_t*> sub_hw_devices;
-    std::vector<SensorEventQueue*> queues;
+    std::vector<hw_device_t *> sub_hw_devices;
+    std::vector<SensorEventQueue *> queues;
     std::vector<pthread_t> threads;
     int nextReadIndex;
 
-    sensors_poll_device_t* get_v0_device_by_handle(int global_handle);
-    sensors_poll_device_1_t* get_v1_device_by_handle(int global_handle);
+    sensors_poll_device_t *get_v0_device_by_handle(int global_handle);
+    sensors_poll_device_1_t *get_v1_device_by_handle(int global_handle);
     int get_device_version_by_handle(int global_handle);
 
-    void copy_event_remap_handle(sensors_event_t* src, sensors_event_t* dest, int sub_index);
+    void copy_event_remap_handle(sensors_event_t *src, sensors_event_t *dest, int sub_index);
 };
 
-void sensors_poll_context_t::addSubHwDevice(struct hw_device_t* sub_hw_device) {
+void sensors_poll_context_t::addSubHwDevice(struct hw_device_t *sub_hw_device)
+{
     ALOGV("addSubHwDevice");
     this->sub_hw_devices.push_back(sub_hw_device);
 
     SensorEventQueue *queue = new SensorEventQueue(SENSOR_EVENT_QUEUE_CAPACITY);
     this->queues.push_back(queue);
 
-    TaskContext* taskContext = new TaskContext();
-    taskContext->device = (sensors_poll_device_t*) sub_hw_device;
+    TaskContext *taskContext = new TaskContext();
+    taskContext->device = (sensors_poll_device_t *)sub_hw_device;
     taskContext->queue = queue;
 
     pthread_t writerThread;
@@ -233,35 +256,45 @@ void sensors_poll_context_t::addSubHwDevice(struct hw_device_t* sub_hw_device) {
 }
 
 // Returns the device pointer, or NULL if the global handle is invalid.
-sensors_poll_device_t* sensors_poll_context_t::get_v0_device_by_handle(int global_handle) {
+sensors_poll_device_t *sensors_poll_context_t::get_v0_device_by_handle(int global_handle)
+{
     int sub_index = get_module_index(global_handle);
-    if (sub_index < 0 || sub_index >= (int) this->sub_hw_devices.size()) {
+    if (sub_index < 0 || sub_index >= (int)this->sub_hw_devices.size())
+    {
         return NULL;
     }
-    return (sensors_poll_device_t*) this->sub_hw_devices[sub_index];
+    return (sensors_poll_device_t *)this->sub_hw_devices[sub_index];
 }
 
 // Returns the device pointer, or NULL if the global handle is invalid.
-sensors_poll_device_1_t* sensors_poll_context_t::get_v1_device_by_handle(int global_handle) {
+sensors_poll_device_1_t *sensors_poll_context_t::get_v1_device_by_handle(int global_handle)
+{
     int sub_index = get_module_index(global_handle);
-    if (sub_index < 0 || sub_index >= (int) this->sub_hw_devices.size()) {
+    if (sub_index < 0 || sub_index >= (int)this->sub_hw_devices.size())
+    {
         return NULL;
     }
-    return (sensors_poll_device_1_t*) this->sub_hw_devices[sub_index];
+    return (sensors_poll_device_1_t *)this->sub_hw_devices[sub_index];
 }
 
 // Returns the device version, or -1 if the handle is invalid.
-int sensors_poll_context_t::get_device_version_by_handle(int handle) {
-    sensors_poll_device_t* v0 = this->get_v0_device_by_handle(handle);
-    if (v0) {
+int sensors_poll_context_t::get_device_version_by_handle(int handle)
+{
+    sensors_poll_device_t *v0 = this->get_v0_device_by_handle(handle);
+    if (v0)
+    {
         return v0->common.version;
-    } else {
+    }
+    else
+    {
         return -1;
     }
 }
 
-const char *apiNumToStr(int version) {
-    switch(version) {
+const char *apiNumToStr(int version)
+{
+    switch (version)
+    {
     case SENSORS_DEVICE_API_VERSION_1_0:
         return "SENSORS_DEVICE_API_VERSION_1_0";
     case SENSORS_DEVICE_API_VERSION_1_1:
@@ -277,28 +310,31 @@ const char *apiNumToStr(int version) {
     }
 }
 
-int sensors_poll_context_t::activate(int handle, int enabled) {
+int sensors_poll_context_t::activate(int handle, int enabled)
+{
     int retval = -EINVAL;
     ALOGV("activate");
     int local_handle = get_local_handle(handle);
-    sensors_poll_device_t* v0 = this->get_v0_device_by_handle(handle);
+    sensors_poll_device_t *v0 = this->get_v0_device_by_handle(handle);
     retval = v0->activate(v0, local_handle, enabled);
     ALOGV("retval %d", retval);
     return retval;
 }
 
-int sensors_poll_context_t::setDelay(int handle, int64_t ns) {
+int sensors_poll_context_t::setDelay(int handle, int64_t ns)
+{
     int retval = -EINVAL;
     ALOGV("setDelay");
     int local_handle = get_local_handle(handle);
-    sensors_poll_device_t* v0 = this->get_v0_device_by_handle(handle);
+    sensors_poll_device_t *v0 = this->get_v0_device_by_handle(handle);
     retval = v0->setDelay(v0, local_handle, ns);
     ALOGV("retval %d", retval);
     return retval;
 }
 
-void sensors_poll_context_t::copy_event_remap_handle(sensors_event_t* dest, sensors_event_t* src,
-        int sub_index) {
+void sensors_poll_context_t::copy_event_remap_handle(sensors_event_t *dest, sensors_event_t *src,
+                                                     int sub_index)
+{
     memcpy(dest, src, sizeof(struct sensors_event_t));
     // A normal event's "sensor" field is a local handle. Convert it to a global handle.
     // A meta-data event must have its sensor set to 0, but it has a nested event
@@ -310,17 +346,21 @@ void sensors_poll_context_t::copy_event_remap_handle(sensors_event_t* dest, sens
     // If the event's sensor field is unregistered for any reason, rewrite the sensor field
     // with a -1, instead of writing an incorrect but plausible sensor number, because
     // get_global_handle() returns -1 for unknown FullHandles.
-    if (dest->type == SENSOR_TYPE_META_DATA) {
+    if (dest->type == SENSOR_TYPE_META_DATA)
+    {
         full_handle.localHandle = dest->meta_data.sensor;
         dest->meta_data.sensor = get_global_handle(&full_handle);
-    } else {
+    }
+    else
+    {
         full_handle.localHandle = dest->sensor;
         dest->sensor = get_global_handle(&full_handle);
     }
 }
 
 void light_sensor_correction(sensors_event_t *ev);
-int sensors_poll_context_t::poll(sensors_event_t *data, int maxReads) {
+int sensors_poll_context_t::poll(sensors_event_t *data, int maxReads)
+{
     ALOGV("poll");
     int empties = 0;
     int queueCount = 0;
@@ -328,31 +368,41 @@ int sensors_poll_context_t::poll(sensors_event_t *data, int maxReads) {
 
     pthread_mutex_lock(&queue_mutex);
     queueCount = (int)this->queues.size();
-    while (eventsRead == 0) {
-        while (empties < queueCount && eventsRead < maxReads) {
-            SensorEventQueue* queue = this->queues.at(this->nextReadIndex);
-            sensors_event_t* event = queue->peek();
-            if (event == NULL) {
+    while (eventsRead == 0)
+    {
+        while (empties < queueCount && eventsRead < maxReads)
+        {
+            SensorEventQueue *queue = this->queues.at(this->nextReadIndex);
+            sensors_event_t *event = queue->peek();
+            if (event == NULL)
+            {
                 empties++;
-            } else {
+            }
+            else
+            {
                 empties = 0;
                 this->copy_event_remap_handle(&data[eventsRead], event, nextReadIndex);
                 ALOGV("event type %d", data[eventsRead].type);
-                if (data[eventsRead].type == SENSOR_TYPE_QTI_HARDWARE_LIGHT) {
+                if (data[eventsRead].type == SENSOR_TYPE_QTI_HARDWARE_LIGHT)
+                {
                     ALOGV("Correcting value based on screen for SENSOR_TYPE_QTI_HARDWARE_LIGHT");
                     light_sensor_correction(&data[eventsRead]);
                 }
-                if (data[eventsRead].sensor == -1) {
+                if (data[eventsRead].sensor == -1)
+                {
                     // Bad handle, do not pass corrupted event upstream !
                     ALOGW("Dropping bad local handle event packet on the floor");
-                } else {
+                }
+                else
+                {
                     eventsRead++;
                 }
                 queue->dequeue();
             }
             this->nextReadIndex = (this->nextReadIndex + 1) % queueCount;
         }
-        if (eventsRead == 0) {
+        if (eventsRead == 0)
+        {
             // The queues have been scanned and none contain data, so wait.
             ALOGV("poll stopping to wait for data");
             waiting_for_data = true;
@@ -367,53 +417,58 @@ int sensors_poll_context_t::poll(sensors_event_t *data, int maxReads) {
     return eventsRead;
 }
 
-int sensors_poll_context_t::batch(int handle, int flags, int64_t period_ns, int64_t timeout) {
+int sensors_poll_context_t::batch(int handle, int flags, int64_t period_ns, int64_t timeout)
+{
     ALOGV("batch");
     int retval = -EINVAL;
     int local_handle = get_local_handle(handle);
-    sensors_poll_device_1_t* v1 = this->get_v1_device_by_handle(handle);
+    sensors_poll_device_1_t *v1 = this->get_v1_device_by_handle(handle);
     retval = v1->batch(v1, local_handle, flags, period_ns, timeout);
     ALOGV("retval %d", retval);
     return retval;
 }
 
-int sensors_poll_context_t::flush(int handle) {
+int sensors_poll_context_t::flush(int handle)
+{
     ALOGV("flush");
     int retval = -EINVAL;
     int local_handle = get_local_handle(handle);
-    sensors_poll_device_1_t* v1 = this->get_v1_device_by_handle(handle);
+    sensors_poll_device_1_t *v1 = this->get_v1_device_by_handle(handle);
     retval = v1->flush(v1, local_handle);
     ALOGV("retval %d", retval);
     return retval;
 }
 
 int sensors_poll_context_t::inject_sensor_data(struct sensors_poll_device_1 *dev,
-                                               const sensors_event_t *data) {
+                                               const sensors_event_t *data)
+{
     int retval = -EINVAL;
     ALOGV("inject_sensor_data");
     // Get handle for the sensor owning the event being injected
-    sensors_poll_device_1_t* v1 = this->get_v1_device_by_handle(data->sensor);
+    sensors_poll_device_1_t *v1 = this->get_v1_device_by_handle(data->sensor);
     retval = v1->inject_sensor_data(dev, data);
     ALOGV("retval %d", retval);
     return retval;
-
 }
 
-int sensors_poll_context_t::close() {
+int sensors_poll_context_t::close()
+{
     ALOGV("close");
-    for (std::vector<hw_device_t*>::iterator it = this->sub_hw_devices.begin();
-            it != this->sub_hw_devices.end(); it++) {
-        hw_device_t* dev = *it;
+    for (std::vector<hw_device_t *>::iterator it = this->sub_hw_devices.begin();
+         it != this->sub_hw_devices.end(); it++)
+    {
+        hw_device_t *dev = *it;
         int retval = dev->close(dev);
         ALOGV("retval %d", retval);
     }
     return 0;
 }
 
-
-static int device__close(struct hw_device_t *dev) {
-    sensors_poll_context_t* ctx = (sensors_poll_context_t*) dev;
-    if (ctx != NULL) {
+static int device__close(struct hw_device_t *dev)
+{
+    sensors_poll_context_t *ctx = (sensors_poll_context_t *)dev;
+    if (ctx != NULL)
+    {
         int retval = ctx->close();
         delete ctx;
         return retval;
@@ -422,36 +477,41 @@ static int device__close(struct hw_device_t *dev) {
 }
 
 static int device__activate(struct sensors_poll_device_t *dev, int handle,
-        int enabled) {
-    sensors_poll_context_t* ctx = (sensors_poll_context_t*) dev;
+                            int enabled)
+{
+    sensors_poll_context_t *ctx = (sensors_poll_context_t *)dev;
     return ctx->activate(handle, enabled);
 }
 
 static int device__setDelay(struct sensors_poll_device_t *dev, int handle,
-        int64_t ns) {
-    sensors_poll_context_t* ctx = (sensors_poll_context_t*) dev;
+                            int64_t ns)
+{
+    sensors_poll_context_t *ctx = (sensors_poll_context_t *)dev;
     return ctx->setDelay(handle, ns);
 }
 
-static int device__poll(struct sensors_poll_device_t *dev, sensors_event_t* data,
-        int count) {
-    sensors_poll_context_t* ctx = (sensors_poll_context_t*) dev;
+static int device__poll(struct sensors_poll_device_t *dev, sensors_event_t *data,
+                        int count)
+{
+    sensors_poll_context_t *ctx = (sensors_poll_context_t *)dev;
     return ctx->poll(data, count);
 }
 
 static int device__batch(struct sensors_poll_device_1 *dev, int handle,
-        int flags, int64_t period_ns, int64_t timeout) {
+                         int flags, int64_t period_ns, int64_t timeout)
+{
     (void)flags;
     (void)timeout;
 
-    sensors_poll_context_t* ctx = (sensors_poll_context_t*) dev;
+    sensors_poll_context_t *ctx = (sensors_poll_context_t *)dev;
 
     ctx->setDelay(handle, period_ns);
 
     return 0;
 }
 
-static int device__flush(struct sensors_poll_device_1 *dev, int handle) {
+static int device__flush(struct sensors_poll_device_1 *dev, int handle)
+{
     (void)dev;
     (void)handle;
 
@@ -459,45 +519,51 @@ static int device__flush(struct sensors_poll_device_1 *dev, int handle) {
 }
 
 static int device__inject_sensor_data(struct sensors_poll_device_1 *dev,
-        const sensors_event_t *data) {
-    sensors_poll_context_t* ctx = (sensors_poll_context_t*) dev;
+                                      const sensors_event_t *data)
+{
+    sensors_poll_context_t *ctx = (sensors_poll_context_t *)dev;
     return ctx->inject_sensor_data(dev, data);
 }
 
-static int open_sensors(const struct hw_module_t* module, const char* name,
-        struct hw_device_t** device);
+static int open_sensors(const struct hw_module_t *module, const char *name,
+                        struct hw_device_t **device);
 
 /*
  * Adds valid paths from the config file to the vector passed in.
  * The vector must not be null.
  */
-static void get_so_paths(std::vector<std::string> *so_paths) {
+static void get_so_paths(std::vector<std::string> *so_paths)
+{
     const std::vector<const char *> config_path_list(
-            { MULTI_HAL_CONFIG_FILE_PATH, DEPRECATED_MULTI_HAL_CONFIG_FILE_PATH });
+        {MULTI_HAL_CONFIG_FILE_PATH, DEPRECATED_MULTI_HAL_CONFIG_FILE_PATH});
 
     std::ifstream stream;
     const char *path = nullptr;
-    for (auto i : config_path_list) {
+    for (auto i : config_path_list)
+    {
         std::ifstream f(i);
-        if (f) {
+        if (f)
+        {
             stream = std::move(f);
             path = i;
             break;
         }
     }
-    if(!stream) {
+    if (!stream)
+    {
         ALOGW("No multihal config file found");
         return;
     }
 
     ALOGE_IF(strcmp(path, DEPRECATED_MULTI_HAL_CONFIG_FILE_PATH) == 0,
-            "Multihal configuration file path %s is not compatible with Treble "
-            "requirements. Please move it to %s.",
-            path, MULTI_HAL_CONFIG_FILE_PATH);
+             "Multihal configuration file path %s is not compatible with Treble "
+             "requirements. Please move it to %s.",
+             path, MULTI_HAL_CONFIG_FILE_PATH);
 
     ALOGV("Multihal config file found at %s", path);
     std::string line;
-    while (std::getline(stream, line)) {
+    while (std::getline(stream, line))
+    {
         ALOGV("config file line: '%s'", line.c_str());
         so_paths->push_back(line);
     }
@@ -507,9 +573,11 @@ static void get_so_paths(std::vector<std::string> *so_paths) {
  * Ensures that the sub-module array is initialized.
  * This can be first called from get_sensors_list or from open_sensors.
  */
-static void lazy_init_modules() {
+static void lazy_init_modules()
+{
     pthread_mutex_lock(&init_modules_mutex);
-    if (sub_hw_modules != NULL) {
+    if (sub_hw_modules != NULL)
+    {
         pthread_mutex_unlock(&init_modules_mutex);
         return;
     }
@@ -519,24 +587,33 @@ static void lazy_init_modules() {
     // dlopen the module files and cache their module symbols in sub_hw_modules
     sub_hw_modules = new std::vector<hw_module_t *>();
     dlerror(); // clear any old errors
-    const char* sym = HAL_MODULE_INFO_SYM_AS_STR;
-    for (std::vector<std::string>::iterator it = so_paths->begin(); it != so_paths->end(); it++) {
-        const char* path = it->c_str();
-        void* lib_handle = dlopen(path, RTLD_LAZY);
-        if (lib_handle == NULL) {
+    const char *sym = HAL_MODULE_INFO_SYM_AS_STR;
+    for (std::vector<std::string>::iterator it = so_paths->begin(); it != so_paths->end(); it++)
+    {
+        const char *path = it->c_str();
+        void *lib_handle = dlopen(path, RTLD_LAZY);
+        if (lib_handle == NULL)
+        {
             ALOGW("dlerror(): %s", dlerror());
-        } else {
+        }
+        else
+        {
             ALOGI("Loaded library from %s", path);
             ALOGV("Opening symbol \"%s\"", sym);
             // clear old errors
             dlerror();
-            struct hw_module_t* module = (hw_module_t*) dlsym(lib_handle, sym);
-            const char* error;
-            if ((error = dlerror()) != NULL) {
+            struct hw_module_t *module = (hw_module_t *)dlsym(lib_handle, sym);
+            const char *error;
+            if ((error = dlerror()) != NULL)
+            {
                 ALOGW("Error calling dlsym: %s", error);
-            } else if (module == NULL) {
+            }
+            else if (module == NULL)
+            {
                 ALOGW("module == NULL");
-            } else {
+            }
+            else
+            {
                 ALOGV("Loaded symbols from \"%s\"", sym);
                 sub_hw_modules->push_back(module);
             }
@@ -546,7 +623,8 @@ static void lazy_init_modules() {
 }
 
 template <typename T>
-static T get(const std::string& path, const T& def) {
+static T get(const std::string &path, const T &def)
+{
     std::ifstream file(path);
     T result;
 
@@ -560,8 +638,10 @@ int red_max_lux, green_max_lux, blue_max_lux, white_max_lux, max_brightness, row
  * Fix the fields of the sensor
  * Replace vendor sensor types with standard ones
  */
-static void fix_sensor_fields(sensor_t& sensor) {
-    if (sensor.type == SENSOR_TYPE_QTI_HARDWARE_LIGHT) {
+static void fix_sensor_fields(sensor_t &sensor)
+{
+    if (sensor.type == SENSOR_TYPE_QTI_HARDWARE_LIGHT)
+    {
         sensor.type = SENSOR_TYPE_LIGHT;
         ALOGV("Replaced QTI Light sensor with standard light sensor");
         red_max_lux = get("/proc/oppoAls/red_max_lux", 0);
@@ -570,21 +650,23 @@ static void fix_sensor_fields(sensor_t& sensor) {
         white_max_lux = get("/proc/oppoAls/white_max_lux", 0);
         row_coe = get("/proc/oppoAls/row_coe", 0);
         cali_coe = get("/proc/oppoAls/cali_coe", 0);
-        max_brightness = get("/sys/class/backlight/panel0-backlight/max_brightness", 255);
+        max_brightness = 1023;
         ALOGV("max r = %d, max g = %d, max b = %d", red_max_lux, green_max_lux, blue_max_lux);
     }
 }
 
-void light_sensor_correction(sensors_event_t *ev) {
+void light_sensor_correction(sensors_event_t *ev)
+{
     uint8_t *buffer = NULL;
-    update_screen_buffer((void**) &buffer);
+    update_screen_buffer((void **)&buffer);
     uint8_t r = buffer[0];
     uint8_t g = buffer[1];
     uint8_t b = buffer[2];
     ALOGV("Screen Color Above Sensor: %d, %d, %d", r, g, b);
     ALOGV("Original reading: %f", ev->light);
     int screen_brightness = get("/sys/class/backlight/panel0-backlight/brightness", 0);
-    if (red_max_lux == 0 && green_max_lux == 0 && blue_max_lux == 0 && white_max_lux == 0) {
+    if (red_max_lux == 0 && green_max_lux == 0 && blue_max_lux == 0 && white_max_lux == 0)
+    {
         ALOGV("Art_Chen: Maybe EngSensor not finished when init sensorservice, Try get it again");
         red_max_lux = get("/proc/oppoAls/red_max_lux", 0);
         green_max_lux = get("/proc/oppoAls/green_max_lux", 0);
@@ -595,22 +677,26 @@ void light_sensor_correction(sensors_event_t *ev) {
         ALOGV("re-get: max r = %d, max g = %d, max b = %d", red_max_lux, green_max_lux, blue_max_lux);
     }
     float correction = 0.0f;
-    if (red_max_lux > 0 && green_max_lux > 0 && blue_max_lux > 0 && white_max_lux > 0) {
+    if (red_max_lux > 0 && green_max_lux > 0 && blue_max_lux > 0 && white_max_lux > 0)
+    {
         uint8_t rgb_min = std::min({r, g, b});
-        correction += ((float) rgb_min) / 255.0f * ((float) white_max_lux);
+        correction += ((float)rgb_min) / 255.0f * ((float)white_max_lux);
         r -= rgb_min;
         g -= rgb_min;
         b -= rgb_min;
-        correction += ((float) r) / 255.0f * ((float) red_max_lux);
-        correction += ((float) g) / 255.0f * ((float) green_max_lux);
-        correction += ((float) b) / 255.0f * ((float) blue_max_lux);
-        correction = correction * (((float) screen_brightness) / ((float) max_brightness));
+        correction += ((float)r) / 255.0f * ((float)red_max_lux);
+        correction += ((float)g) / 255.0f * ((float)green_max_lux);
+        correction += ((float)b) / 255.0f * ((float)blue_max_lux);
+        correction = correction * (((float)screen_brightness) / ((float)max_brightness));
     }
     ALOGV("Final correction: %f", correction);
     // Sensor is not accurate for low values
-    if (ev->light - correction >= 0) {
+    if (ev->light - correction >= 0)
+    {
         ev->light -= correction;
-    } else {
+    }
+    else
+    {
         ev->light = correction;
     }
     ALOGV("Final correction lux: %f", ev->light);
@@ -620,10 +706,12 @@ void light_sensor_correction(sensors_event_t *ev) {
 /*
  * Lazy-initializes global_sensors_count, global_sensors_list, and module_sensor_handles.
  */
-static void lazy_init_sensors_list() {
+static void lazy_init_sensors_list()
+{
     ALOGV("lazy_init_sensors_list");
     pthread_mutex_lock(&init_sensors_mutex);
-    if (global_sensors_list != NULL) {
+    if (global_sensors_list != NULL)
+    {
         // already initialized
         pthread_mutex_unlock(&init_sensors_mutex);
         ALOGV("lazy_init_sensors_list - early return");
@@ -636,45 +724,48 @@ static void lazy_init_sensors_list() {
     // Count all the sensors, then allocate an array of blanks.
     global_sensors_count = 0;
     const struct sensor_t *subhal_sensors_list;
-    for (std::vector<hw_module_t*>::iterator it = sub_hw_modules->begin();
-            it != sub_hw_modules->end(); it++) {
-        struct sensors_module_t *module = (struct sensors_module_t*) *it;
+    for (std::vector<hw_module_t *>::iterator it = sub_hw_modules->begin();
+         it != sub_hw_modules->end(); it++)
+    {
+        struct sensors_module_t *module = (struct sensors_module_t *)*it;
         global_sensors_count += module->get_sensors_list(module, &subhal_sensors_list);
         ALOGV("increased global_sensors_count to %d", global_sensors_count);
     }
 
     // The global_sensors_list is full of consts.
     // Manipulate this non-const list, and point the const one to it when we're done.
-    sensor_t* mutable_sensor_list = new sensor_t[global_sensors_count];
+    sensor_t *mutable_sensor_list = new sensor_t[global_sensors_count];
 
     // index of the next sensor to set in mutable_sensor_list
     int mutable_sensor_index = 0;
     int module_index = 0;
 
-    for (std::vector<hw_module_t*>::iterator it = sub_hw_modules->begin();
-            it != sub_hw_modules->end(); it++) {
+    for (std::vector<hw_module_t *>::iterator it = sub_hw_modules->begin();
+         it != sub_hw_modules->end(); it++)
+    {
         hw_module_t *hw_module = *it;
         ALOGV("examine one module");
         // Read the sub-module's sensor list.
-        struct sensors_module_t *module = (struct sensors_module_t*) hw_module;
+        struct sensors_module_t *module = (struct sensors_module_t *)hw_module;
         int module_sensor_count = module->get_sensors_list(module, &subhal_sensors_list);
         ALOGV("the module has %d sensors", module_sensor_count);
 
         // Copy the HAL's sensor list into global_sensors_list,
         // with the handle changed to be a global handle.
-        for (int i = 0; i < module_sensor_count; i++) {
+        for (int i = 0; i < module_sensor_count; i++)
+        {
             ALOGV("examining one sensor");
             const struct sensor_t *local_sensor = &subhal_sensors_list[i];
             int local_handle = local_sensor->handle;
             memcpy(&mutable_sensor_list[mutable_sensor_index], local_sensor,
-                sizeof(struct sensor_t));
+                   sizeof(struct sensor_t));
 
             // Overwrite the global version's handle with a global handle.
             int global_handle = assign_global_handle(module_index, local_handle);
 
             mutable_sensor_list[mutable_sensor_index].handle = global_handle;
             ALOGV("module_index %d, local_handle %d, global_handle %d",
-                    module_index, local_handle, global_handle);
+                  module_index, local_handle, global_handle);
 
             fix_sensor_fields(mutable_sensor_list[mutable_sensor_index]);
             mutable_sensor_index++;
@@ -688,21 +779,22 @@ static void lazy_init_sensors_list() {
     ALOGV("end lazy_init_sensors_list");
 }
 
-static int module__get_sensors_list(__unused struct sensors_module_t* module,
-        struct sensor_t const** list) {
+static int module__get_sensors_list(__unused struct sensors_module_t *module,
+                                    struct sensor_t const **list)
+{
     ALOGV("module__get_sensors_list start");
     lazy_init_sensors_list();
     *list = global_sensors_list;
     ALOGV("global_sensors_count: %d", global_sensors_count);
-    for (int i = 0; i < global_sensors_count; i++) {
+    for (int i = 0; i < global_sensors_count; i++)
+    {
         ALOGV("sensor type: %d", global_sensors_list[i].type);
     }
     return global_sensors_count;
 }
 
 static struct hw_module_methods_t sensors_module_methods = {
-    .open = open_sensors
-};
+    .open = open_sensors};
 
 struct sensors_module_t HAL_MODULE_INFO_SYM = {
     .common = {
@@ -716,15 +808,16 @@ struct sensors_module_t HAL_MODULE_INFO_SYM = {
         .dso = NULL,
         .reserved = {0},
     },
-    .get_sensors_list = module__get_sensors_list
-};
+    .get_sensors_list = module__get_sensors_list};
 
-struct sensors_module_t *get_multi_hal_module_info() {
+struct sensors_module_t *get_multi_hal_module_info()
+{
     return (&HAL_MODULE_INFO_SYM);
 }
 
-static int open_sensors(const struct hw_module_t* hw_module, const char* name,
-        struct hw_device_t** hw_device_out) {
+static int open_sensors(const struct hw_module_t *hw_module, const char *name,
+                        struct hw_device_t **hw_device_out)
+{
     ALOGV("open_sensors begin...");
 
     lazy_init_modules();
@@ -734,7 +827,7 @@ static int open_sensors(const struct hw_module_t* hw_module, const char* name,
     memset(dev, 0, sizeof(sensors_poll_device_1_t));
     dev->proxy_device.common.tag = HARDWARE_DEVICE_TAG;
     dev->proxy_device.common.version = SENSORS_DEVICE_API_VERSION_1_3;
-    dev->proxy_device.common.module = const_cast<hw_module_t*>(hw_module);
+    dev->proxy_device.common.module = const_cast<hw_module_t *>(hw_module);
     dev->proxy_device.common.close = device__close;
     dev->proxy_device.activate = device__activate;
     dev->proxy_device.setDelay = device__setDelay;
@@ -746,12 +839,14 @@ static int open_sensors(const struct hw_module_t* hw_module, const char* name,
     dev->nextReadIndex = 0;
 
     // Open() the subhal modules. Remember their devices in a vector parallel to sub_hw_modules.
-    for (std::vector<hw_module_t*>::iterator it = sub_hw_modules->begin();
-            it != sub_hw_modules->end(); it++) {
-        sensors_module_t *sensors_module = (sensors_module_t*) *it;
-        struct hw_device_t* sub_hw_device;
+    for (std::vector<hw_module_t *>::iterator it = sub_hw_modules->begin();
+         it != sub_hw_modules->end(); it++)
+    {
+        sensors_module_t *sensors_module = (sensors_module_t *)*it;
+        struct hw_device_t *sub_hw_device;
         int sub_open_result = sensors_module->common.methods->open(*it, name, &sub_hw_device);
-        if (!sub_open_result) {
+        if (!sub_open_result)
+        {
             dev->addSubHwDevice(sub_hw_device);
         }
     }
