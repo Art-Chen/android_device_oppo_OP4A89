@@ -2733,11 +2733,6 @@ vendor/etc/sll.conf
 vendor/etc/ssg/ta_config.json
 vendor/etc/ssg/tz_whitelist.json
 vendor/etc/tunings.txt
-vendor/euclid/engineering.aging.img
-vendor/euclid/engineering.preversion.img
-vendor/euclid/product.img
-vendor/euclid/version.19081.img
-vendor/euclid_build.prop
 vendor/lib/android.frameworks.faceservice@1.0.so
 vendor/lib/hw/awinic.haptic.effect.so
 vendor/lib/hw/vendor.qti.hardware.audiohalext@1.0-impl.so
