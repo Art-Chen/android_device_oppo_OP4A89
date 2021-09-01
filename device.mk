@@ -168,11 +168,16 @@ PRODUCT_PACKAGES += \
     Snap \
     vendor.qti.hardware.camera.device@1.0.vendor
 
+<<<<<<< HEAD:device.mk
 # CNE
 PRODUCT_PACKAGES += \
     cneapiclient \
     com.quicinc.cne \
     services-ext
+
+# Charge control
+PRODUCT_PACKAGES += \
+    vendor.kscope.chgctrl@1.0-service.oplus_OP4A89
 
 # Common init scripts
 PRODUCT_PACKAGES += \
