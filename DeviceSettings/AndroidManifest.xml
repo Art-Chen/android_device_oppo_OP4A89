@@ -31,7 +31,7 @@
     <application
         android:icon="@drawable/ic_settings_device"
         android:label="@string/device_title"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.SubSettingsBase">
 
         <!-- Device Settings -->
         <activity
