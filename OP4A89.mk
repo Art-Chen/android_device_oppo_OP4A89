@@ -236,18 +236,12 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.1-service.oppo_OP4A89 \
-    vendor.lineage.biometrics.fingerprint.inscreen@1.0-service.oppo_OP4A89
+    android.hardware.biometrics.fingerprint@2.3-service.oppo_OP4A89 \
+    android.hardware.biometrics.fingerprint@2.3.vendor
 
 # For config.fs
 PRODUCT_PACKAGES += \
     fs_config_files
-
-
-# FOD
-TARGET_HAS_FOD := true
-EXTRA_FOD_ANIMATIONS := true
-
 
 # GPS
 PRODUCT_COPY_FILES += \

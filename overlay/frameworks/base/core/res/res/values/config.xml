@@ -243,7 +243,7 @@
          If a non-zero value is set for config_defaultPeakRefreshRate, then
          config_defaultRefreshRate may be set to 0, in which case the value set for
          config_defaultPeakRefreshRate will act as the default frame rate. -->
-    <integer name="config_defaultRefreshRate">90</integer>
+    <integer name="config_defaultRefreshRate">0</integer>
 
     <!-- default refresh rate in the zone defined by brightness and ambient thresholds -->
     <integer name="config_defaultRefreshRateInZone">90</integer>
@@ -709,10 +709,16 @@
 
     <!-- Specifies the maximum burn-in offset vertically. -->
     <integer name="config_burnInProtectionMaxVerticalOffset">40</integer>
+    
+    
+    <!-- The properties of a UDFPS sensor in pixels, in the order listed below: -->
+    <integer-array name="config_udfps_sensor_props" translatable="false" >
+        <item>540</item>  <!-- <item>sensorLocationX</item> -->
+        <item>2156</item> <!-- <item>sensorLocationY</item> -->
+        <item>95</item>   <!-- <item>sensorRadius</item> -->
+    </integer-array>
 
-    <!-- Default fod pressed color -->
-    <integer name="config_fod_pressed_color">0</integer>
+    <!-- How long it takes for the HW to start illuminating after the illumination is requested. -->
+    <integer name="config_udfps_illumination_transition_ms">0</integer>
 
-    <!-- Screen off FOD -->
-    <bool name="config_supportScreenOffFod">true</bool>
 </resources>

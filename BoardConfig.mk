@@ -99,7 +99,7 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 BOARD_USES_QCNE := true
 
 # FOD
-TARGET_SURFACEFLINGER_FOD_LIB := //$(DEVICE_PATH):libfod_extension.oppo_OP4A89
+TARGET_SURFACEFLINGER_UDFPS_LIB := //$(DEVICE_PATH):libudfps_extension.oppo_OP4A89
 
 # Dex
 ifeq ($(HOST_OS),linux)
