@@ -10,11 +10,11 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 $(call inherit-product, device/oppo/OP4A89/OP4A89.mk)
 
-# Inherit some common Lineage stuff.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+# Inherit some common ArrowOS stuff.
+$(call inherit-product, vendor/arrow/config/common_full_phone.mk)
 
 # Device identifier. This must come after all inclusions.
-PRODUCT_NAME := lineage_OP4A89
+PRODUCT_NAME := arrow_OP4A89
 PRODUCT_DEVICE := OP4A89
 PRODUCT_BRAND := OPPO
 PRODUCT_MODEL := PCLM10
