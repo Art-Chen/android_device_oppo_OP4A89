@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2014-2017 The OmniROM Project
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <!-- Panel modes -->
+    <string name="device_title">OPPO设置</string>
+    <string name="device_summary">调整OPPO特定设备设置</string>
+    <string name="display_title">显示</string>
+    <string name="srgb_mode_summary"></string>
+    <string name="srgb_mode_title">sRGB 模式</string>
+    <string name="hbm_mode_summary"></string>
+    <string name="hbm_mode_title">高亮度模式</string>
+    <string name="wide_color_mode_title">广色域模式</string>
+    <string name="dci_mode_summary"></string>
+    <string name="dci_mode_title">DCI-P3 广色域模式</string>
+    <string name="panel_category_title">面板模式</string>
+    <string name="panel_category_summary">面板颜色校正模式</string>
+    <string name="off_mode_title">关闭</string>
+    <string name="tile_panel_mode">面板模式</string>
+    <string name="dc_mode_summary"></string>
+    <string name="dc_mode_title">DC 调光</string>
+    <string name="tile_hbm_mode">高亮度模式</string>
+    <string name="tile_dc_mode">DC-调光</string>
+    <!-- Screen off Gestures : Input -->
+    <string name="touchscreen_gesture_settings_title">触摸屏手势</string>
+    <string name="touchscreen_gesture_settings_summary">为快捷操作采用各种触摸屏手势</string>
+    <string name="touchscreen_gestures_haptic_feedback_title">触摸反馈</string>
+    <string name="touchscreen_gestures_haptic_feedback_summary">检测到一个触摸屏手势时振动</string>
+    <string name="touchscreen_gesture_two_finger_down_swipe_title">双指下滑</string>
+    <string name="touchscreen_gesture_one_finger_up_swipe_title">单指向上滑动</string>
+    <string name="touchscreen_gesture_one_finger_up_swipe_home_title">从主页键向上滑动</string>
+    <string name="touchscreen_gesture_one_finger_down_swipe_title">单指下滑</string>
+    <string name="touchscreen_gesture_one_finger_left_swipe_title">单指向左滑动</string>
+    <string name="touchscreen_gesture_one_finger_right_swipe_title">单指向右滑动</string>
+    <string name="touchscreen_gesture_single_tap_title">单击</string>
+    <string name="touchscreen_gesture_down_arrow_title">绘制一个\"Λ\"</string>
+    <string name="touchscreen_gesture_up_arrow_title">绘制一个 “V”</string>
+    <string name="touchscreen_gesture_right_arrow_title">绘制一个\"&lt;\"</string>
+    <string name="touchscreen_gesture_left_arrow_title">绘制一个\"&gt;\"</string>
+    <string name="touchscreen_gesture_letter_c_title">画个字母“C”咯</string>
+    <string name="touchscreen_gesture_letter_e_title">绘制字母\"e\"</string>
+    <string name="touchscreen_gesture_letter_o_title">绘制字母“O”</string>
+    <string name="touchscreen_gesture_letter_m_title">绘制字母\"M\"</string>
+    <string name="touchscreen_gesture_letter_s_title">绘制字母\"S\"</string>
+    <string name="touchscreen_gesture_letter_v_title">绘制字母\"V\"</string>
+    <string name="touchscreen_gesture_letter_w_title">绘制字母\"W\"</string>
+    <string name="touchscreen_gesture_letter_z_title">绘制字母 “Z”</string>
+    <!-- Screen off Gestures : Actions -->
+    <string name="touchscreen_gesture_action_dialog_title">手势操作</string>
+    <string name="touchscreen_gesture_action_do_nothing">什么都不做</string>
+    <string name="touchscreen_gesture_action_flashlight">切换手电筒</string>
+    <string name="touchscreen_gesture_action_camera">打开相机</string>
+    <string name="touchscreen_gesture_action_browser">打开浏览器</string>
+    <string name="touchscreen_gesture_action_dialer">打开拨号器</string>
+    <string name="touchscreen_gesture_action_email">查看您的电子邮件</string>
+    <string name="touchscreen_gesture_action_messages">查看您的信息</string>
+    <string name="touchscreen_gesture_action_play_pause_music">播放/暂停音乐</string>
+    <string name="touchscreen_gesture_action_previous_track">切换到前一曲目</string>
+    <string name="touchscreen_gesture_action_next_track">切换到下一曲目</string>
+    <string name="touchscreen_gesture_action_volume_down">降低媒体音量</string>
+    <string name="touchscreen_gesture_action_volume_up">提高媒体音量</string>
+    <string name="touchscreen_gesture_action_ambient_display">环境显示</string>
+    <!-- Refresh rate -->
+    <string name="refresh_title">屏幕刷新率</string>
+    <string name="tile_refresh_rate">屏幕刷新率</string>
+    <string name="auto_refresh_rate_summary">由应用决定刷新率</string>
+    <string name="auto_refresh_rate_title">自动刷新模式</string>
+    <string name="refresh_rate_summary">在 60Hz 或 90Hz 峰值刷新之间选择</string>
+    <string name="refresh_rate_title">强制 90Hz 刷新率</string>
+    <string name="panel_mode_info">禁用面板模式需要重新启动。</string>
+</resources>
