@@ -20,11 +20,6 @@
             1 - LOCAL HBM
     -->
     <integer name="config_udfps_hbm_type">0</integer>
-    
-    <!-- Allow devices to use unordinary cutout overlays -->
-    <bool name="config_customCutout">true</bool>
-    <dimen name="config_customCutoutRadius">160.0px</dimen>
-    
     <!-- Allow devices override audio panel location to the left side -->
     <bool name="config_audioPanelOnLeftSide">true</bool>
 </resources>
