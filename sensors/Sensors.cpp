@@ -355,9 +355,7 @@ void Sensors::convertFromSensorEvents(
         convertFromSensorEvent(src, dst);
 		
 		if (dst->sensorHandle == kLightSensorHandle) {
-		     LOG(INFO) << "Art_Chen pre-process Light!!!";
 		     AlsCorrection::process(*dst);
-		     LOG(INFO) << "Art_Chen process Light!!!";
 		}
     }
 }
