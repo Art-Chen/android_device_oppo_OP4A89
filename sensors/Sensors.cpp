@@ -15,8 +15,10 @@
  */
 
 #include "Sensors.h"
-#include "convert.h"
+#include <sensors/convert.h>
 #include "multihal.h"
+
+#include "AlsCorrection.h"
 
 #include <android-base/logging.h>
 
@@ -58,6 +60,7 @@ Sensors::Sensors()
       mSensorModule(nullptr),
       mSensorDevice(nullptr) {
     status_t err = OK;
+	kLightSensorHandle = -1;
     if (UseMultiHal()) {
         mSensorModule = ::get_multi_hal_module_info();
     } else {
@@ -125,13 +128,19 @@ Return<void> Sensors::getSensorsList(getSensorsList_cb _hidl_cb) {
         SensorInfo *dst = &out[i];
 
         convertFromSensor(*src, dst);
+		
+		if (dst->typeAsString == "qti.sensor.wise_light") {
+            dst->type = SensorType::LIGHT;
+			kLightSensorHandle = dst->sensorHandle;
+            LOG(INFO) << "Replaced QTI Light sensor with standard light sensor";
+            AlsCorrection::init();
+
+		}
 
         if (src->resolution == 0) {
             dst->resolution = src->maxRange;
         }
     }
-
-
 
     _hidl_cb(out);
 
@@ -344,6 +353,12 @@ void Sensors::convertFromSensorEvents(
         Event *dst = &(*dstVec)[i];
 
         convertFromSensorEvent(src, dst);
+		
+		if (dst->sensorHandle == kLightSensorHandle) {
+		     LOG(INFO) << "Art_Chen pre-process Light!!!";
+		     AlsCorrection::process(*dst);
+		     LOG(INFO) << "Art_Chen process Light!!!";
+		}
     }
 }
 

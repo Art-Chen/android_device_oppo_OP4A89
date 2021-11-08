@@ -63,6 +63,7 @@ struct Sensors : public ::android::hardware::sensors::V1_0::ISensors {
             configDirectReport_cb _hidl_cb) override;
 
 private:
+    int32_t kLightSensorHandle;
     static constexpr int32_t kPollMaxBufferSize = 128;
     status_t mInitCheck;
     sensors_module_t *mSensorModule;
@@ -71,7 +72,7 @@ private:
 
     int getHalDeviceVersion() const;
 
-    static void convertFromSensorEvents(
+    void convertFromSensorEvents(
             size_t count, const sensors_event_t *src, hidl_vec<Event> *dst);
 
     DISALLOW_COPY_AND_ASSIGN(Sensors);

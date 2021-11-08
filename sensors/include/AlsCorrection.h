@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2021 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-#ifndef HARDWARE_INTERFACES_SENSORS_V1_0_DEFAULT_INCLUDE_CONVERT_H_
+#pragma once
 
-#define HARDWARE_INTERFACES_SENSORS_V1_0_DEFAULT_INCLUDE_CONVERT_H_
-
-#include <android/hardware/sensors/1.0/ISensors.h>
-#include <hardware/sensors.h>
+#include <android/hardware/sensors/1.0/types.h>
 
 namespace android {
 namespace hardware {
@@ -27,19 +24,16 @@ namespace sensors {
 namespace V1_0 {
 namespace implementation {
 
-void convertFromSensor(const sensor_t &src, SensorInfo *dst);
-void convertToSensor(const SensorInfo &src, sensor_t *dst);
+static constexpr int SENSOR_TYPE_QTI_HARDWARE_LIGHT = 33171027;
 
-void convertFromSensorEvent(const sensors_event_t &src, Event *dst);
-void convertToSensorEvent(const Event &src, sensors_event_t *dst);
-
-bool convertFromSharedMemInfo(const SharedMemInfo& memIn, sensors_direct_mem_t *memOut);
-int convertFromRateLevel(RateLevel rate);
+class AlsCorrection {
+  public:
+    static void init();
+    static void process(Event& event);
+};
 
 }  // namespace implementation
 }  // namespace V1_0
 }  // namespace sensors
 }  // namespace hardware
 }  // namespace android
-
-#endif  // HARDWARE_INTERFACES_SENSORS_V1_0_DEFAULT_INCLUDE_CONVERT_H_
