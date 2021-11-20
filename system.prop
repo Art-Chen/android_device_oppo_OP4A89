@@ -1,0 +1,8 @@
+vendor.gatekeeper.disable_spu=true
+ro.adb.secure=0
+fbe.metadata.wrappedkey=true
+
+# OPPO Extra by Art_Chen
+ro.product.product.device=19081
+ro.separate.soft=19081
+ro.vendor.version_variant=19081
