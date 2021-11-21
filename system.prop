@@ -6,3 +6,8 @@ fbe.metadata.wrappedkey=true
 ro.product.product.device=19081
 ro.separate.soft=19081
 ro.vendor.version_variant=19081
+
+# Crypto
+ro.crypto.allow_encrypt_override=true
+ro.crypto.volume.filenames_mode=aes-256-cts
+ro.crypto.metadata.enabled=true

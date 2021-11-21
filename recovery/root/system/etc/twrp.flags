@@ -4,7 +4,7 @@
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
 # mount point       fstype    device                                                                flags
-/metadata           ext4   /dev/block/bootdevice/by-name/metadata                    flags=backup=1;display="Metadata";
+/metadata           ext4   /dev/block/bootdevice/by-name/metadata                    flags=backup=1;display="Metadata";wrappedkey;
 /boot               emmc   /dev/block/bootdevice/by-name/boot                        flags=backup=1;display="Boot";flashimg=1
 /dtbo               emmc   /dev/block/bootdevice/by-name/dtbo                        flags=backup=1;display="Dtbo";flashimg=1
 /cache              ext4   /dev/block/bootdevice/by-name/cache                       flags=backup=1;wipeingui;wipeduringfactoryreset
