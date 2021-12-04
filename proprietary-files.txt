@@ -962,11 +962,9 @@ vendor/lib64/vendor.qti.hardware.factory@1.0.so
 vendor/lib64/vendor.qti.hardware.factory@1.1.so
 
 # Fingerprint
-vendor/bin/hw/vendor.oppo.hardware.biometrics.face@1.0-service
 vendor/bin/hw/vendor.oppo.hardware.biometrics.fingerprint@2.1-service
 vendor/bin/hw/vendor.oppo.hardware.biometrics.fingerprintpay@1.0-service
 vendor/bin/qfp-daemon
-vendor/etc/init/vendor.oppo.hardware.biometrics.face@1.0-service.rc
 vendor/etc/init/vendor.oppo.hardware.biometrics.fingerprint@2.1-service.rc
 vendor/etc/init/vendor.oppo.hardware.biometrics.fingerprintpay@1.0-service.rc
 vendor/etc/permissions/qti_fingerprint_interface.xml
