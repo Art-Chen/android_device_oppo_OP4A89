@@ -7,6 +7,10 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
 
+# Disable APEX compression
+# Keep this after including updatable_apex.mk
+PRODUCT_COMPRESSED_APEX := false
+
 # Get non-open-source specific aspects
 $(call inherit-product-if-exists, vendor/oppo/sm8150-common/sm8150-common-vendor.mk)
 $(call inherit-product, vendor/oppo/OP4A89/OP4A89-vendor.mk)
@@ -75,7 +79,8 @@ PRODUCT_COPY_FILES += \
 
 # ANT+
 PRODUCT_PACKAGES += \
-    AntHalService
+    AntHalService-Soong \
+    com.dsi.ant@1.0.vendor
 
 # AOSiP Device Settings
 PRODUCT_PACKAGES += \
@@ -98,7 +103,6 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@6.0-impl \
     android.hardware.audio.effect@6.0-impl \
     android.hardware.soundtrigger@2.1-impl \
-    android.hardware.bluetooth.audio@2.0-impl \
     audio.a2dp.default \
     audio.bluetooth.default \
     audio.r_submix.default \
@@ -136,19 +140,24 @@ PRODUCT_COPY_FILES += \
 
 
 PRODUCT_COPY_FILES += \
-    frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/a2dp_in_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_in_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
     frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml
 
-PRODUCT_COPY_FILES += \
-    hardware/qcom-caf/sm8150/audio/configs/common/bluetooth_qti_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_qti_audio_policy_configuration.xml
+#PRODUCT_COPY_FILES += \
+#    hardware/qcom-caf/sm8150/audio/configs/common/bluetooth_qti_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_qti_audio_policy_configuration.xml
 
 # Bluetooth
 PRODUCT_PACKAGES += \
     liba2dpoffload \
     libbthost_if \
+    android.hardware.bluetooth@1.0.vendor \
+    android.hardware.bluetooth@2.0.vendor \
+    android.hardware.bluetooth.audio@2.0 \
+    android.hardware.bluetooth.audio@2.0-impl \
+    android.hardware.bluetooth.audio@2.0.vendor \
     vendor.qti.hardware.bluetooth_audio@2.0.vendor \
     vendor.qti.hardware.btconfigstore@1.0 \
     vendor.qti.hardware.btconfigstore@1.0.vendor
@@ -197,6 +206,7 @@ PRODUCT_PACKAGES += \
     init.qcom.rc \
     init.qcom.usb.rc \
     init.oppo.vendor.touchpress.rc \
+    init.recovery.qcom.rc \
     init.target.rc \
     ueventd.qcom.rc \
     fstab.qcom
@@ -207,24 +217,42 @@ PRODUCT_PACKAGES += \
 
 # Component overrides
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/component-overrides_qti.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides_qti.xml
+    $(LOCAL_PATH)/configs/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
 
 # Display
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.3-service \
+    android.hardware.graphics.composer@2.4-service \
+    android.hardware.graphics.mapper@3.0-impl-qti-display \
+    android.hardware.graphics.mapper@4.0-impl-qti-display \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
-    libdisplayconfig \
+    gralloc.msmnile \
+    hwcomposer.msmnile \
     libdisplayconfig.qti \
-    libdisplayconfig.vendor \
+    libdisplayconfig.qti.vendor \
     libqdMetaData \
-    libqdMetaData.system \
-    libqdMetaData.vendor \
-    libminijail \
     libtinyxml \
     libvulkan \
+    memtrack.msmnile \
+    vendor.display.config@1.0 \
+    vendor.display.config@1.0.vendor \
+    vendor.display.config@1.1.vendor \
+    vendor.display.config@1.2.vendor \
+    vendor.display.config@1.3.vendor \
+    vendor.display.config@1.4.vendor \
+    vendor.display.config@1.5.vendor \
+    vendor.display.config@1.6.vendor \
+    vendor.display.config@1.7.vendor \
+    vendor.display.config@1.8.vendor \
+    vendor.display.config@1.9.vendor \
     vendor.display.config@2.0 \
-    libwfdaac_vendor
+    vendor.display.config@2.0.vendor \
+    vendor.qti.hardware.display.allocator-service \
+    vendor.qti.hardware.display.mapper@1.0.vendor \
+    vendor.qti.hardware.display.mapper@1.1.vendor \
+    vendor.qti.hardware.display.mapper@2.0.vendor \
+    vendor.qti.hardware.display.mapper@3.0.vendor \
+    vendor.qti.hardware.display.mapper@4.0.vendor
 
 # Doze
 PRODUCT_PACKAGES += \
@@ -233,6 +261,10 @@ PRODUCT_PACKAGES += \
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
+    android.hardware.drm@1.0.vendor \
+    android.hardware.drm@1.1.vendor \
+    android.hardware.drm@1.2.vendor \
+    android.hardware.drm@1.3.vendor \
     android.hardware.drm@1.0-service \
     android.hardware.drm@1.3-service.clearkey
 
@@ -245,7 +277,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fs_config_files
 
+# Gatekeeper
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0.vendor
+
 # GPS
+PRODUCT_PACKAGES += \
+    android.hardware.gnss@1.0.vendor \
+    android.hardware.gnss@1.1.vendor \
+    android.hardware.gnss@2.0.vendor
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps/apdr.conf:$(TARGET_COPY_OUT_VENDOR)/etc/apdr.conf \
     $(LOCAL_PATH)/configs/gps/flp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/flp.conf \
@@ -268,7 +309,7 @@ PRODUCT_PACKAGES += \
 
 # HotwordEnrollement app permissions
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/privapp-permissions-hotword.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-hotword.xml
+    $(LOCAL_PATH)/configs/privapp-permissions-hotword.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-hotword.xml
 
 # Input
 PRODUCT_COPY_FILES += \
@@ -298,6 +339,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.oppo_msmnile
 
+# Keystore
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@4.1.vendor
+
 # Media
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
@@ -320,15 +365,25 @@ PRODUCT_PACKAGES += \
 
 # Net
 PRODUCT_PACKAGES += \
+    android.system.net.netd@1.1.vendor \
     netutils-wrapper-1.0
+
+# Neural Networks
+PRODUCT_PACKAGES += \
+    android.hardware.neuralnetworks@1.3.vendor
 
 # NFC
 PRODUCT_PACKAGES += \
+    android.hardware.nfc@1.0.vendor \
+    android.hardware.nfc@1.1.vendor \
+    android.hardware.nfc@1.2.vendor \
     android.hardware.nfc@1.0:64 \
     android.hardware.nfc@1.1:64 \
     android.hardware.nfc@1.2:64 \
     android.hardware.secure_element@1.0:64 \
+    android.hardware.secure_element@1.0.vendor \
     android.hardware.secure_element@1.1:64 \
+    android.hardware.secure_element@1.1.vendor \
     com.android.nfc_extras \
     Tag \
     vendor.nxp.nxpese@1.0:64 \
@@ -339,6 +394,7 @@ PRODUCT_PACKAGES += \
 # OMX
 PRODUCT_PACKAGES += \
     libavservices_minijail \
+    libavservices_minijail.vendor \
     libavservices_minijail_vendor \
     libc2dcolorconvert \
     libcodec2_hidl@1.0.vendor \
@@ -378,9 +434,9 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
-    android.hardware.radio@1.2 \
-    android.hardware.radio.config@1.0 \
-    android.hardware.secure_element@1.0 \
+    android.hardware.radio@1.5.vendor \
+    android.hardware.radio.config@1.2.vendor \
+    android.hardware.radio.deprecated@1.0.vendor \
     libprotobuf-cpp-full \
     librmnetctl \
     libxml2
@@ -403,7 +459,9 @@ PRODUCT_COPY_FILES += \
 # Sensors
 PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl.oppo_OP4A89 \
-    android.hardware.sensors@1.0-service.oppo_OP4A89 \
+    android.hardware.sensors@1.0-service \
+    android.frameworks.sensorservice@1.0.vendor \
+    als_correction_service.oppo_OP4A89 \
     libsensorndkbridge
 
 PRODUCT_COPY_FILES += \
@@ -453,6 +511,7 @@ PRODUCT_COPY_FILES += \
 # Wifi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
+    android.hardware.wifi@1.5.vendor \
     hostapd \
     libwpa_client \
     libwifi-hal-ctrl \
@@ -461,7 +520,6 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.wifi.hostapd@1.1.vendor \
     vendor.qti.hardware.wifi.supplicant@2.0.vendor \
     vendor.qti.hardware.wifi.supplicant@2.1.vendor \
-    WifiOverlay \
     wpa_supplicant \
     wpa_supplicant.conf
 
@@ -470,12 +528,13 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
 
-# WiFi Display
 PRODUCT_PACKAGES += \
-    libnl
+    WifiResCommon
 
-PRODUCT_BOOT_JARS += \
-    WfdCommon
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/seccomp/wfdservice.policy:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/seccomp_policy/wfdservice.policy
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.surface_flinger.force_hwc_copy_for_virtual_displays=true \
+    ro.surface_flinger.has_HDR_display=true \
+    ro.surface_flinger.has_wide_color_display=true \
+    ro.surface_flinger.protected_contents=true \
+    ro.surface_flinger.use_color_management=true \
+    ro.surface_flinger.wcg_composition_dataspace=143261696

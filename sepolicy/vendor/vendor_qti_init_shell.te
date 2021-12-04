@@ -1,5 +1,0 @@
-# Allow vendor_qti_init_shell to write to vendor_sysfs_scsi_host
-allow vendor_qti_init_shell vendor_sysfs_scsi_host:file w_file_perms;
-
-# Allow vendor_qti_init_shell to get oppo_vendor_prop
-get_prop(vendor_qti_init_shell, oppo_vendor_prop)

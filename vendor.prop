@@ -14,6 +14,7 @@ persist.audio.fluence.speaker=true
 vendor.audio.tunnel.encode=false
 persist.vendor.audio.ras.enabled=false
 vendor.audio.offload.buffer.size.kb=32
+ro.audio.monitorRotation=true
 audio.offload.video=true
 vendor.audio.offload.track.enable=true
 audio.deep_buffer.media=true
@@ -56,8 +57,6 @@ persist.vendor.qcom.bluetooth.aac_frm_ctl.enabled=true
 persist.vendor.qcom.bluetooth.twsp_state.enabled=false
 persist.bluetooth.disableabsvol=true
 persist.vendor.service.bt.iot.enablelogging=true
-persist.vendor.bluetooth.a2dp.hal.implementation=true
-persist.vendor.bt.a2dp.hal.implementation=true
 persist.bluetooth.disableinbandringing=false
 persist.bluetooth.specificatcmdsenable=true
 persist.vendor.bluetooth.modem_nv_support=true
@@ -90,7 +89,7 @@ dalvik.vm.heaptargetutilization=0.75
 
 # Display
 ro.vendor.display.ad.hdr_calib_data=/vendor/etc/hdr_config.cfg
-ro.vendor.display.ad.sdr_calib_data=/vendor/etc/sdr_config.cfg
+ro.vendor.display.ad.sdr_calib_data=/vendor/etc/OPPO_OLED_19081_AD_calib.cfg
 ro.vendor.display.ad=1
 ro.vendor.display.cabl=2
 ro.vendor.display.sensortype=2
@@ -142,7 +141,6 @@ vendor.display.enable_default_color_mode=1
 vendor.gralloc.disable_ubwc=0
 debug.sf.disable_backpressure=1
 persist.debug.wfd.enable=1
-ro.vendor.display.ad.sdr_calib_data=/vendor/etc/OPPO_OLED_19081_AD_calib.cfg
 
 # IMS
 persist.dbg.volte_avail_ovr=1
@@ -185,7 +183,6 @@ persist.vendor.qcomsysd.enabled=1
 persist.vendor.radio.apm_sim_not_pwdn=1
 persist.vendor.radio.sib16_support=1
 persist.vendor.radio.custom_ecc=1
-rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so
 persist.vendor.radio.procedure_bytes=SKIP
 persist.radio.multisim.config=dsds
 persist.vendor.radio.rat_on=combine
@@ -198,15 +195,6 @@ ro.product.oem_dm=1
 persist.radio.hvolte.enable=1
 ro.vendor.dynamic.single.sim=false
 
-# SurfaceFlinger
-ro.surface_flinger.protected_contents=true
-ro.surface_flinger.has_wide_color_display=true
-ro.surface_flinger.has_HDR_display=true
-ro.surface_flinger.use_color_management=true
-ro.surface_flinger.wcg_composition_dataspace=143261696
-ro.surface_flinger.force_hwc_copy_for_virtual_displays=true
-ro.surface_flinger.max_frame_buffer_acquired_buffers=3
-
 # Media
 debug.stagefright.omx_default_rank.sw-audio=1
 debug.stagefright.omx_default_rank=0
@@ -217,3 +205,7 @@ ro.dolby.model=PAFM00
 ro.dolby.device=OP46C3
 ro.dolby.manufacturer=OPPO
 ro.dolby.brand=OPPO
+
+# SoC
+ro.soc.manufacturer=Qualcomm
+ro.soc.model=SM8150

@@ -1,5 +1,0 @@
-type nxpese_default, domain;
-hal_server_domain(nxpese_default, nxpese)
-
-type nxpese_default_exec, exec_type, vendor_file_type, file_type;
-init_daemon_domain(nxpese_default)

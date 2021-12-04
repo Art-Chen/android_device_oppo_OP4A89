@@ -3,10 +3,8 @@ audio.offload.gapless.enabled=true
 
 # Bluetooth
 vendor.bluetooth.soc=cherokee
-ro.bluetooth.library_name=libbluetooth_qti.so
 persist.vendor.bt.a2dp.aac_whitelist=false
 persist.vendor.btstack.enable.splita2dp=true
-persist.vendor.btstack.a2dp_offload_cap=sbc-aptx-aptxtws-aptxhd-aptxadaptive-aac-ldac
 persist.vendor.btstack.enable.twsplus=true
 persist.vendor.btstack.connect.peer_earbud=true
 persist.vendor.btstack.enable.twsplussho=true
@@ -93,6 +91,7 @@ ro.control_privapp_permissions=disabled
 # Radio
 DEVICE_PROVISIONED=1
 persist.vendor.data.mode=concurrent
+persist.sys.fflag.override.settings_provider_model=false
 ril.subscription.types=NV,RUIM
 ro.telephony.default_network=22,22
 ro.vendor.use_data_netmgrd=true
@@ -106,10 +105,6 @@ persist.vendor.sensors.enable.mag_filter=true
 
 # WiFi
 config.disable_rtt=true
-
-# WiFi Display
-persist.debug.wfd.enable=1
-persist.sys.wfd.virtual=0
 
 # Zygote
 persist.device_config.runtime_native.usap_pool_enabled=true

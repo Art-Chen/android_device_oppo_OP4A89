@@ -1,20 +1,4 @@
-# data
-type cryptoeng_data_file, file_type, data_file_type;
-
-# persist
-type persist_camera_file, file_type;
-type media_persist_file, file_type;
-type oppo_fingerprint_file, file_type, data_file_type;
-
-# proc
-type proc_sensor, fs_type, proc_type;
-type proc_touchpanel, fs_type, proc_type;
-
-# sockets
-type vl53l1_socket, file_type;
-
-# sysfs
-type sysfs_dtb_model, sysfs_type, fs_type;
-type alpha_sysfs, sysfs_type, fs_type;
-type oppo_debugfs, sysfs_type, fs_type;
-type oppo_reserve, sysfs_type, fs_type;
+type adsprpcd_file, file_type;
+type bt_firmware_file, file_type;
+type firmware_file, file_type;
+type persist_file, file_type;

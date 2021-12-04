@@ -1,2 +1,0 @@
-genfscon proc /touchpanel u:object_r:proc_touchpanel:s0
-genfscon sysfs /class/leds/vibrator u:object_r:sysfs_vibrator:s0
