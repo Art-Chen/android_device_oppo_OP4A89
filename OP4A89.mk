@@ -256,7 +256,7 @@ PRODUCT_PACKAGES += \
 
 # Doze
 PRODUCT_PACKAGES += \
-    OPPODoze
+    OPlusDoze
 
 # DRM
 PRODUCT_PACKAGES += \

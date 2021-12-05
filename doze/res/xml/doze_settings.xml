@@ -15,42 +15,47 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
+    android:title="@string/ambient_display_title">
+
+    <com.android.settingslib.widget.MainSwitchPreference
+        android:defaultValue="false"
+        android:key="doze_enable"
+        android:title="@string/ambient_enable" />
 
     <SwitchPreference
         android:key="always_on_display"
         android:disableDependentsState="true"
         android:title="@string/ambient_display_always_on_title"
         android:summary="@string/ambient_display_always_on_summary"
-        android:persistent="false" />
+        android:persistent="true" />
 
     <PreferenceCategory
         android:key="pickup_sensor"
         android:title="@string/pickup_sensor_title">
 
-        <SwitchPreference
-            android:key="gesture_pick_up"
-            android:defaultValue="false"
+        <ListPreference
+            android:key="gesture_pick_up_type"
+            android:defaultValue="0"
             android:title="@string/pick_up_gesture_title"
-            android:summary="@string/pick_up_gesture_summary" />
+            android:summary="%s"
+            android:entries="@array/pick_up_gesture_entries"
+            android:entryValues="@array/pick_up_gesture_values" />
 
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="gesture_smart_wake"
-            android:summary="@string/smart_wake_gesture_summary"
-            android:title="@string/smart_wake_gesture_title" />
-
+        <ListPreference
+            android:key="gesture_move_detect_type"
+            android:defaultValue="0"
+            android:title="@string/move_detect_gesture_title"
+            android:summary="%s"
+            android:entries="@array/pick_up_gesture_entries"
+            android:entryValues="@array/pick_up_gesture_values" />
     </PreferenceCategory>
 
     <PreferenceCategory
         android:key="proximity_sensor"
         android:title="@string/proximity_sensor_title">
-
-        <SwitchPreference
-            android:key="gesture_hand_wave"
-            android:defaultValue="false"
-            android:title="@string/hand_wave_gesture_title"
-            android:summary="@string/hand_wave_gesture_summary" />
 
         <SwitchPreference
             android:key="gesture_pocket"

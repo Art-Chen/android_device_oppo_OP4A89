@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2020 The LineageOS Project
+<!--
+     Copyright (C) 2021 The LineageOS Project
 
-     Licensed under the Apache License, Version 2.0 (the "License");
+     Licensed under the Apache License, Version 2.0 (the "License"
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
 
@@ -13,10 +14,17 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <resources>
-    <color name="switchbar_background_color">@*android:color/material_grey_600</color>
-    <color name="switchbar_switch_track_tint">#BFFFFFFF</color>
-    <color name="switchbar_switch_thumb_tint">@android:color/white</color>
-</resources>
+    <!-- Pickup gesture -->
+    <string-array name="pick_up_gesture_entries" translatable="false">
+        <item>@string/disabled</item>
+        <item>@string/pick_up_gesture_summary</item>
+        <item>@string/pick_up_wake_gesture_summary</item>
+    </string-array>
 
+    <string-array name="pick_up_gesture_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>
