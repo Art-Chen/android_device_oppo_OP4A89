@@ -13,5 +13,5 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- States whether device has a high refresh rate display -->
-    <bool name="config_deviceHasHighRefreshRate">true</bool>
+    <bool name="config_deviceHasHighRefreshRate">false</bool>
 </resources>
