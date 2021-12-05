@@ -60,7 +60,7 @@ Light::Light() {
 }
 
 void Light::handleBacklight(const LightState& state) {
-    int maxBrightness = get("/sys/class/backlight/panel0-backlight/max_brightness", -1);
+    int maxBrightness = get("/sys/kernel/oppo_display/max_brightness", -1);
     if (maxBrightness < 0) {
         maxBrightness = 255;
     }
