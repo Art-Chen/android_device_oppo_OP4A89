@@ -85,13 +85,18 @@ public:
 
     Return<void> onAuthenticated(uint64_t deviceId, uint32_t fingerId, uint32_t groupId,
         const hidl_vec<uint8_t>& token) {
-		if (mFodCircleVisible) {
-		    set(DC_DIM_PATH, dcDimState);
-		}
+        if (token.size() > 0) {
+            if (mFodCircleVisible) {
+                set(DC_DIM_PATH, dcDimState);
+            }
 
-		set(DIMLAYER_PATH, 0);
-		set(FP_PRESS_PATH, 0);
-		mFodCircleVisible = false;
+            set(DIMLAYER_PATH, 0);
+            set(FP_PRESS_PATH, 0);
+            mFodCircleVisible = false;
+        }
+
+        ALOGE("onAuthenticated %lu %u %u, isAuthSucceed %d", deviceId, fingerId, groupId, token.size() > 0);
+        
         return mClientCallback->onAuthenticated(deviceId, fingerId, groupId, token);
     }
 
