@@ -42,10 +42,10 @@
     <string name="touchscreen_gesture_one_finger_left_swipe_title">1本指で左にスライド</string>
     <string name="touchscreen_gesture_one_finger_right_swipe_title">1本指で右にスライド</string>
     <string name="touchscreen_gesture_single_tap_title">シングルタップ</string>
-    <string name="touchscreen_gesture_down_arrow_title">「Λ」を描く</string>
-    <string name="touchscreen_gesture_up_arrow_title">「V」を描く</string>
-    <string name="touchscreen_gesture_right_arrow_title">「&lt;」を描く</string>
-    <string name="touchscreen_gesture_left_arrow_title">「&gt;」を描く</string>
+    <string name="touchscreen_gesture_up_arrow_title">「Λ」を描く</string>
+    <string name="touchscreen_gesture_down_arrow_title">「V」を描く</string>
+    <string name="touchscreen_gesture_left_arrow_title">「&lt;」を描く</string>
+    <string name="touchscreen_gesture_right_arrow_title">「&gt;」を描く</string>
     <string name="touchscreen_gesture_letter_c_title">「C」を描く</string>
     <string name="touchscreen_gesture_letter_e_title">「e」を描く</string>
     <string name="touchscreen_gesture_letter_o_title">「O」を描く</string>

@@ -42,10 +42,10 @@
     <string name="touchscreen_gesture_one_finger_left_swipe_title">Balayez vers la gauche avec votre doigt</string>
     <string name="touchscreen_gesture_one_finger_right_swipe_title">Glisser vers la droite avec un doigt</string>
     <string name="touchscreen_gesture_single_tap_title">Appui court</string>
-    <string name="touchscreen_gesture_down_arrow_title">Dessiner un « Λ »</string>
-    <string name="touchscreen_gesture_up_arrow_title">Dessinez un « V »</string>
-    <string name="touchscreen_gesture_right_arrow_title">Dessiner un « &lt; »</string>
-    <string name="touchscreen_gesture_left_arrow_title">Dessiner un « &gt; »</string>
+    <string name="touchscreen_gesture_up_arrow_title">Dessiner un « Λ »</string>
+    <string name="touchscreen_gesture_down_arrow_title">Dessinez un « V »</string>
+    <string name="touchscreen_gesture_left_arrow_title">Dessiner un « &lt; »</string>
+    <string name="touchscreen_gesture_right_arrow_title">Dessiner un « &gt; »</string>
     <string name="touchscreen_gesture_letter_c_title">Dessinez la lettre « C »</string>
     <string name="touchscreen_gesture_letter_e_title">Dessinez la lettre « e »</string>
     <string name="touchscreen_gesture_letter_o_title">Dessinez la lettre « O »</string>

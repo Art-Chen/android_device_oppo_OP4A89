@@ -42,10 +42,10 @@
     <string name="touchscreen_gesture_one_finger_left_swipe_title">Deslizar hacia la izquierda con un dedo</string>
     <string name="touchscreen_gesture_one_finger_right_swipe_title">Deslizar a la derecha con un dedo</string>
     <string name="touchscreen_gesture_single_tap_title">Un toque</string>
-    <string name="touchscreen_gesture_down_arrow_title">Dibujar una \"Λ\"</string>
-    <string name="touchscreen_gesture_up_arrow_title">Dibuja una \"V\"</string>
-    <string name="touchscreen_gesture_right_arrow_title">Dibujar un «&lt;»</string>
-    <string name="touchscreen_gesture_left_arrow_title">Dibujar un «&gt;»</string>
+    <string name="touchscreen_gesture_up_arrow_title">Dibujar una \"Λ\"</string>
+    <string name="touchscreen_gesture_down_arrow_title">Dibuja una \"V\"</string>
+    <string name="touchscreen_gesture_left_arrow_title">Dibujar un «&lt;»</string>
+    <string name="touchscreen_gesture_right_arrow_title">Dibujar un «&gt;»</string>
     <string name="touchscreen_gesture_letter_c_title">Dibujar la letra «C»</string>
     <string name="touchscreen_gesture_letter_e_title">Dibujar la letra \"e\"</string>
     <string name="touchscreen_gesture_letter_o_title">Dibuja la letra \"O\"</string>

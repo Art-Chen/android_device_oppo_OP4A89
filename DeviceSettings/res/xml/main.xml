@@ -40,9 +40,6 @@
         </Preference>
     </PreferenceCategory>
 
-
-
-<<<<<<< HEAD
     <PreferenceCategory
         android:key="refresh"
         android:title="@string/refresh_title">
@@ -58,17 +55,5 @@
             android:summary="@string/refresh_rate_summary"
             android:title="@string/refresh_rate_title"
             android:persistent="false" />
-=======
-        <Preference
-            android:key="touchscreen_gesture_category"
-            android:title="@string/touchscreen_gesture_settings_title"
-            android:summary="@string/touchscreen_gesture_settings_summary"
-            android:persistent="false" >
-            <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.aosip.device.DeviceSettings"
-                    android:targetClass="com.aosip.device.DeviceSettings.TouchscreenGestureSettings" />
-        </Preference>
-
->>>>>>> 5ba0b6c (guacamole: Reapply "DeviceSettings: Add Touchscreen Gesture controls")
     </PreferenceCategory>
 </PreferenceScreen>
