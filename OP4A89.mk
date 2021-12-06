@@ -335,10 +335,6 @@ PRODUCT_PACKAGES += \
     ethertypes \
     libebtc
 
-# Lights
-PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service.oppo_msmnile
-
 # Keystore
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.1.vendor
