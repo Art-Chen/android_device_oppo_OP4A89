@@ -75,6 +75,7 @@ ro.camera.relight.enable=0
 ro.camera.attr.detect.enable=1
 ro.camera.notify_nfc=1
 ro.camera.temperature.limit=470
+camera.disable_zsl_mode=1
 
 # Crypto
 ro.crypto.allow_encrypt_override=true
