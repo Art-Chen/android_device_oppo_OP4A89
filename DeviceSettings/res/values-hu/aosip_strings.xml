@@ -12,8 +12,8 @@
 -->
 <resources>
     <!-- Panel modes -->
-    <string name="device_title">OnePlus beállítások</string>
-    <string name="device_summary">OnePlus specifikus készülékbeállítások</string>
+    <string name="device_title">OPPO beállítások</string>
+    <string name="device_summary">OPPO specifikus készülékbeállítások</string>
     <string name="display_title">Kijelző</string>
     <string name="srgb_mode_summary"></string>
     <string name="srgb_mode_title">sRGB mód</string>

@@ -12,8 +12,8 @@
 -->
 <resources>
     <!-- Panel modes -->
-    <string name="device_title">OnePlus Ayarları</string>
-    <string name="device_summary">OnePlus\'a özel cihaz ayarlarını düzenleyin</string>
+    <string name="device_title">OPPO Ayarları</string>
+    <string name="device_summary">OPPO\'a özel cihaz ayarlarını düzenleyin</string>
     <string name="display_title">Ekran</string>
     <string name="srgb_mode_summary"></string>
     <string name="srgb_mode_title">sRGB modu</string>

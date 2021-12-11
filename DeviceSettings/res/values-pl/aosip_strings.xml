@@ -12,8 +12,8 @@
 -->
 <resources>
     <!-- Panel modes -->
-    <string name="device_title">Ustawienia OnePlus</string>
-    <string name="device_summary">Ustawienia OnePlus dotyczące tego urządzenia</string>
+    <string name="device_title">Ustawienia OPPO</string>
+    <string name="device_summary">Ustawienia OPPO dotyczące tego urządzenia</string>
     <string name="display_title">Wyświetlacz</string>
     <string name="srgb_mode_summary"></string>
     <string name="srgb_mode_title">Tryb sRGB</string>

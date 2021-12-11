@@ -12,8 +12,8 @@
 -->
 <resources>
     <!-- Panel modes -->
-    <string name="device_title">OnePlus 設定</string>
-    <string name="device_summary">OnePlus 専用の端末設定を調整する</string>
+    <string name="device_title">OPPO 設定</string>
+    <string name="device_summary">OPPO 専用の端末設定を調整する</string>
     <string name="display_title">ディスプレイ</string>
     <string name="srgb_mode_summary"></string>
     <string name="srgb_mode_title">sRGB モード</string>

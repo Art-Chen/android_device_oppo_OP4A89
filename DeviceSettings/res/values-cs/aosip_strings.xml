@@ -12,8 +12,8 @@
 -->
 <resources>
     <!-- Panel modes -->
-    <string name="device_title">OnePlus nastavení</string>
-    <string name="device_summary">Upravte konkrétní nastavení pro zařízení OnePlus</string>
+    <string name="device_title">OPPO nastavení</string>
+    <string name="device_summary">Upravte konkrétní nastavení pro zařízení OPPO</string>
     <string name="display_title">Displej</string>
     <string name="srgb_mode_summary"></string>
     <string name="srgb_mode_title">Režim sRGB</string>

@@ -36,7 +36,6 @@ public class DeviceSettings extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
     public static final String KEY_SRGB_SWITCH = "srgb";
-    public static final String KEY_HBM_SWITCH = "hbm";
     public static final String KEY_DC_SWITCH = "dc";
 
     private static final String KEY_CATEGORY_REFRESH = "refresh";
@@ -45,7 +44,6 @@ public class DeviceSettings extends PreferenceFragment
 
     public static final String KEY_SETTINGS_PREFIX = "device_setting_";
 
-    private static TwoStatePreference mHBMModeSwitch;
     private static TwoStatePreference mRefreshRate;
     private static SwitchPreference mAutoRefreshRate;
 
@@ -57,11 +55,6 @@ public class DeviceSettings extends PreferenceFragment
         mDCModeSwitch.setEnabled(DCModeSwitch.isSupported());
         mDCModeSwitch.setChecked(DCModeSwitch.isCurrentlyEnabled(this.getContext()));
         mDCModeSwitch.setOnPreferenceChangeListener(new DCModeSwitch());
-
-        mHBMModeSwitch = (TwoStatePreference) findPreference(KEY_HBM_SWITCH);
-        mHBMModeSwitch.setEnabled(HBMModeSwitch.isSupported());
-        mHBMModeSwitch.setChecked(HBMModeSwitch.isCurrentlyEnabled(this.getContext()));
-        mHBMModeSwitch.setOnPreferenceChangeListener(this);
 
         if (getResources().getBoolean(R.bool.config_deviceHasHighRefreshRate)) {
             mAutoRefreshRate = (SwitchPreference) findPreference(KEY_AUTO_REFRESH_RATE);
@@ -80,7 +73,6 @@ public class DeviceSettings extends PreferenceFragment
     @Override
     public void onResume() {
         super.onResume();
-        mHBMModeSwitch.setChecked(HBMModeSwitch.isCurrentlyEnabled(this.getContext()));
     }
     
     @Override
@@ -93,17 +85,6 @@ public class DeviceSettings extends PreferenceFragment
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mHBMModeSwitch) {
-            Boolean enabled = (Boolean) newValue;
-            Utils.writeValue(HBMModeSwitch.getFile(), enabled ? "5" : "0");
-            Intent hbmIntent = new Intent(this.getContext(),
-                    com.aosip.device.DeviceSettings.HBMModeService.class);
-            if (enabled) {
-                this.getContext().startService(hbmIntent);
-            } else {
-                this.getContext().stopService(hbmIntent);
-            }
-        }
         return true;
     }
 }

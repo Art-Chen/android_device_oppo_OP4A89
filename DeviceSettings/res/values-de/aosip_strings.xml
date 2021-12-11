@@ -12,8 +12,8 @@
 -->
 <resources>
     <!-- Panel modes -->
-    <string name="device_title">OnePlus Einstellungen</string>
-    <string name="device_summary">Stelle OnePlus spezifische Handyeinstellungen ein</string>
+    <string name="device_title">OPPO Einstellungen</string>
+    <string name="device_summary">Stelle OPPO spezifische Handyeinstellungen ein</string>
     <string name="display_title">Display</string>
     <string name="srgb_mode_summary"></string>
     <string name="srgb_mode_title">sRGB-Modus</string>
