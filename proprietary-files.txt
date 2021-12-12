@@ -2497,7 +2497,7 @@ system_ext/lib64/vendor.qti.hardware.wifidisplaysession@1.0.so|6810d41bb161d6fd1
 -system_ext/priv-app/WfdService/WfdService.apk|e422d6363e00221df280e7c1d59baea5f8934d19
 vendor/bin/wfdvndservice|1a8d7363ef8e1d1c9b719d4d55762f17fcc3a5f9
 vendor/bin/wifidisplayhalservice|6d3d6471959dcd32100a0748518b93ad748399f8
-vendor/etc/init/com.qualcomm.qti.wifidisplayhal@1.0-service.rc|576ce4393b7746b77a230745aa9e9ee3bd31b17d
+#vendor/etc/init/com.qualcomm.qti.wifidisplayhal@1.0-service.rc|576ce4393b7746b77a230745aa9e9ee3bd31b17d
 vendor/etc/init/wfdvndservice.rc|42e28fb8e0bf00620d7b9939b5bd3164ca671033
 vendor/etc/seccomp_policy/wfdhdcphalservice.policy|a489ab323be4be2df3de9f84a6b5e6cef924f4c4
 vendor/etc/seccomp_policy/wfdvndservice.policy|b46f0c22a1f9b65c6750205e161c0a3f84ac716b
@@ -2566,9 +2566,12 @@ vendor/etc/init/vendor_transfer.rc
 vendor/etc/init/vppservice.rc
 vendor/etc/init/wfdvndservice.rc
 
+# CACertService
+-vendor/app/CACertService/CACertService.apk
+vendor/lib/libjnihelper.so
+vendor/lib64/libjnihelper.so
 
 # Misc
--vendor/app/CACertService/CACertService.apk
 -vendor/app/EidService/EidService.apk
 -vendor/app/pasrservice/pasrservice.apk
 vendor/app/QDMA-UI/lib/arm64/libvndfwk_detect_jni.qti.so
@@ -2721,7 +2724,6 @@ vendor/lib/libhdmipassthru.so
 vendor/lib/libhfp.so
 vendor/lib/libhta_hexagon_runtime.so
 vendor/lib/libhypnusclient.so
-vendor/lib/libjnihelper.so
 vendor/lib/libmiracast.so
 vendor/lib/libmmparser_lite_proprietary.so
 vendor/lib/libmmrtpdecoder_proprietary.so
@@ -2815,7 +2817,6 @@ vendor/lib64/libhdmipassthru.so
 vendor/lib64/libhfp.so
 vendor/lib64/libhta_hexagon_runtime.so
 vendor/lib64/libhypnusclient.so
-vendor/lib64/libjnihelper.so
 vendor/lib64/libloadalgo_stub.so
 vendor/lib64/libmdmimgload.so
 vendor/lib64/libmegface_rt_bokeh.so
