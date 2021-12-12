@@ -1,5 +1,84 @@
-# Root Symlinks
-/bt_firmware(/.*)?       u:object_r:bt_firmware_file:s0
-/dsp(/.*)?               u:object_r:adsprpcd_file:s0
-/firmware(/.*)?          u:object_r:firmware_file:s0
-/persist(/.*)?           u:object_r:persist_file:s0
+# Binaries
+/(vendor|system/vendor)/bin/vl53l1_daemon_main      u:object_r:vl53l1_daemon_main_exec:s0
+/(vendor|system/vendor)/bin/opposysd		u:object_r:engineer_vendor_daemon_exec:s0
+
+# Block devices
+/dev/block/sda2		        u:object_r:oplus_block_device:s0
+/dev/block/sde31		u:object_r:oplus_block_device:s0
+/dev/block/sde23		u:object_r:oplus_block_device:s0
+/dev/block/sdf7	        	u:object_r:oplus_block_device:s0
+
+/dev/block/platform/soc/1d84000\.ufshc/by-name/opporeserve.*		u:object_r:oplus_block_device:s0
+/dev/block/platform/soc/1d84000\.ufshc/by-name/oppodycnvbk		u:object_r:vendor_modem_efs_partition_device:s0
+/dev/block/platform/soc/1d84000\.ufshc/by-name/oppostanvbk		u:object_r:vendor_modem_efs_partition_device:s0
+/dev/block/platform/soc/1d84000\.ufshc/by-name/mdm1oemnvbktmp		u:object_r:vendor_modem_efs_partition_device:s0
+/dev/block/platform/soc/1d84000\.ufshc/by-name/mdm_oem_stanvbk		u:object_r:vendor_modem_efs_partition_device:s0
+/dev/block/platform/soc/1d84000\.ufshc/by-name/mdm_oem_dycnvbk		u:object_r:vendor_modem_efs_partition_device:s0
+
+
+# Data files
+/data/vendor/optical_fingerprint(/.*)?		u:object_r:oplus_fingerprint_file:s0
+/data/vendor_de/[0-9]+/cryptoeng(/.*)?		u:object_r:cryptoeng_data_file:s0
+/data/vendor/fingerprint(/.*)?		u:object_r:oplus_fingerprint_file:s0
+
+# Devices
+/dev/goodix_fp            u:object_r:fingerprintd_device:s0
+/dev/silead_fp            u:object_r:fingerprintd_device:s0
+/dev/stmvl53l1_ranging    u:object_r:vl53l1_device:s0
+
+# HALs
+/(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.3-service\.oppo_OP4A89           u:object_r:hal_fingerprint_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.neuralnetworks@1\.2-service-qti                                 u:object_r:vendor_hal_neuralnetworks_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.secure_element@1\.1-service                                     u:object_r:hal_secure_element_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.sensors@1\.0-service\.oppo_OP4A89                           u:object_r:hal_sensors_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.vibrator@1\.2-service\.oppo_OP4A89                           u:object_r:hal_vibrator_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.dolby\.hardware\.dms@1\.0-service		u:object_r:hal_dms_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.oppo\.hardware\.eid@1\.0-service		u:object_r:hal_eid_oplus_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.oppo\.hardware\.nfc@1\.0-service		u:object_r:hal_nfc_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.oppo\.hardware\.ktv@1\.0-service		u:object_r:hal_ktv_oplus_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.oppo\.hardware\.oiface@1\.0-service		u:object_r:hal_oiface_oplus_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.oppo\.hardware\.hypnus@1\.0-service		u:object_r:hal_hypnus_oplus_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.oppo\.hardware\.cryptoeng@1\.0-service		u:object_r:hal_cryptoeng_oplus_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.oppo\.hardware\.biometrics\.face@1\.0-service		u:object_r:hal_face_oplus_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.oppo\.hardware\.mmdisplayfeature@1\.0-service		u:object_r:hal_omdisplay_oplus_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.oppo\.hardware\.biometrics\.fingerprint@2\.1-service		u:object_r:hal_fingerprint_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.oppo\.hardware\.biometrics\.fingerprintpay@1\.0-service		u:object_r:hal_fingerprintpay_oplus_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.oppo\.wifi\.sniffer@1.0-service		u:object_r:wifi_sniffer_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.oppo\.engnative\.engineer@1\.0-service		u:object_r:engineer_hidl_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.oppo\.engnative\.engsensor@1\.0-service		u:object_r:engsensor_hidl_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.oppo\.hardware\.vibrator@1\.0-service		u:object_r:hal_vibrator_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.oppo\.hardware\.lmvibrator@1\.0-service		u:object_r:hal_vibrator_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor_transfer		u:object_r:transfer_hidl_exec:s0
+
+# Init Shell
+/(vendor|system/vendor)/bin/init\.oppo\.wifi\.sh		u:object_r:vendor_qti_init_shell_exec:s0
+
+# OPPO Engineer
+/mnt/vendor/opporeserve/media/log(/.*)?		u:object_r:oplus_reserve:s0
+/mnt/vendor/opporeserve/media/Camera(/.*)?		u:object_r:oplus_reserve:s0
+/mnt/vendor/opporeserve/media/dropbox(/.*)?		u:object_r:oplus_reserve:s0
+/mnt/vendor/opporeserve/media/ColorOS(/.*)?		u:object_r:oplus_reserve:s0
+/mnt/vendor/opporeserve/system/config(/.*)?		u:object_r:oplus_reserve:s0
+/mnt/vendor/opporeserve/media/nfclock(/.*)?		u:object_r:oplus_reserve:s0
+/mnt/vendor/persist/fingerprint/silead(/.*)?		u:object_r:oplus_fingerprint_file:s0
+/mnt/vendor/opporeserve/media/engineermode(/.*)?		u:object_r:oplus_reserve:s0
+/mnt/vendor/opporeserve/media/ColorOS/HeytapID(/.*)?		u:object_r:oplus_reserve:s0
+/mnt/vendor/opporeserve/connectivity/felicalock(/.*)?		u:object_r:oplus_reserve:s0
+/(vendor|system/vendor)/firmware/tp(/.*)?		u:object_r:vendor_configs_file:s0
+/mnt/vendor/opporeserve(/.*)?		u:object_r:oplus_reserve:s0
+/(vendor|system/vendor)/firmware/fastchg(/.*)?		u:object_r:vendor_configs_file:s0
+
+# Persist files
+/mnt/vendor/persist/media(/.*)?		u:object_r:media_persist_file:s0
+/mnt/vendor/persist/engineermode(/.*)?               u:object_r:persist_engineer_file:s0
+/mnt/vendor/persist/fingerprint(/.*)?		u:object_r:oplus_fingerprint_file:s0
+
+# Socket files
+/dev/socket/als_correction    u:object_r:als_correction_socket:s0
+/dev/socket/vl53l1_daemon    u:object_r:vl53l1_socket:s0
+
+# Sys files
+/sys/firmware/devicetree/base/model                                u:object_r:sysfs_dtb_model:s0
+/sys/module/stmvl53l1(/.*)?                                        u:object_r:sysfs_vl53l1:s0
+/sys/class/leds/vibrator(/.*)?                                     u:object_r:sysfs_vibrator:s0
+

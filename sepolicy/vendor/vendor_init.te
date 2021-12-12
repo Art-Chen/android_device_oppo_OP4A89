@@ -1,0 +1,40 @@
+typeattribute vendor_init data_between_core_and_vendor_violators;
+
+# Allow vendor_init to read and write to ion_device
+allow vendor_init ion_device:chr_file rw_file_perms;
+
+# Allow vendor_init to read and write to tee_device
+allow vendor_init tee_device:chr_file rw_file_perms;
+
+# Allow vendor_init to write to sysfs_ssr_toggl
+allow vendor_init vendor_sysfs_ssr_toggle:file w_file_perms;
+
+# Allow init to create nfc_data_file
+allow vendor_init nfc_data_file:dir create_dir_perms;
+
+# Allow init to create tmpfs
+allow vendor_init tmpfs:dir create_dir_perms;
+
+allow vendor_init oplus_reserve:dir create_dir_perms;
+
+# Allow vendor_init to set vendor_disable_spu_prop
+set_prop(vendor_init, vendor_disable_spu_prop)
+
+# Allow vendor_init to get vendor_tee_listener_prop
+get_prop(vendor_init, vendor_tee_listener_prop)
+
+# Allow vendor_init to set oplus_vendor_prop
+get_prop(vendor_init, oplus_vendor_prop)
+set_prop(vendor_init, oplus_vendor_prop)
+get_prop(vendor_init, vendor_camera_prop)
+set_prop(vendor_init, vendor_camera_prop)
+
+# Allow vendor_init to set attribute of block_device
+allow vendor_init block_device:lnk_file setattr;
+
+allow vendor_init oplus_block_device:blk_file setattr;
+
+allow vendor_init proc_cmdline:file getattr;
+
+allow vendor_init proc_touchpanel:dir r_dir_perms;
+allow vendor_init proc_touchpanel:file rw_file_perms;

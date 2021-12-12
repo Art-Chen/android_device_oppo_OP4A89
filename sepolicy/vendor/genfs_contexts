@@ -1,0 +1,18 @@
+genfscon proc /touchpanel u:object_r:proc_touchpanel:s0
+genfscon proc /fp_id u:object_r:proc_oplus_extra:s0
+genfscon proc /oplusVersion u:object_r:proc_oplus_extra:s0
+genfscon proc /oplus_secure_common u:object_r:proc_oplus_extra:s0
+genfscon proc /oppoAls u:object_r:proc_oplus_extra:s0
+genfscon proc /oppoVersion u:object_r:proc_oplus_extra:s0
+genfscon proc /oppo_nfc u:object_r:proc_oplus_extra:s0
+genfscon proc /oppo_rf u:object_r:proc_oplus_extra:s0
+genfscon proc /ui_soc_decimal u:object_r:proc_oplus_extra:s0
+genfscon proc /vooc_fw_check u:object_r:proc_oplus_extra:s0
+genfscon proc /ufsplus_ctrl u:object_r:proc_oplus_extra:s0
+genfscon proc /shutdown_detect u:object_r:proc_oplus_extra:s0
+
+genfscon proc /qcom_flash                           u:object_r:proc_flash:s0
+
+genfscon sysfs /devices/platform/soc/89c000.i2c/i2c-2/2-005a/leds/vibrator u:object_r:sysfs_vibrator:s0
+genfscon sysfs /devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-02/c440000.qcom,spmi:qcom,pm8150b@2:qcom,qpnp-smb5/power_supply/ac u:object_r:vendor_sysfs_ac_supply:s0
+genfscon sysfs /kernel/oppo_display                  u:object_r:vendor_sysfs_graphics_ffl:s0

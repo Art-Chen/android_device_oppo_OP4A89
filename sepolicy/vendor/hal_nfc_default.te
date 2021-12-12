@@ -1,0 +1,14 @@
+binder_call(hal_nfc_default, hal_nfc_default)
+
+allow hal_nfc_default vendor_nfc_vendor_data_file:dir r_dir_perms;
+allow hal_nfc_default vendor_nfc_vendor_data_file:file r_file_perms;
+
+allow hal_nfc_default proc_oplus_extra:dir r_dir_perms;
+allow hal_nfc_default proc_oplus_extra:file rw_file_perms;
+
+get_prop(hal_nfc_default, hwservicemanager_prop)
+
+add_hwservice(hal_nfc_default, hal_oplus_nfc_hwservice)
+hwbinder_use(hal_nfc_default)
+
+set_prop(hal_nfc_default, engineer_vendor_prop)

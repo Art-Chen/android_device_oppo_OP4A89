@@ -1,0 +1,6 @@
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_omdisplay_client, hal_omdisplay_server)
+binder_call(hal_omdisplay_server, hal_omdisplay_client)
+
+add_hwservice(hal_omdisplay_server, hal_omdisplay_hwservice)
+allow hal_omdisplay_client hal_omdisplay_hwservice:hwservice_manager find;

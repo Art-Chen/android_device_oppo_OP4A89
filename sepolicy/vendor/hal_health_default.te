@@ -1,0 +1,7 @@
+# Allow hal_health_default to read and write to proc_touchpanel
+allow hal_health_default proc_touchpanel:dir search;
+allow hal_health_default proc_touchpanel:file rw_file_perms;
+
+allow hal_health_default vendor_sysfs_ac_supply:dir r_dir_perms;
+allow hal_health_default vendor_sysfs_ac_supply:file r_file_perms;
+

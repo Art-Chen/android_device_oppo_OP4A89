@@ -1,0 +1,1 @@
+allow platform_app vendor_sysfs_graphics_ffl:file r_file_perms;

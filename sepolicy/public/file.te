@@ -1,4 +1,6 @@
-type adsprpcd_file, file_type;
-type bt_firmware_file, file_type;
-type firmware_file, file_type;
-type persist_file, file_type;
+# persist
+type persist_engineer_file, file_type;
+
+# sysfs
+type sysfs_motor, sysfs_type, fs_type;
+type vendor_sysfs_graphics_ffl, sysfs_type, fs_type;

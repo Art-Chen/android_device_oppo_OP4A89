@@ -1,0 +1,11 @@
+# Allow vendor_sensors to get oppo prop
+get_prop(vendor_sensors, oplus_vendor_prop)
+get_prop(vendor_sensors, exported_default_prop)
+get_prop(vendor_sensors, engineer_vendor_prop)
+
+allow vendor_sensors proc_oplus_extra:dir r_dir_perms;
+allow vendor_sensors proc_oplus_extra:file rw_file_perms;
+
+allow vendor_sensors proc_touchpanel:dir search;
+allow vendor_sensors proc_touchpanel:file rw_file_perms;
+

@@ -1,0 +1,177 @@
+ro.separate.soft u:object_r:exported_default_prop:s0
+ro.rom.featrue u:object_r:exported_default_prop:s0
+ro.oppo.market.name u:object_r:exported_default_prop:s0
+ro.build.version.opporom u:object_r:exported_default_prop:s0
+ro.oppo.version u:object_r:exported_default_prop:s0
+ro.camera.hfr.enable u:object_r:exported_default_prop:s0
+ro.camera.videoeis.enable u:object_r:exported_default_prop:s0
+ro.camera.temperature.limit u:object_r:exported_default_prop:s0
+#ifdef VENDOR_EDIT
+#Ming.Liu@PSW.MM.AudioDriver, 2017/10/26, Add for audio hal set property
+#Multi-Media property
+persist.dirac.          u:object_r:exported_system_prop:s0
+persist.dirac.vendor    u:object_r:oplus_vendor_prop:s0
+dirac.qem.              u:object_r:exported_system_prop:s0
+persist.sys.record.     u:object_r:exported_system_prop:s0
+#endif /* VENDOR_EDIT */
+#Xianfeng.Fu@PSW.MM.AudioServer, 2017/12/26, Add for AP dirac property
+dirac.                  u:object_r:exported_system_prop:s0
+ro.dirac.               u:object_r:exported_system_prop:s0
+
+#ifdef VENDOR_EDIT
+#Natao.Lin@Camera, 2018/11/01, Add for camera hal set property
+persist.oppo.memleak.enable               u:object_r:exported_system_prop:s0
+persist.sys.oppo.displaymetrics           u:object_r:exported_system_prop:s0
+persist.aec.manual.mode                   u:object_r:exported_system_prop:s0
+persist.iris.skip.frame                   u:object_r:exported_system_prop:s0
+persist.iris.lunch.frame                  u:object_r:exported_system_prop:s0
+persist.skip.frame.app                    u:object_r:exported_system_prop:s0
+persist.watermark.dumpimg                 u:object_r:exported_system_prop:s0
+persist.debug.camera.overrideLogLevels    u:object_r:exported_system_prop:s0
+persist.ois.servoOn.enable                u:object_r:exported_system_prop:s0
+persist.qcom.camera.log_level             u:object_r:exported_system_prop:s0
+persist.front.skipdisplay.enable          u:object_r:exported_system_prop:s0
+
+oppo.debug.night.ev.offset                u:object_r:exported_system_prop:s0
+oppo.tof.                                 u:object_r:exported_system_prop:s0
+oppo.front.switch.res                     u:object_r:exported_system_prop:s0
+oppo.open.camera.name                     u:object_r:exported_system_prop:s0
+ro.build.flavor                           u:object_r:exported_system_prop:s0
+ro.camera.attr.detect.enable              u:object_r:exported_system_prop:s0
+
+# Camera
+oppo.camera.                    u:object_r:vendor_camera_prop:s0
+persist.camera.                 u:object_r:vendor_camera_prop:s0
+persist.ipe.debug               u:object_r:vendor_camera_prop:s0
+persist.sys.log.                u:object_r:vendor_camera_prop:s0
+vendor.oppo.camera.             u:object_r:vendor_camera_prop:s0
+persist.sys.assert.panic.camera u:object_r:oplus_vendor_prop:s0
+oppo.switch.video.beauty        u:object_r:oplus_vendor_prop:s0
+persist.oppo.front.mfnr         u:object_r:oplus_vendor_prop:s0
+persist.sys.oppo.region         u:object_r:oplus_vendor_prop:s0
+persist.bps.debug               u:object_r:oplus_vendor_prop:s0
+ro.camera.                      u:object_r:vendor_camera_prop:s0
+
+camera.disable_zsl_mode                   u:object_r:exported_system_prop:s0
+#cause phone crash
+#gsm.operator.numeric                     u:object_r:exported_system_prop:s0
+adrc.gain                                 u:object_r:exported_system_prop:s0
+darkboost.gain                            u:object_r:exported_system_prop:s0
+
+#endif /* VENDOR_EDIT */
+#ifdef VENDOR_EDIT
+#Guotian.Wu@PSW.CN.WiFi.Basic.Custom.1068489 , 2018/11/06, Add for use qmi interface to get WLAN MAC ADDR
+ro.vold.serialno                 u:object_r:oplus_vendor_prop:s0
+#endif /* VENDOR_EDIT */
+#ifdef VENDOR_EDIT
+#weiwei.Deng@CN.NFC.Basic.Hardware.1182186 ,2018/11/11
+#Add for : NFC properties
+persist.nfc.            u:object_r:oplus_vendor_prop:s0
+
+#ifdef VENDOR_EDIT
+#Guotian.Wu@PSW.CN.WiFi.Basic.Log.1162003, 2018/12/13, Add for dynamic collect wifi mini dump
+vendor.oppo.wifi.minidump        u:object_r:oplus_vendor_prop:s0
+persist.sys.wifi.minidump.failureDesc  u:object_r:oplus_vendor_prop:s0
+persist.oppo.wlan.macaddress     u:object_r:oplus_vendor_prop:s0
+vendor.oppo.wifi.cnss_diag_pid   u:object_r:oplus_vendor_prop:s0
+#endif /* VENDOR_EDIT */
+
+#ifdef VENDOR_EDIT
+#Haiping.Zhong@PSW.AD.CTS.1626045, 2018/12/28, Add for Android_P_VTS_GSI_fingerprint
+ro.vendor.oppo.fingerprint  u:object_r:oplus_vendor_prop:s0
+ro.vendor.oppo.product.manufacturer  u:object_r:oplus_vendor_prop:s0
+ro.vendor.oppo.product.model  u:object_r:oplus_vendor_prop:s0
+ro.vendor.oppo.product.brand  u:object_r:oplus_vendor_prop:s0
+ro.vendor.oppo.product.name  u:object_r:oplus_vendor_prop:s0
+ro.vendor.oppo.product.device  u:object_r:oplus_vendor_prop:s0
+ro.vendor.oppo.regionmark  u:object_r:oplus_vendor_prop:s0
+ro.vendor.oppo.operator  u:object_r:oplus_vendor_prop:s0
+ro.vendor.oppo.euex.country  u:object_r:oplus_vendor_prop:s0
+ro.oppo.regionmark  u:object_r:oplus_vendor_prop:s0
+#endif
+
+#ifdef VENDOR_EDIT
+#Xingxing.Guo@AD.CTS, 2020/1/1, Add for Q CTS GSI
+ro.odm.build.fingerprint.oppo    u:object_r:oplus_vendor_prop:s0
+ro.odm.manufacturer.oppo    u:object_r:oplus_vendor_prop:s0
+ro.odm.model.oppo    u:object_r:oplus_vendor_prop:s0
+ro.odm.brand.oppo    u:object_r:oplus_vendor_prop:s0
+ro.odm.name.oppo    u:object_r:oplus_vendor_prop:s0
+ro.odm.device.oppo    u:object_r:oplus_vendor_prop:s0
+#endif /* VENDOR_EDIT */
+
+#ifdef VENDOR_EDIT
+#Haoran.Zhang@Tech.CTS.1626045, 2018/12/28, Add for Android_Q_VTS_GSI_fingerprint
+ro.vendor.build.fingerprint.oppo    u:object_r:oplus_vendor_prop:s0
+ro.product.vendor.manufacturer.oppo    u:object_r:oplus_vendor_prop:s0
+ro.product.vendor.model.oppo    u:object_r:oplus_vendor_prop:s0
+ro.product.vendor.brand.oppo    u:object_r:oplus_vendor_prop:s0
+ro.product.vendor.name.oppo    u:object_r:oplus_vendor_prop:s0
+ro.product.vendor.device.oppo    u:object_r:oplus_vendor_prop:s0
+ro.vendor.version_variant u:object_r:oplus_vendor_prop:s0
+#endif
+
+#ifdef VENDOR_EDIT
+#Guotian.Wu@PSW.CN.WiFi.Basic.Custom.2062392, 2019/06/06,ADD for softap and p2p close 5G band in Japan.
+vendor.oppo.softap.band  u:object_r:oplus_vendor_prop:s0
+#endif /* VENDOR_EDIT */
+
+#ifdef VENDOR_EDIT
+# YunMang.Xiao@PSW.MM.AudioServer.FrameWork, 2019/06/18, add for dolby security check
+ro.dolby.model    u:object_r:oplus_vendor_prop:s0
+ro.dolby.device   u:object_r:oplus_vendor_prop:s0
+ro.dolby.manufacturer   u:object_r:oplus_vendor_prop:s0
+ro.dolby.brand    u:object_r:oplus_vendor_prop:s0
+#endif /* VENDOR_EDIT */
+
+#ifdef VENDOR_EDIT
+#Wei.Peng@PSW.NW.SIM.1854617,2019/10/22
+#Modify for dynamic switch sim config to dual or single
+ro.oppo.operator  u:object_r:oplus_vendor_prop:s0
+ro.oppo.euex.country  u:object_r:oplus_vendor_prop:s0
+ro.vendor.oppo.radio.multisim.config  u:object_r:oplus_vendor_prop:s0
+#endif /* VENDOR_EDIT */
+
+#ifdef COLOROS_EDIT
+#Mengya.Zhao@ROM.com, 2019/11/11, add for hans freeze manager
+persist.vendor.enable.hans u:object_r:exported_system_prop:s0
+#endif
+
+#ifdef VENDOR_EDIT
+#Jingpan.Yu@PSW.NW.REG.2906061,2020/03/30,,Add for SES vendor_ses_prop
+persist.vendor.entitlement_enabled  u:object_r:vendor_ses_prop:s0
+#endif
+
+#line 1 "vendor/oplus_app/OppoEngineerMode/sepolicy/qcom/vendor/property_contexts"
+
+vendor.oppo.diag.socket.ip         u:object_r:engineer_vendor_prop:s0
+vendor.oppo.diag.socket.port         u:object_r:engineer_vendor_prop:s0
+vendor.oppo.diag.socket.pid         u:object_r:engineer_vendor_prop:s0
+vendor.oppo.diag.socket.retry         u:object_r:engineer_vendor_prop:s0
+vendor.oppo.diag.socket.channel         u:object_r:engineer_vendor_prop:s0
+vendor.oppo.engineer.adb.flag        u:object_r:engineer_vendor_prop:s0
+vendor.oppo.engineer.adb.address     u:object_r:engineer_vendor_prop:s0
+vendor.oppo.engineer.adb.state        u:object_r:engineer_vendor_prop:s0
+
+persist.vendor.engineer.hide.      u:object_r:engineer_vendor_prop:s0
+#add for engineermode bluetooth prop
+vendor.bluetooth.soc u:object_r:engineer_vendor_prop:s0
+persist.vendor.oppo.face.sdk.version u:object_r:engineer_vendor_prop:s0
+persist.vendor.oppo.face.model.version u:object_r:engineer_vendor_prop:s0
+persist.vendor.face.updateflag u:object_r:engineer_vendor_prop:s0
+vendor.nfc_se.config_ready  u:object_r:engineer_vendor_prop:s0
+oppo.device.imeicache u:object_r:engineer_vendor_prop:s0
+sys.oppo.network.rffeature u:object_r:engineer_vendor_prop:s0
+
+persist.vendor.fingerprint.fp_id u:object_r:oplus_vendor_prop:s0
+oppo.optical.goodix.fp u:object_r:oplus_vendor_prop:s0
+oppo.fingerprint.factory u:object_r:oplus_vendor_prop:s0
+oppo.fingerprint.gf.package.version u:object_r:oplus_vendor_prop:s0
+persist.vendor.fingerprint.optical.support u:object_r:oplus_vendor_prop:s0
+persist.vendor.fingerprint.optical.iconlocation u:object_r:oplus_vendor_prop:s0
+persist.vendor.fingerprint.optical.iconnumber u:object_r:oplus_vendor_prop:s0
+persist.vendor.fingerprint.optical.iconsize u:object_r:oplus_vendor_prop:s0
+vendor.fingerprint.optical.goodix.hal.retry u:object_r:oplus_vendor_prop:s0
+
+persist.sys.assert.panic        u:object_r:oplus_vendor_prop:s0
+persist.console.silent.config   u:object_r:oplus_vendor_prop:s0
