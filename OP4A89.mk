@@ -92,10 +92,7 @@ PRODUCT_PACKAGES += \
 
 # AliPay Fingerprint Pay
 PRODUCT_PACKAGES += \
-    ifaamanager
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/ifaamanager/etc/permissions/org.ifaa.android.manager.permissions.xml:/$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/org.ifaa.android.manager.permissions.xml
+    IfaaService
 
 # Audio
 PRODUCT_PACKAGES += \

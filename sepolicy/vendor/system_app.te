@@ -9,3 +9,7 @@ allow system_app vendor_sysfs_graphics:file r_file_perms;
 
 allow system_app exported_system_prop:file read;
 
+allow system_app hal_fingerprintpay_hwservice:hwservice_manager find;
+binder_call(system_app, hal_fingerprintpay_oplus)
+
+get_prop(system_app, oplus_vendor_prop)

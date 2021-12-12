@@ -3,4 +3,8 @@
     "repository": "android_kernel_oppo_sm8150",
     "target_path": "kernel/oppo/sm8150"
   },
+  {
+    "repository": "android_vendor_oppo_OP4A89",
+    "target_path": "vendor/oppo/OP4A89"
+  },
 ]

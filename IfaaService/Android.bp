@@ -1,0 +1,13 @@
+android_app {
+    name: "IfaaService",
+    srcs: ["src/**/*.java"],
+    resource_dirs: ["res"],
+
+    static_libs: [
+        "android.hidl.base-V1.0-java",
+    ],
+
+    certificate: "platform",
+    platform_apis: true,
+    system_ext_specific: true,
+}

@@ -46,6 +46,8 @@ init_daemon_domain(hal_fingerprintpay_oplus)
 # Allow hal_fingerprintpay_oplus to read and write to proc_oplus_extra
 allow hal_fingerprintpay_oplus proc_oplus_extra:dir search;
 allow hal_fingerprintpay_oplus proc_oplus_extra:file rw_file_perms;
+allow hal_fingerprintpay_oplus tee_device:chr_file rw_file_perms;
+allow hal_fingerprintpay_oplus ion_device:chr_file rw_file_perms;
 
 allow hal_eid_oplus hal_eid_hwservice:hwservice_manager { add find };
 allow hal_hypnus_oplus hal_hypnus_hwservice:hwservice_manager { add find };
