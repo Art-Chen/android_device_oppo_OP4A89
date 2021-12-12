@@ -36,7 +36,7 @@
             android:persistent="false" >
             <intent android:action="android.intent.action.MAIN"
                     android:targetPackage="com.aosip.device.DeviceSettings"
-                    android:targetClass="com.aosip.device.DeviceSettings.TouchscreenGestureSettings" />
+                    android:targetClass="com.aosip.device.DeviceSettings.TouchscreenGestureActivity" />
         </Preference>
     </PreferenceCategory>
 
