@@ -109,13 +109,15 @@ TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
 
 # Recovery
 BOARD_HAS_LARGE_FILESYSTEM := true
+BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 
 # Crypto
-PLATFORM_VERSION := 16.1.0
+PLATFORM_VERSION := 80
+PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 PLATFORM_SECURITY_PATCH := 2099-12-31
-VENDOR_SECURITY_PATCH := 2099-12-31
+VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_CRYPTO_FBE := true
 TW_INCLUDE_FBE_METADATA_DECRYPT := true
@@ -141,6 +143,11 @@ TW_INCLUDE_REPACKTOOLS := true
 TW_OZIP_DECRYPT_KEY := 55EEAA33112133AE441B23BB31513121
 TW_DEVICE_VERSION := RenoAce_by-Art_Chen
 TW_HAS_EDL_MODE := true
+TW_OVERRIDE_SYSTEM_PROPS := \
+    "ro.build.date.utc;ro.build.product;ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental;ro.product.device=ro.product.system.device;ro.product.model=ro.product.system.model;ro.product.name=ro.product.system.name"
 # Debug
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
+# Custom
+TW_Y_OFFSET := 80
+TW_H_OFFSET := -80
