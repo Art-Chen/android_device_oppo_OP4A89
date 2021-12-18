@@ -1,50 +1,50 @@
 /*
- * Copyright (C) 2019 The LineageOS Project
+ * Copyright (c) 2020, The Linux Foundation. All rights reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are
+ * met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above
+ *       copyright notice, this list of conditions and the following
+ *       disclaimer in the documentation and/or other materials provided
+ *       with the distribution.
+ *     * Neither the name of The Linux Foundation nor the names of its
+ *       contributors may be used to endorse or promote products derived
+ *       from this software without specific prior written permission.
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+ * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define LOG_TAG "android.hardware.vibrator@1.2-service.oppo_OP4A89"
+#define LOG_TAG "vendor.qti.hardware.vibrator.service"
 
 #include <android-base/logging.h>
-#include <hidl/HidlTransportSupport.h>
+#include <android/binder_manager.h>
+#include <android/binder_process.h>
 
 #include "Vibrator.h"
 
-using android::hardware::configureRpcThreadpool;
-using android::hardware::joinRpcThreadpool;
-
-using android::hardware::vibrator::V1_2::IVibrator;
-using android::hardware::vibrator::V1_2::implementation::Vibrator;
-
-using android::OK;
-using android::status_t;
+using aidl::android::hardware::vibrator::Vibrator;
 
 int main() {
-    android::sp<Vibrator> service = new Vibrator();
+    ABinderProcess_setThreadPoolMaxThreadCount(0);
+    std::shared_ptr<Vibrator> vib = ndk::SharedRefBase::make<Vibrator>();
 
-    configureRpcThreadpool(1, true);
+    const std::string instance = std::string() + Vibrator::descriptor + "/default";
+    binder_status_t status = AServiceManager_addService(vib->asBinder().get(), instance.c_str());
+    CHECK(status == STATUS_OK);
 
-    status_t status = service->registerAsService();
-    if (status != OK) {
-        LOG(ERROR) << "Cannot register Vibrator HAL service.";
-        return 1;
-    }
-
-    LOG(INFO) << "Vibrator HAL service ready.";
-
-    joinRpcThreadpool();
-
-    LOG(ERROR) << "FOD HAL service failed to join thread pool.";
-    return 1;
+    ABinderProcess_joinThreadPool();
+    return EXIT_FAILURE;  // should not reach
 }

@@ -1,39 +1,44 @@
-//
-// Copyright (C) 2019 The LineageOS Project
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+Common_CFlags = ["-Wall"]
+Common_CFlags += ["-Werror"]
 
-cc_binary {
-    relative_install_path: "hw",
-    defaults: ["hidl_defaults"],
-    name: "android.hardware.vibrator@1.2-service.oppo_OP4A89",
-    init_rc: ["android.hardware.vibrator@1.2-service.oppo_OP4A89.rc"],
-    srcs: ["service.cpp", "Vibrator.cpp"],
+cc_library_shared {
+    name: "vendor.qti.hardware.vibrator.impl.oppo_OP4A89",
+    stem: "vendor.qti.hardware.vibrator.impl",
     vendor: true,
-    cpp_std: "experimental",
-    cflags: [
-        "-Wall",
-        "-Werror",
+    cflags: Common_CFlags,
+    srcs: [
+        "Vibrator.cpp",
     ],
     shared_libs: [
-        "libbase",
-        "libhidlbase",
         "libcutils",
-        "liblog",
         "libutils",
-        "libhardware",
-        "android.hardware.vibrator@1.0",
-        "android.hardware.vibrator@1.1",
-        "android.hardware.vibrator@1.2",
+        "liblog",
+        "libqtivibratoreffect",
+        "libbinder_ndk",
+        "android.hardware.vibrator-V1-ndk_platform",
+    ],
+    export_include_dirs: ["include"]
+}
+
+cc_binary {
+    name: "vendor.qti.hardware.vibrator.service.oppo_OP4A89",
+    stem: "vendor.qti.hardware.vibrator.service",
+    vendor: true,
+    relative_install_path: "hw",
+    init_rc: ["vendor.qti.hardware.vibrator.service.rc"],
+    vintf_fragments: [
+        "vendor.qti.hardware.vibrator.service.xml",
+    ],
+    cflags: Common_CFlags,
+    srcs: [
+        "service.cpp",
+    ],
+    shared_libs: [
+        "libcutils",
+        "libutils",
+        "libbase",
+        "libbinder_ndk",
+        "android.hardware.vibrator-V1-ndk_platform",
+        "vendor.qti.hardware.vibrator.impl",
     ],
 }
