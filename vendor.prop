@@ -123,6 +123,9 @@ persist.sys.enable.neo=1
 # Fingerprint
 persist.vendor.qfp=true
 persist.vendor.qfp.enable_fd=1
+ 
+# FUSE passthrough
+persist.sys.fuse.passthrough.enable=true
 
 # FRP
 ro.frp.pst=/dev/block/bootdevice/by-name/frp
