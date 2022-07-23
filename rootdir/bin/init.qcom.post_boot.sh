@@ -5259,3 +5259,28 @@ misc_link=$(ls -l /dev/block/bootdevice/by-name/misc)
 real_path=${misc_link##*>}
 setprop persist.vendor.mmi.misc_dev_path $real_path
 
+
+# Restore UFS Powersave
+echo 1 > /sys/devices/platform/soc/1d84000.ufshc/clkgate_enable
+echo 1 > /sys/devices/platform/soc/1d84000.ufshc/hibern8_on_idle_enable
+# Restore lpm_level
+echo N > /sys/module/lpm_levels/parameters/sleep_disabled
+
+# blkio tweaks
+echo 2000 > /dev/blkio/blkio.group_idle
+echo 0 > /dev/blkio/background/blkio.group_idle
+echo 1000 > /dev/blkio/blkio.weight
+echo 200 > /dev/blkio/background/blkio.weight
+
+# vm tweaks
+echo 10 > /proc/sys/vm/dirty_background_ratio
+echo 3000 > /proc/sys/vm/dirty_expire_centisecs
+echo 0 > /proc/sys/vm/page-cluster
+
+# net tweaks
+echo 262144 > /proc/sys/net/core/rmem_max
+echo 262144 > /proc/sys/net/core/wmem_max
+
+echo 0 > /sys/module/dm_verity/parameters/prefetch_cluster
+
+exit 0
