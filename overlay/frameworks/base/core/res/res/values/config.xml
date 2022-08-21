@@ -704,10 +704,7 @@
     <bool name="config_fingerprintPostResetRunnableForAllClients">true</bool>
     
     <string translatable="false" name="config_mainBuiltInDisplayCutout">
-        M -200,0
-        C -15,0,-60,68,0,68
-        C 60,68,15,0,200,0
-        Z
+        M150,0c-5,.33-9.93.53-14.88,1-13.71,1.37-27.67,1.68-41.05,4.6-18.18,4-31.95,15.49-43.52,29.93A157.53,157.53,0,0,1,30.46,57C14.93,70.26-14.91,70.23-30.47,57A133.45,133.45,0,0,1-49.92,36.35C-66.46,14.69-88.2,3.47-115.18,2c-9.47-.52-18.95-.73-28.43-1.17C-145.75.71-147.87.28-150,0Z
     </string>
 
     <!-- Like config_mainBuiltInDisplayCutout, but this path is used to report the

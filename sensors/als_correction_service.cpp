@@ -15,9 +15,11 @@
  */
 
 #include <android-base/properties.h>
+#include <binder/IBinder.h>
 #include <binder/ProcessState.h>
 #include <gui/SurfaceComposerClient.h>
 #include <gui/SyncScreenCaptureListener.h>
+#include <ui/DisplayState.h>
 
 #include <cstdio>
 #include <signal.h>
@@ -27,7 +29,9 @@
 #include <utils/Timers.h>
 
 using android::base::SetProperty;
+using android::ui::Rotation;
 using android::GraphicBuffer;
+using android::IBinder;
 using android::Rect;
 using android::ScreenshotClient;
 using android::sp;
@@ -35,6 +39,7 @@ using android::SurfaceComposerClient;
 using namespace android;
 
 static Rect screenshot_rect(667, 19, 707, 49);
+static Rect screenshot_rect_land(1080 - 707, 2400 - 49, 1080 - 667, 2340 - 19);
 
 class TakeScreenshotCommand : public FrameworkCommand {
   public:
@@ -60,13 +65,17 @@ class TakeScreenshotCommand : public FrameworkCommand {
 
         sp<SyncScreenCaptureListener> captureListener = new SyncScreenCaptureListener();
         gui::ScreenCaptureResults captureResults;
-        DisplayCaptureArgs captureArgs;
-        captureArgs.displayToken = SurfaceComposerClient::getInternalDisplayToken();
+        sp<IBinder> display = SurfaceComposerClient::getInternalDisplayToken();
+        DisplayCaptureArgs captureArgs = {};
+        android::ui::DisplayState state = {};
+        SurfaceComposerClient::getDisplayState(display, &state);
+        captureArgs.displayToken = display;
         captureArgs.pixelFormat = android::ui::PixelFormat::RGBA_8888;
-        captureArgs.sourceCrop = screenshot_rect;
+        captureArgs.sourceCrop = (state.orientation == Rotation::Rotation0 || state.orientation == Rotation::Rotation180) ? screenshot_rect : screenshot_rect_land;
         captureArgs.width = screenshot_rect.getWidth();
         captureArgs.height = screenshot_rect.getHeight();
-        captureArgs.useIdentityTransform = false;
+        captureArgs.useIdentityTransform = true;
+        captureArgs.captureSecureLayers = true;
 
         if (ScreenshotClient::captureDisplay(captureArgs, captureListener) == NO_ERROR) {
             captureResults = captureListener->waitForResults();
