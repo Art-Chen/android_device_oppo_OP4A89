@@ -62,6 +62,10 @@ namespace vibrator {
 #define MSM_CPU_SM8325          501
 #define APQ_CPU_SM8325P         502
 #define MSM_CPU_YUPIK           475
+#define MSM_CPU_CAPE            530
+#define APQ_CPU_CAPE            531
+#define MSM_CPU_TARO            457
+#define MSM_CPU_TARO_LTE        552
 
 #define test_bit(bit, array)    ((array)[(bit)/8] & (1<<((bit)%8)))
 
@@ -238,7 +242,11 @@ InputFFDevice::InputFFDevice()
             case MSM_CPU_SHIMA:
             case MSM_CPU_SM8325:
             case APQ_CPU_SM8325P:
+            case MSM_CPU_TARO:
+            case MSM_CPU_TARO_LTE:
             case MSM_CPU_YUPIK:
+            case MSM_CPU_CAPE:
+            case APQ_CPU_CAPE:
                 mSupportExternalControl = true;
                 break;
             default:
@@ -686,6 +694,43 @@ ndk::ScopedAStatus Vibrator::alwaysOnEnable(int32_t id __unused, Effect effect _
 }
 
 ndk::ScopedAStatus Vibrator::alwaysOnDisable(int32_t id __unused) {
+    return ndk::ScopedAStatus(AStatus_fromExceptionCode(EX_UNSUPPORTED_OPERATION));
+}
+
+ndk::ScopedAStatus Vibrator::getResonantFrequency(float *resonantFreqHz __unused) {
+    return ndk::ScopedAStatus(AStatus_fromExceptionCode(EX_UNSUPPORTED_OPERATION));
+}
+
+ndk::ScopedAStatus Vibrator::getQFactor(float *qFactor __unused) {
+    return ndk::ScopedAStatus(AStatus_fromExceptionCode(EX_UNSUPPORTED_OPERATION));
+}
+
+ndk::ScopedAStatus Vibrator::getFrequencyResolution(float *freqResolutionHz __unused) {
+    return ndk::ScopedAStatus(AStatus_fromExceptionCode(EX_UNSUPPORTED_OPERATION));
+}
+
+ndk::ScopedAStatus Vibrator::getFrequencyMinimum(float *freqMinimumHz __unused) {
+    return ndk::ScopedAStatus(AStatus_fromExceptionCode(EX_UNSUPPORTED_OPERATION));
+}
+
+ndk::ScopedAStatus Vibrator::getBandwidthAmplitudeMap(std::vector<float> *_aidl_return __unused) {
+    return ndk::ScopedAStatus(AStatus_fromExceptionCode(EX_UNSUPPORTED_OPERATION));
+}
+
+ndk::ScopedAStatus Vibrator::getPwlePrimitiveDurationMax(int32_t *durationMs __unused) {
+    return ndk::ScopedAStatus(AStatus_fromExceptionCode(EX_UNSUPPORTED_OPERATION));
+}
+
+ndk::ScopedAStatus Vibrator::getPwleCompositionSizeMax(int32_t *maxSize __unused) {
+    return ndk::ScopedAStatus(AStatus_fromExceptionCode(EX_UNSUPPORTED_OPERATION));
+}
+
+ndk::ScopedAStatus Vibrator::getSupportedBraking(std::vector<Braking> *supported __unused) {
+    return ndk::ScopedAStatus(AStatus_fromExceptionCode(EX_UNSUPPORTED_OPERATION));
+}
+
+ndk::ScopedAStatus Vibrator::composePwle(const std::vector<PrimitivePwle> &composite __unused,
+                           const std::shared_ptr<IVibratorCallback> &callback __unused) {
     return ndk::ScopedAStatus(AStatus_fromExceptionCode(EX_UNSUPPORTED_OPERATION));
 }
 
