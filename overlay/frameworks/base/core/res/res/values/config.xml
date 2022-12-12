@@ -753,5 +753,44 @@
 
     <!-- How long it takes for the HW to start illuminating after the illumination is requested. -->
     <integer name="config_udfps_illumination_transition_ms">0</integer>
+    
+    <!-- Whether the new Auto Selection Network UI should be shown -->
+    <bool name="config_enableNewAutoSelectNetworkUI">true</bool>
+
+    <!-- The number of vibration intensity levels supported by the device.
+         Note that this should correspond to the ability to vary the vibration amplitude, with
+         enough dynamic range to have at least as many distinct intensity levels as defined here.
+         Supported values are 1, 2, 3. If '1', the settings app will use a toggle for the settings,
+         otherwise a slider. If '3', the settings app maps intensities directly to the levels
+         supported by the Vibrator HAL APIs. If '2', then the levels will be mapped to
+         VIBRATION_INTENSITY_LOW and VIBRATION_INTENSITY_HIGH, which gives the most range for
+         scaling vibrations. The medium intensity will be skipped.
+         The default intensity values are configured at
+         frameworks/base/core/res/res/values/config.xml's config_default[type]VibrationIntensity.
+         Make sure that each default intensity value is consistent with the supported levels set
+         here. If this settings supports only 2 levels, for example, then the default intensity
+         should be either LOW (1) or HIGH (3).
+    -->
+    <integer name="config_vibration_supported_intensity_levels">3</integer>
+
+    <!-- If not empty, sets the AVC codec profile level used for the internal screen recorder.
+         Possible values: 3, 3.1, 3.2, 4, 4.1, 4.2
+    -->
+    <string name="config_screenRecorderAVCProfileLevel" translatable="false">3.1</string>
+
+    <!-- Adaptive charging -->
+    <string name="config_adaptiveChargingSysfsNode" translatable="false">/sys/class/power_supply/battery/input_suspend</string>
+    <string name="config_adaptiveChargingSuspendValue" translatable="false">1</string>
+    <string name="config_adaptiveChargingResumeValue" translatable="false">0</string>
+
+    <!-- Pocket Lock -->
+    <bool name="config_pocketModeSupported">true</bool>
+
+    <!-- Smart charging -->
+    <bool name="config_smartChargingAvailable">true</bool>
+    <string name="config_smartChargingSysfsNode" translatable="false">/sys/class/power_supply/battery/input_suspend</string>
+    <string name="config_smartChargingSuspendValue" translatable="false">1</string>
+    <string name="config_smartChargingResumeValue" translatable="false">0</string>
+
 
 </resources>
