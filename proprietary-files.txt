@@ -1783,7 +1783,6 @@ vendor/bin/hw/vendor.oppo.hardware.cryptoeng@1.0-service
 vendor/bin/hw/vendor.oppo.hardware.eid@1.0-service
 vendor/bin/hw/vendor.oppo.hardware.hypnus@1.0-service
 vendor/bin/hw/vendor.oppo.hardware.ktv@1.0-service
-vendor/bin/hw/vendor.oppo.hardware.mmdisplayfeature@1.0-service
 vendor/bin/hw/vendor.oppo.hardware.oiface@1.0-service
 vendor/bin/hw/vendor.oppo.wifi.sniffer@1.0-service
 vendor/bin/OppoKeybox
@@ -1795,7 +1794,6 @@ vendor/etc/init/vendor.oppo.hardware.cryptoeng@1.0-service_FDE.rc
 vendor/etc/init/vendor.oppo.hardware.eid@1.0-service.rc
 vendor/etc/init/vendor.oppo.hardware.hypnus@1.0-service.rc
 vendor/etc/init/vendor.oppo.hardware.ktv@1.0-service.rc
-vendor/etc/init/vendor.oppo.hardware.mmdisplayfeature@1.0-service.rc
 vendor/etc/init/vendor.oppo.hardware.oiface@1.0-service.rc
 vendor/etc/init/vendor.oppo.wifi.sniffer@1.0-service.rc
 vendor/etc/OPPO_OLED_19081_AD_calib.cfg
@@ -1807,7 +1805,6 @@ vendor/lib/hw/vendor.oppo.hardware.camera.oppoHalAssist@1.0-impl.so
 vendor/lib/hw/vendor.oppo.hardware.eid@1.0-impl.so
 vendor/lib/hw/vendor.oppo.hardware.hypnus@1.0-impl.so
 vendor/lib/hw/vendor.oppo.hardware.ktv@1.0-impl.so
-vendor/lib/hw/vendor.oppo.hardware.mmdisplayfeature@1.0-impl.so
 vendor/lib/hw/vendor.oppo.hardware.oiface@1.0-impl.so
 vendor/lib/libcom.oppo.calidatacontainer.so
 vendor/lib/vendor.oppo.hardware.camera.oppoHalAssist@1.0.so
@@ -1815,14 +1812,12 @@ vendor/lib/vendor.oppo.hardware.commondcs@1.0.so
 vendor/lib/vendor.oppo.hardware.eid@1.0.so
 vendor/lib/vendor.oppo.hardware.hypnus@1.0.so
 vendor/lib/vendor.oppo.hardware.ktv@1.0.so
-vendor/lib/vendor.oppo.hardware.mmdisplayfeature@1.0.so
 vendor/lib/vendor.oppo.hardware.oiface@1.0.so
 vendor/lib/vendor.oppo.hardware.radio.opporadio@1.0.so
 vendor/lib64/hw/vendor.oppo.hardware.camera.oppoHalAssist@1.0-impl.so
 vendor/lib64/hw/vendor.oppo.hardware.eid@1.0-impl.so
 vendor/lib64/hw/vendor.oppo.hardware.hypnus@1.0-impl.so
 vendor/lib64/hw/vendor.oppo.hardware.ktv@1.0-impl.so
-vendor/lib64/hw/vendor.oppo.hardware.mmdisplayfeature@1.0-impl.so
 vendor/lib64/hw/vendor.oppo.hardware.oiface@1.0-impl.so
 vendor/lib64/libcom.oppo.calidatacontainer.so
 vendor/lib64/libOppoAlgoProcess.so
@@ -1842,7 +1837,6 @@ vendor/lib64/vendor.oppo.hardware.cryptoeng@1.0.so
 vendor/lib64/vendor.oppo.hardware.eid@1.0.so
 vendor/lib64/vendor.oppo.hardware.hypnus@1.0.so
 vendor/lib64/vendor.oppo.hardware.ktv@1.0.so
-vendor/lib64/vendor.oppo.hardware.mmdisplayfeature@1.0.so
 vendor/lib64/vendor.oppo.hardware.oiface@1.0.so
 vendor/lib64/vendor.oppo.hardware.radio.opporadio@1.0.so
 vendor/lib64/vendor.oppo.hardware.wifi.sniffer@1.0.so
