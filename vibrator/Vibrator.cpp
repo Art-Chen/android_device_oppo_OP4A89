@@ -181,7 +181,7 @@ static std::vector<vibrator_constant_t> VIBRATOR_CONSTANTS{
     }},
     {INT32_MAX, {
         { DURATION_PATH, "AUTO" },
-        { VMAX_PATH, "0x1f" },
+        { VMAX_PATH, "0x10" },
         { GAIN_PATH, "AUTO" },
         { ACTIVATE_PATH, "1" },
     }}
