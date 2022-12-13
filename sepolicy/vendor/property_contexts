@@ -63,10 +63,6 @@ darkboost.gain                            u:object_r:exported_system_prop:s0
 #Guotian.Wu@PSW.CN.WiFi.Basic.Custom.1068489 , 2018/11/06, Add for use qmi interface to get WLAN MAC ADDR
 ro.vold.serialno                 u:object_r:oplus_vendor_prop:s0
 #endif /* VENDOR_EDIT */
-#ifdef VENDOR_EDIT
-#weiwei.Deng@CN.NFC.Basic.Hardware.1182186 ,2018/11/11
-#Add for : NFC properties
-persist.nfc.            u:object_r:oplus_vendor_prop:s0
 
 #ifdef VENDOR_EDIT
 #Guotian.Wu@PSW.CN.WiFi.Basic.Log.1162003, 2018/12/13, Add for dynamic collect wifi mini dump
