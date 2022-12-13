@@ -83,7 +83,7 @@ PRODUCT_PACKAGES += \
     com.dsi.ant@1.0.vendor
 
 # AOSiP Device Settings
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     DeviceSettings
 
 # Atrace
@@ -166,7 +166,7 @@ PRODUCT_PACKAGES += \
     libxml2 \
     Snap \
     vendor.qti.hardware.camera.device@1.0.vendor \
-    ApertureCam
+    Aperture
 
 # Call recording for Google Dialer
 PRODUCT_COPY_FILES += \
