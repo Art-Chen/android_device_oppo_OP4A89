@@ -697,9 +697,6 @@
     <!-- Whether device has vooc charging support -->
     <bool name="config_hasVoocCharger">true</bool>
 
-    <!-- Smart charging -->
-    <bool name="config_smartChargingAvailable">true</bool>
-    
     <!-- Whether to post reset runnable for all clients. Needed for some older vendor fingerprint HAL implementations. -->
     <bool name="config_fingerprintPostResetRunnableForAllClients">true</bool>
     
