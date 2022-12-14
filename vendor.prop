@@ -112,8 +112,8 @@ vendor.display.dataspace_saturation_matrix=1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
 
 # Display - Dynamic refresh rate
 ro.surface_flinger.set_display_power_timer_ms=1000
-ro.surface_flinger.set_idle_timer_ms=1500
-ro.surface_flinger.set_touch_timer_ms=3000
+ro.surface_flinger.set_idle_timer_ms=4000
+ro.surface_flinger.set_touch_timer_ms=4000
 ro.surface_flinger.use_content_detection_for_refresh_rate=true
 vendor.display.idle_time=0
 
