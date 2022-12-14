@@ -96,12 +96,12 @@ object Utils {
 
     fun isMoveDetectEnabled(context: Context?): Boolean {
         return PreferenceManager.getDefaultSharedPreferences(context)
-            .getString(GESTURE_MOVE_DETECT_KEY, "0") != "0"
+            .getString(GESTURE_MOVE_DETECT_KEY, "1") != "0"
     }
 
     fun isMoveDetectSetToWake(context: Context?): Boolean {
         return PreferenceManager.getDefaultSharedPreferences(context)
-            .getString(GESTURE_MOVE_DETECT_KEY, "0") == "2"
+            .getString(GESTURE_MOVE_DETECT_KEY, "1") == "2"
     }
 
     fun isPocketEnabled(context: Context?): Boolean {
@@ -109,7 +109,7 @@ object Utils {
     }
 
     private fun areGesturesEnabled(context: Context?): Boolean {
-        return isPickUpEnabled(context) || isPocketEnabled(context)
+        return isPickUpEnabled(context) || isPocketEnabled(context) || isMoveDetectEnabled(context)
     }
 
     fun getSensor(sm: SensorManager, type: String?): Sensor? {

@@ -21,7 +21,7 @@
     android:title="@string/ambient_display_title">
 
     <com.android.settingslib.widget.MainSwitchPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="doze_enable"
         android:title="@string/ambient_enable" />
 
@@ -46,7 +46,7 @@
 
         <ListPreference
             android:key="gesture_move_detect_type"
-            android:defaultValue="0"
+            android:defaultValue="1"
             android:title="@string/move_detect_gesture_title"
             android:summary="%s"
             android:entries="@array/pick_up_gesture_entries"
