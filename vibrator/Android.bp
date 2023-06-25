@@ -39,6 +39,6 @@ cc_binary {
         "libbase",
         "libbinder_ndk",
         "android.hardware.vibrator-V2-ndk",
-        "vendor.qti.hardware.vibrator.impl",
+        "vendor.qti.hardware.vibrator.impl.oppo_OP4A89",
     ],
 }
