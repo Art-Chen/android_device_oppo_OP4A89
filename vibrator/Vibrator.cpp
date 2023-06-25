@@ -175,14 +175,14 @@ static std::vector<vibrator_constant_t> VIBRATOR_CONSTANTS{
         { DURATION_PATH, "AUTO" },
         { VMAX_PATH, "0x12" },
         { GAIN_PATH, "AUTO" },
-	    { SEQ_PATH, "0x00 0x03" },
+        { SEQ_PATH, "0x00 0x03" },
         { LOOP_PATH, "0x00 0x00" },
         { BRIGHTNESS_PATH, "1" },
     }},
     {INT32_MAX, {
         { DURATION_PATH, "AUTO" },
-        { VMAX_PATH, "0x10" },
-        { GAIN_PATH, "AUTO" },
+        { VMAX_PATH, "0x09" },
+        { GAIN_PATH, "0x75" },
         { ACTIVATE_PATH, "1" },
     }}
 };
