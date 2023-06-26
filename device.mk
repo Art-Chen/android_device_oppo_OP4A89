@@ -83,7 +83,7 @@ PRODUCT_PACKAGES += \
     com.dsi.ant@1.0.vendor
 
 # Device Settings
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     DeviceSettings
 
 # Atrace
@@ -256,7 +256,7 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.mapper@4.0.vendor
 
 # Doze
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     OPlusDoze
 
 # DRM
