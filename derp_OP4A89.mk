@@ -10,11 +10,11 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 $(call inherit-product, device/oppo/OP4A89/device.mk)
 
-# Inherit some common ArrowOS stuff
-$(call inherit-product, vendor/arrow/config/common.mk)
+# Inherit some common DerpFest stuff
+$(call inherit-product, vendor/derp/config/common_full_phone.mk)
 
 # Device identifier. This must come after all inclusions.
-PRODUCT_NAME := arrow_OP4A89
+PRODUCT_NAME := derp_OP4A89
 PRODUCT_DEVICE := OP4A89
 PRODUCT_BRAND := OPPO
 PRODUCT_MODEL := PCLM10
@@ -24,6 +24,9 @@ PRODUCT_AAPT_CONFIG := xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 PRODUCT_CHARACTERISTICS := nosdcard
 
+# Official-ify
+DERP_BUILDTYPE := Official
+
 # Device maintainer
 DEVICE_MAINTAINER := art_chen
 
@@ -31,7 +34,8 @@ DEVICE_MAINTAINER := art_chen
 TARGET_BOOT_ANIMATION_RES := 1080
 
 # Build info
-BUILD_FINGERPRINT := "OPPO/PCLM10/OP4A89:10/QKQ1.191021.002/1587105942:user/release-keys"
+#BUILD_FINGERPRINT := "OPPO/PCLM10/OP4A89:10/QKQ1.191021.002/1587105942:user/release-keys"
+BUILD_FINGERPRINT := google/redfin/redfin:12/SP1A.210812.015/7679548:user/release-keys
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_DEVICE=OP4A89 \
     PRODUCT_NAME=PCLM10 \

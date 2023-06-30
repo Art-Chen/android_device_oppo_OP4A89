@@ -5,4 +5,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/arrow_OP4A89.mk
+    $(LOCAL_DIR)/derp_OP4A89.mk
