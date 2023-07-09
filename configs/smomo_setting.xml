@@ -1,0 +1,338 @@
+<?xml version="1.0" ?>
+<!--
+Copyright (c) 2021, The Linux Foundation. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above
+      copyright notice, this list of conditions and the following
+      disclaimer in the documentation and/or other materials provided
+      with the distribution.
+    * Neither the name of The Linux Foundation nor the names of its
+      contributors may be used to endorse or promote products derived
+      from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<SmomoSetting>
+
+<SmomoModeList>
+        <SmomoMode name="OPCAM" id="1">
+            <FpsMap minFps="28" maxFps="31" appFps="30" refreshRate="60"/>
+        </SmomoMode>
+</SmomoModeList>
+
+    <SmoMoWhiteList>
+        <LayerWhiteList>
+            <LayerApp name="snapcam">
+                <AppLayer name="SurfaceView[org.codeaurora.snapcam/com.android.camera.CameraLauncher](BLAST)#0" type="camera" mode="1" enable="false"/>
+            </LayerApp>
+
+            <LayerApp name="testgame">
+                <AppLayer name="SurfaceView[com.test.game/com.test.game.Activity](BLAST)#0" type="game" enable="false"/>
+            </LayerApp>
+
+            <LayerApp name="OPCAM">
+                <AppLayer name="SurfaceView[com.oplus.camera/com.oplus.camera.Camera](BLAST)#0" enable="true" mode="1" type="camera" strategy="mode"/>
+            </LayerApp>
+
+            <LayerApp name="Grafika">
+                <AppLayer name="SurfaceView[com.google.grafika/com.android.grafika.PlayMovieSurfaceActivity](BLAST)#0" type="game" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="AF">
+                <AppLayer name="SurfaceView[com.tencent.af/com.tencent.af.AFActivity](BLAST)#0" type="game" mode="2" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="GP">
+                <AppLayer name="SurfaceView[com.tencent.tmgp.pubgmhd/com.epicgames.ue4.GameActivity](BLAST)#0" type="game" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="CAM">
+                <AppLayer name="SurfaceView[org.codeaurora.snapcam/com.android.camera.CameraActivity](BLAST)#0" type="game" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Gifmaker">
+                <AppLayer name="SurfaceView[com.smile.gifmaker/com.yxcorp.gifshow.camera.record.CameraActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Gifmaker">
+                <AppLayer name="SurfaceView[com.smile.gifmaker/com.yxcorp.gifshow.camera.record.CameraActivity](BLAST)#1" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Autotest">
+                <AppLayer name="SurfaceView[autotest.oppo.com.simulatedlivebroadcast/autotest.oppo.com.simulatedlivebroadcast.activity.SurfaceActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Autotest1">
+                <AppLayer name="autotest.oppo.com.simulatedlivebroadcast/autotest.oppo.com.simulatedlivebroadcast.activity.Texture2Activity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Autotest2">
+                <AppLayer name="SurfaceView[autotest.oplus.com.simulatedlivebroadcast/autotest.oplus.com.simulatedlivebroadcast.activity.SurfaceActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Meitu">
+                <AppLayer name="SurfaceView[com.mt.mtxx.mtxx/com.meitu.app.meitucamera.ActivityCamera](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Meitu1">
+                <AppLayer name="SurfaceView[com.mt.mtxx.mtxx/com.meitu.app.meitucamera.ActivityCamera](BLAST)#1" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Meitu2">
+                <AppLayer name="SurfaceView[com.meitu.meiyancamera/com.meitu.myxj.selfie.merge.activity.SelfieCameraActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Kwai">
+                <AppLayer name="SurfaceView[com.kwai.videoeditor/com.kwai.videoeditor.activity.StartCreateActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Kwai1">
+                <AppLayer name="SurfaceView[com.kwai.m2u/com.kwai.m2u.main.CameraActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Weixin">
+                <AppLayer name="SurfaceView[com.tencent.mm/com.tencent.mm.plugin.recordvideo.activity.MMRecordUI](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Weixin">
+                <AppLayer name="SurfaceView[com.tencent.mm/com.tencent.mm.plugin.scanner.ui.BaseScanUI](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="QQ">
+                <AppLayer name="SurfaceView[com.tencent.mobileqq/dov.com.qq.im.QIMCameraCaptureActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="QQ">
+                <AppLayer name="SurfaceView[com.tencent.mobileqq/com.tencent.aelight.camera.aebase.activity.CaptureQmcfSoDownloadActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="QQ">
+                <AppLayer name="SurfaceView[com.tencent.mobileqq/com.tencent.aelight.camera.aebase.QIMCameraCaptureActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="QQ">
+                <AppLayer name="SurfaceView[com.tencent.mobileqq/com.tencent.mobileqq.olympic.activity.ScanTorchActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Gorgeous">
+                <AppLayer name="SurfaceView[com.gorgeous.liteinternational/com.light.beauty.mainpage.MainActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Gorgeous">
+                <AppLayer name="SurfaceView[com.gorgeous.lite/com.light.beauty.mainpage.MainActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Wuta">
+                <AppLayer name="SurfaceView[com.benqu.wuta/com.benqu.wuta.activities.preview.PreviewActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Shuiyin">
+                <AppLayer name="SurfaceView[com.tencent.zebra/com.android.camera.CameraActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Weishi">
+                <AppLayer name="SurfaceView[com.tencent.weishi/com.tencent.weishi.module.camera.ui.activity.CameraActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Weishi">
+                <AppLayer name="SurfaceView[com.tencent.weishi/com.tencent.ilive.pages.room.AnchorRoomActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Momo">
+                <AppLayer name="SurfaceView[com.immomo.momo/com.immomo.momo.moment.activity.VideoRecordAndEditActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="zhanqi">
+                <AppLayer name="SurfaceView[com.gameabc.zhanqiAndroid/com.gameabc.zhanqiAndroid.Activty.KSYShortVideoActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Douyin">
+                <AppLayer name="SurfaceView[com.ss.android.ugc.aweme/com.ss.android.ugc.aweme.shortvideo.ui.VideoRecordNewActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="TikTok">
+                <AppLayer name="SurfaceView[com.zhiliaoapp.musically/com.ss.android.ugc.aweme.shortvideo.ui.VideoRecordNewActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Alipay">
+                <AppLayer name="com.eg.android.AlipayGphone/com.alipay.mobile.chatapp.ui.video.VideoRecordActivity_#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Mms">
+                <AppLayer name="com.android.mms/com.android.mms.ui.conversation.ConversationActivity#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="xhey">
+                <AppLayer name="SurfaceView[com.xhey.xcamera/com.xhey.xcamera.ui.camera.picNew.PreviewActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="ttpic">
+                <AppLayer name="SurfaceView[com.tencent.ttpic/com.tencent.ttpic.module.camera.CameraActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="soulapp">
+                <AppLayer name="cn.soulapp.android/cn.soulapp.lib.sensetime.ui.SquareCameraActivity#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="yidui">
+                <AppLayer name="SurfaceView[me.yidui/com.yidui.business.moment.publish.ui.camera.BeautyPhotographyActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="kuaishou">
+                <AppLayer name="SurfaceView[com.kuaishou.nebula/com.yxcorp.gifshow.camera.record.CameraActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="cameraunit">
+                <AppLayer name="SurfaceView[com.ocs.cameraunit/com.cameraunit.app.view.MainActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="baidu">
+                <AppLayer name="SurfaceView[com.baidu.searchbox/com.baidu.searchbox.godeye.CodeScannerActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="fenbi">
+                <AppLayer name="com.fenbi.android.solar/com.fenbi.android.solar.activity.MultiPurposeCameraActivity#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="snowcamera">
+                <AppLayer name="SurfaceView[com.campmobile.snowcamera/com.linecorp.b612.android.activity.ActivityCamera#2" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="zenmen">
+                <AppLayer name="SurfaceView[com.zenmen.palmchat/com.zenmen.media.CameraActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="ugc">
+                <AppLayer name="SurfaceView[com.ss.android.ugc.live/com.ss.android.ugc.live.tools.window.RecorderActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="pinduoduo">
+                <AppLayer name="SurfaceView[com.xunmeng.pinduoduo/com.xunmeng.pinduoduo.activity.NewPageActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="dingding">
+                <AppLayer name="SurfaceView[com.alibaba.android.rimet/com.taobao.taopai.business.record.fragment.SocialRecordVideoActivity_Module](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="yiruike">
+                <AppLayer name="com.yiruike.sodacn.android/com.linecorp.sodacam.android.camera.CameraActivity#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="dou_pai">
+                <AppLayer name="com.dou_pai.DouPai/doupai.medialib.MediaModule#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="Gifmaker">
+                <AppLayer name="SurfaceView[com.smile.gifmaker/com.kuaishou.post.story.activity.PostStoryActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="tiku">
+                <AppLayer name="com.tal.tiku/com.tal.tiku.main.MainActivity#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="duapp">
+                <AppLayer name="com.shizhuang.duapp/com.shizhuang.duapp.media.activity.RecoPhotoCameraActivity#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="jianying">
+                <AppLayer name="SurfaceView[com.lemon.lv/com.vega.recorder.LvRecordActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="qiyeweixin">
+                <AppLayer name="SurfaceView[com.tencent.wework/com.tencent.wework.login.controller.LoginScannerActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="qiyeweixin1">
+                <AppLayer name="SurfaceView[com.tencent.wework/com.tencent.wework.msg.controller.CustomCameraActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="huya">
+                <AppLayer name="SurfaceView[com.duowan.live/com.duowan.liveroom.LiveRoomActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="ydtx">
+                <AppLayer name="com.ydtx.camera/com.ydtx.camera.MainActivity#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="ydtx1">
+                <AppLayer name="com.ydtx.camera/com.ydtx.camera.MainActivity#2" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="xuexiaoyi">
+                <AppLayer name="SurfaceView[com.xuexiaoyi.xxy/com.xuexiaoyi.platform.base.arch.RouterFragmentActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="karaoke">
+                <AppLayer name="SurfaceView[com.tencent.karaoke/com.tencent.karaoke.module.live.ui.LiveStartActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="jingdong">
+                <AppLayer name="SurfaceView[com.jingdong.app.mall/com.jd.lib.mediamaker.maker.JdmmMediaMakerActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="jingdong1">
+                <AppLayer name="SurfaceView[com.jingdong.app.mall/com.jd.lib.unification.video.recorder.VideoRecorderActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="wemeet">
+                <AppLayer name="com.tencent.wemeet.app/com.tencent.wemeet.sdk.meeting.inmeeting.InMeetingActivity#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="lemon">
+                <AppLayer name="SurfaceView[com.lemon.faceu/com.lemon.faceu.business.mainpage.MainActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="pingan">
+                <AppLayer name="SurfaceView[com.pingan.lifeinsurance/com.pingan.lifeinsurance.framework.util.photo.activity.TakePhotoActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="whatsapp">
+                <AppLayer name="SurfaceView[com.whatsapp/com.whatsapp.voipcalling.VoipActivityV2](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="whatsapp1">
+                <AppLayer name="SurfaceView[com.whatsapp/com.whatsapp.voipcalling.VoipActivityV2](BLAST)#1" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="roposo">
+                <AppLayer name="SurfaceView[com.roposo.android/com.roposo.creation.activities.CreationActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="instagram">
+                <AppLayer name="com.instagram.android/com.instagram.creation.activity.MediaCaptureActivity#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="meipai">
+                <AppLayer name="SurfaceView[com.meitu.meipaimv/com.meitu.meipaimv.produce.camera.ui.CameraVideoActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="xigua">
+                <AppLayer name="SurfaceView[com.ss.android.article.video/com.ixigua.create.specific.publish.activity.NewVideoCaptureActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="xigua2">
+                <AppLayer name="SurfaceView[com.ss.android.article.video/com.ixigua.create.specific.publish.activity.CreateHomeWrapperActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+            <LayerApp name="xigua3">
+                <AppLayer name="SurfaceView[com.ss.android.article.video/com.ixigua.feature.mine.qrcode.QRCodeActivity](BLAST)#0" type="camera" mode="1" enable="true"/>
+            </LayerApp>
+
+        </LayerWhiteList>
+    </SmoMoWhiteList>
+</SmomoSetting>

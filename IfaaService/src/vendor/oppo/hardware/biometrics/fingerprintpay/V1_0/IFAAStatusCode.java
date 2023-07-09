@@ -1,4 +1,4 @@
-package vendor.oppo.hardware.biometrics.fingerprintpay.V1_0;
+package vendor.oplus.hardware.biometrics.fingerprintpay.V1_0;
 
 import java.util.ArrayList;
 

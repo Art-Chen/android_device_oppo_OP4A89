@@ -20,17 +20,21 @@
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/ambient_display_title">
 
+    <com.android.settingslib.widget.TopIntroPreference
+        android:key="doze_top_intro"
+        android:title="@string/ambient_display_enable_summary"/>
+
     <com.android.settingslib.widget.MainSwitchPreference
-        android:defaultValue="true"
+        android:defaultValue="false"
         android:key="doze_enable"
-        android:title="@string/ambient_enable" />
+        android:title="@string/ambient_display_enable_title" />
 
     <SwitchPreference
         android:key="always_on_display"
         android:disableDependentsState="true"
         android:title="@string/ambient_display_always_on_title"
         android:summary="@string/ambient_display_always_on_summary"
-        android:persistent="true" />
+        android:persistent="false" />
 
     <PreferenceCategory
         android:key="pickup_sensor"

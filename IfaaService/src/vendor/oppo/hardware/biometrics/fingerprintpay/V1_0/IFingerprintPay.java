@@ -1,4 +1,4 @@
-package vendor.oppo.hardware.biometrics.fingerprintpay.V1_0;
+package vendor.oplus.hardware.biometrics.fingerprintpay.V1_0;
 
 import android.hidl.base.V1_0.DebugInfo;
 import android.hidl.base.V1_0.IBase;
@@ -17,7 +17,7 @@ import java.util.Objects;
 
 /* loaded from: classes.dex */
 public interface IFingerprintPay extends IBase {
-    public static final String kInterfaceName = "vendor.oppo.hardware.biometrics.fingerprintpay@1.0::IFingerprintPay";
+    public static final String kInterfaceName = "vendor.oplus.hardware.biometrics.fingerprintpay@1.0::IFingerprintPay";
 
     int alikey_verify() throws RemoteException;
 
@@ -128,7 +128,7 @@ public interface IFingerprintPay extends IBase {
             this.mRemote = (IHwBinder) Objects.requireNonNull(remote);
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public IHwBinder asBinder() {
             return this.mRemote;
         }
@@ -137,7 +137,7 @@ public interface IFingerprintPay extends IBase {
             try {
                 return interfaceDescriptor() + "@Proxy";
             } catch (RemoteException e) {
-                return "[class or subclass of vendor.oppo.hardware.biometrics.fingerprintpay@1.0::IFingerprintPay]@Proxy";
+                return "[class or subclass of vendor.oplus.hardware.biometrics.fingerprintpay@1.0::IFingerprintPay]@Proxy";
             }
         }
 
@@ -149,7 +149,7 @@ public interface IFingerprintPay extends IBase {
             return asBinder().hashCode();
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
         public int alikey_verify() throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IFingerprintPay.kInterfaceName);
@@ -164,7 +164,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
         public int alikey_write() throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IFingerprintPay.kInterfaceName);
@@ -179,7 +179,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
         public int get_alikey_status() throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IFingerprintPay.kInterfaceName);
@@ -194,7 +194,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
         public int get_rpmb_state() throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IFingerprintPay.kInterfaceName);
@@ -209,7 +209,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
         public int enable_rpmb() throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IFingerprintPay.kInterfaceName);
@@ -224,7 +224,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
         public int get_rpmb_enable_state() throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IFingerprintPay.kInterfaceName);
@@ -239,7 +239,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
         public ArrayList<Byte> alipay_invoke_command(ArrayList<Byte> inbuf) throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IFingerprintPay.kInterfaceName);
@@ -255,7 +255,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
         public ArrayList<Byte> alipay_face_invoke_command(ArrayList<Byte> inbuf) throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IFingerprintPay.kInterfaceName);
@@ -271,7 +271,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
         public void authenticate(String reqId, int flags, IAuthenticatorCallback callback) throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IFingerprintPay.kInterfaceName);
@@ -288,7 +288,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
         public void enroll(String reqId, int flags, IAuthenticatorCallback callback) throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IFingerprintPay.kInterfaceName);
@@ -305,7 +305,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
         public int cancel(String reqId) throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IFingerprintPay.kInterfaceName);
@@ -321,7 +321,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay
         public void upgrade(String path) throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IFingerprintPay.kInterfaceName);
@@ -336,7 +336,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public ArrayList<String> interfaceChain() throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IBase.kInterfaceName);
@@ -351,7 +351,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public void debug(NativeHandle fd, ArrayList<String> options) throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IBase.kInterfaceName);
@@ -367,7 +367,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public String interfaceDescriptor() throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IBase.kInterfaceName);
@@ -382,7 +382,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public ArrayList<byte[]> getHashChain() throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IBase.kInterfaceName);
@@ -407,7 +407,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public void setHALInstrumentation() throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IBase.kInterfaceName);
@@ -420,12 +420,12 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public boolean linkToDeath(IHwBinder.DeathRecipient recipient, long cookie) throws RemoteException {
             return this.mRemote.linkToDeath(recipient, cookie);
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public void ping() throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IBase.kInterfaceName);
@@ -439,7 +439,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public DebugInfo getDebugInfo() throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IBase.kInterfaceName);
@@ -456,7 +456,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public void notifySyspropsChanged() throws RemoteException {
             HwParcel _hidl_request = new HwParcel();
             _hidl_request.writeInterfaceToken(IBase.kInterfaceName);
@@ -469,7 +469,7 @@ public interface IFingerprintPay extends IBase {
             }
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public boolean unlinkToDeath(IHwBinder.DeathRecipient recipient) throws RemoteException {
             return this.mRemote.unlinkToDeath(recipient);
         }
@@ -477,44 +477,44 @@ public interface IFingerprintPay extends IBase {
 
     /* loaded from: classes.dex */
     public static abstract class Stub extends HwBinder implements IFingerprintPay {
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public IHwBinder asBinder() {
             return this;
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public final ArrayList<String> interfaceChain() {
             return new ArrayList<>(Arrays.asList(IFingerprintPay.kInterfaceName, IBase.kInterfaceName));
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public void debug(NativeHandle fd, ArrayList<String> arrayList) {
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public final String interfaceDescriptor() {
             return IFingerprintPay.kInterfaceName;
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public final ArrayList<byte[]> getHashChain() {
             return new ArrayList<>(Arrays.asList(new byte[]{109, 71, -34, 80, 103, -125, -16, 122, -14, -33, 39, -41, -55, -82, 58, 15, 14, 110, 25, -5, -102, 116, -74, 126, -22, -7, 70, 68, -6, 45, 51, 3}, new byte[]{-20, Byte.MAX_VALUE, -41, -98, -48, 45, -6, -123, -68, 73, -108, 38, -83, -82, 62, -66, 35, -17, 5, 36, -13, -51, 105, 87, 19, -109, 36, -72, 59, 24, -54, 76}));
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public final void setHALInstrumentation() {
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public final boolean linkToDeath(IHwBinder.DeathRecipient recipient, long cookie) {
             return true;
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public final void ping() {
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public final DebugInfo getDebugInfo() {
             DebugInfo info = new DebugInfo();
             info.pid = HidlSupport.getPidIfSharable();
@@ -523,12 +523,12 @@ public interface IFingerprintPay extends IBase {
             return info;
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public final void notifySyspropsChanged() {
             HwBinder.enableInstrumentation();
         }
 
-        @Override // vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
+        @Override // vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay, android.hidl.base.V1_0.IBase
         public final boolean unlinkToDeath(IHwBinder.DeathRecipient recipient) {
             return true;
         }

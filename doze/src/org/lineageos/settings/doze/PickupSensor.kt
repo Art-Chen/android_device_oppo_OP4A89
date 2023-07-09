@@ -71,7 +71,7 @@ class PickupSensor(private val context: Context, sensorType: String) : SensorEve
         private const val TAG = "PickupSensor"
         private const val DEBUG = false
 
-        private const val MIN_PULSE_INTERVAL_MS = 500L
+        private const val MIN_PULSE_INTERVAL_MS = 2500L
         private const val WAKELOCK_TIMEOUT_MS = 300L
     }
 }

@@ -39,7 +39,7 @@ BOARD_BOOT_HEADER_VERSION := 2
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom androidboot.console=ttyMSM0 lpm_levels.sleep_disabled=1 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048 loop.max_part=7 androidboot.usbcontroller=a600000.dwc3
 BOARD_KERNEL_CMDLINE += androidboot.vbmeta.avb_version=1.0
-BOARD_KERNEL_CMDLINE += skip_initramfs
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive printk.devkmsg=on androidboot.init_fatal_panic=true
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_SEPARATED_DTBO := true
@@ -62,7 +62,7 @@ TARGET_USES_QCOM_BSP := true
 
 # Properties
 TARGET_ODM_PROP += $(DEVICE_PATH)/odm.prop
-TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+TARGET_SYSTEM_EXT_PROP += $(DEVICE_PATH)/system_ext.prop
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
 # Treble
@@ -92,7 +92,7 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 BOARD_USES_QCNE := true
 
 # FOD
-TARGET_SURFACEFLINGER_UDFPS_LIB := //$(DEVICE_PATH):libudfps_extension.oppo_OP4A89
+TARGET_SURFACEFLINGER_UDFPS_LIB := //$(DEVICE_PATH):libudfps_extension.oplus_OP4A89
 
 # Dex
 ifeq ($(HOST_OS),linux)
@@ -122,7 +122,7 @@ TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
 
 # GPS
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
-GNSS_HIDL_VERSION := 1.1
+GNSS_HIDL_VERSION := 2.1
 TARGET_NO_RPC := true
 USE_DEVICE_SPECIFIC_GPS := true
 
@@ -147,7 +147,7 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 5368709120
 BOARD_VENDORIMAGE_PARTITION_SIZE := 2177794048
 
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
@@ -175,7 +175,7 @@ TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
 TARGET_RIL_VARIANT := caf
 
 # Security patch level
-VENDOR_SECURITY_PATCH := 2020-11-01
+VENDOR_SECURITY_PATCH := 2022-10-05
 
 # SELinux
 include device/qcom/sepolicy_vndr-legacy-um/SEPolicy.mk
@@ -183,6 +183,9 @@ include device/qcom/sepolicy_vndr-legacy-um/SEPolicy.mk
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
 SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/public
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
+
+# Sensor
+USE_SENSOR_MULTI_HAL := true
 
 # Verified Boot
 BOARD_AVB_ENABLE := true

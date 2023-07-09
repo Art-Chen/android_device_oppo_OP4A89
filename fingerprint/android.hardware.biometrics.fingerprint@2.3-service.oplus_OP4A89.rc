@@ -1,0 +1,4 @@
+service vendor.fps_hal_oplus /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.3-service.oplus_OP4A89
+    class late_start
+    user system
+    group system

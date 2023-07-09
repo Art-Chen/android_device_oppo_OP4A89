@@ -27,7 +27,7 @@ namespace V2_1 {
 namespace implementation {
 
 static constexpr const char* kDcDimmingPath =
-    "/sys/kernel/oppo_display/dimlayer_bl_en";
+    "/sys/kernel/oplus_display/dimlayer_bl_en";
 
 Return<bool> AntiFlicker::isEnabled() {
     std::ifstream file(kDcDimmingPath);

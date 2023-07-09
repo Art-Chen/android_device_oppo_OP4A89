@@ -71,7 +71,7 @@ class MoveDetectSensor(private val context: Context, sensorType: String) : Senso
         private const val TAG = "MoveDetectSensor"
         private const val DEBUG = false
 
-        private const val MIN_PULSE_INTERVAL_MS = 100L
+        private const val MIN_PULSE_INTERVAL_MS = 2500L
         private const val WAKELOCK_TIMEOUT_MS = 300L
     }
 }

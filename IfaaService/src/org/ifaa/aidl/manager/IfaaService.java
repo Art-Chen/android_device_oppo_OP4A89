@@ -13,7 +13,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 import org.ifaa.aidl.manager.IfaaManagerService;
-import vendor.oppo.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay;
+import vendor.oplus.hardware.biometrics.fingerprintpay.V1_0.IFingerprintPay;
 
 public class IfaaService extends Service {
     public static final int AUTH_TYPE_FINGERPRINT = 1;

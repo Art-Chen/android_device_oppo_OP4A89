@@ -29,7 +29,7 @@ namespace livedisplay {
 namespace V2_1 {
 namespace implementation {
 
-static const std::string kModePath = "/sys/kernel/oppo_display/seed";
+static const std::string kModePath = "/sys/kernel/oplus_display/seed";
 static const std::string kDefaultPath = "/data/vendor/display/default_display_mode";
 
 // Mode ids here must match qdcm display mode ids

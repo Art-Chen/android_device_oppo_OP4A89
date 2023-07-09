@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2012-2017 The Linux Foundation. All rights reserved.
      Not a contribution.
      Copyright (C) 2010 The Android Open Source Project
@@ -93,15 +93,15 @@
 <MediaSettings>
     <!-- Each camcorder profile defines a set of predefined configuration parameters -->
     <!-- Back Camera -->
-<!-- #ifndef VENDOR_EDIT -->
-<!-- huxin@PSW.MM.MediaServer.Record.1883500, 2019/03/07, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Modify for avoiding video recording signal tone -->
 <!--
     <CamcorderProfiles cameraId="0">
 -->
-<!-- #else  //VENDOR_EDIT -->
-    <CamcorderProfiles cameraId="0" startOffsetMs="600">
-<!-- #endif //VENDOR_EDIT -->
+<!-- #else  //OPLUS_BUG_COMPATIBILITY -->
+    <CamcorderProfiles cameraId="0" startOffsetMs="500">
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
     <EncoderProfile quality="low" fileFormat="3gp" duration="30">
       <Video codec="h264"
@@ -117,8 +117,8 @@
     </EncoderProfile>
 
     <EncoderProfile quality="high" fileFormat="mp4" duration="30">
-<!-- #ifndef VENDOR_EDIT -->
-<!-- HuXin@PSW.MM.MediaServer.CTS.1784928, 2019/02/13, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Modify for deleting 4K video recording -->
 <!--
       <Video codec="h264"
@@ -127,13 +127,13 @@
              height="2160"
              frameRate="30" />
 -->
-<!-- #else  //VENDOR_EDIT -->
+<!-- #else  //OPLUS_BUG_COMPATIBILITY -->
       <Video codec="h264"
              bitRate="20000000"
              width="1920"
              height="1080"
              frameRate="30" />
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
       <Audio codec="aac"
              bitRate="156000"
@@ -206,8 +206,8 @@
              channels="2" />
     </EncoderProfile>
 
-<!-- #ifndef VENDOR_EDIT -->
-<!-- HuXin@PSW.MM.MediaServer.CTS.1784928, 2019/02/13, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Remove for deleting 4K video recording -->
 <!--
     <EncoderProfile quality="qhd" fileFormat="mp4" duration="30">
@@ -262,7 +262,7 @@
             channels="2" />
     </EncoderProfile>
 -->
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
     <EncoderProfile quality="qcif" fileFormat="3gp" duration="30">
       <Video codec="h264"
@@ -305,8 +305,8 @@
     </EncoderProfile>
 
     <EncoderProfile quality="timelapsehigh" fileFormat="mp4" duration="30">
-<!-- #ifndef VENDOR_EDIT -->
-<!-- HuXin@PSW.MM.MediaServer.CTS.1784928, 2019/02/13, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Modify for deleting 4K video recording -->
 <!--
       <Video codec="h264"
@@ -315,13 +315,13 @@
              height="2160"
              frameRate="30" />
 -->
-<!-- #else  //VENDOR_EDIT -->
+<!-- #else  //OPLUS_BUG_COMPATIBILITY -->
       <Video codec="h264"
              bitRate="20000000"
              width="1920"
              height="1080"
              frameRate="30" />
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
       <!-- audio setting is ignored -->
       <Audio codec="aac"
@@ -429,8 +429,8 @@
              channels="2" />
     </EncoderProfile>
 
-<!-- #ifndef VENDOR_EDIT -->
-<!-- HuXin@PSW.MM.MediaServer.CTS.1784928, 2019/02/13, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Remove for deleting 4K video recording -->
 <!--
     <EncoderProfile quality="timelapseqhd" fileFormat="mp4" duration="30">
@@ -485,7 +485,7 @@
             channels="2" />
     </EncoderProfile>
 -->
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
         <ImageEncoding quality="95" />
         <ImageEncoding quality="80" />
@@ -494,15 +494,15 @@
 
     </CamcorderProfiles>
     <!-- Front Camera -->
-<!-- #ifndef VENDOR_EDIT -->
-<!-- huxin@PSW.MM.MediaServer.Record.1883500, 2019/03/07, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Modify for avoiding video recording signal tone -->
 <!--
     <CamcorderProfiles cameraId="1">
 -->
-<!-- #else  //VENDOR_EDIT -->
-    <CamcorderProfiles cameraId="1" startOffsetMs="600">
-<!-- #endif //VENDOR_EDIT -->
+<!-- #else  //OPLUS_BUG_COMPATIBILITY -->
+    <CamcorderProfiles cameraId="1" startOffsetMs="500">
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
     <EncoderProfile quality="low" fileFormat="3gp" duration="30">
       <Video codec="h264"
@@ -517,8 +517,8 @@
              channels="1" />
     </EncoderProfile>
 
-<!-- #ifndef VENDOR_EDIT -->
-<!-- HuXin@PSW.MM.MediaServer.CTS.1784928, 2019/02/13, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Modify for deleting 4K video recording -->
 <!--
     <EncoderProfile quality="high" fileFormat="mp4" duration="30">
@@ -534,7 +534,7 @@
              channels="2" />
     </EncoderProfile>
 -->
-<!-- #else  //VENDOR_EDIT -->
+<!-- #else  //OPLUS_BUG_COMPATIBILITY -->
     <EncoderProfile quality="high" fileFormat="mp4" duration="30">
       <Video codec="h264"
              bitRate="20000000"
@@ -547,7 +547,7 @@
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
     <EncoderProfile quality="qvga" fileFormat="mp4" duration="60">
       <Video codec="h264"
@@ -614,8 +614,8 @@
              channels="2" />
     </EncoderProfile>
 
-<!-- #ifndef VENDOR_EDIT -->
-<!-- HuXin@PSW.MM.MediaServer.CTS.1784928, 2019/02/13, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Remove for deleting 4K video recording -->
 <!--
     <EncoderProfile quality="qhd" fileFormat="mp4" duration="30">
@@ -670,7 +670,7 @@
             channels="2" />
     </EncoderProfile>
 -->
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
     <EncoderProfile quality="qcif" fileFormat="3gp" duration="30">
       <Video codec="h264"
@@ -713,8 +713,8 @@
              channels="1" />
     </EncoderProfile>
 
-<!-- #ifndef VENDOR_EDIT -->
-<!-- HuXin@PSW.MM.MediaServer.CTS.1784928, 2019/02/13, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Modify for deleting 4K video recording -->
 <!--
     <EncoderProfile quality="timelapsehigh" fileFormat="mp4" duration="30">
@@ -730,7 +730,7 @@
              channels="2" />
     </EncoderProfile>
 -->
-<!-- #else  //VENDOR_EDIT -->
+<!-- #else  //OPLUS_BUG_COMPATIBILITY -->
     <EncoderProfile quality="timelapsehigh" fileFormat="mp4" duration="30">
       <Video codec="h264"
              bitRate="20000000"
@@ -743,7 +743,7 @@
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
     <EncoderProfile quality="timelapseqcif" fileFormat="mp4" duration="30">
       <Video codec="h264"
@@ -843,8 +843,8 @@
              channels="2" />
     </EncoderProfile>
 
-<!-- #ifndef VENDOR_EDIT -->
-<!-- HuXin@PSW.MM.MediaServer.CTS.1784928, 2019/02/13, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Remove for deleting 4K video recording -->
 <!--
     <EncoderProfile quality="timelapseqhd" fileFormat="mp4" duration="30">
@@ -899,7 +899,7 @@
             channels="2" />
     </EncoderProfile>
 -->
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
         <ImageEncoding quality="95" />
         <ImageEncoding quality="80" />
@@ -908,15 +908,15 @@
 
     </CamcorderProfiles>
     <!-- Camera ID 2 -->
-<!-- #ifndef VENDOR_EDIT -->
-<!-- huxin@PSW.MM.MediaServer.Record.1951208, 2019/04/11, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Modify for avoiding video recording signal tone -->
 <!--
     <CamcorderProfiles cameraId="2">
 -->
-<!-- #else  //VENDOR_EDIT -->
+<!-- #else  //OPLUS_BUG_COMPATIBILITY -->
     <CamcorderProfiles cameraId="2" startOffsetMs="600">
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
     <EncoderProfile quality="low" fileFormat="3gp" duration="30">
       <Video codec="h264"
@@ -932,8 +932,8 @@
     </EncoderProfile>
 
     <EncoderProfile quality="high" fileFormat="mp4" duration="30">
-<!-- #ifndef VENDOR_EDIT -->
-<!-- huxin@PSW.MM.MediaServer.Record.1951208, 2019/04/11, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Modify for deleting 4K video recording -->
 <!--
       <Video codec="h264"
@@ -942,13 +942,13 @@
              height="2160"
              frameRate="30" />
 -->
-<!-- #else  //VENDOR_EDIT -->
+<!-- #else  //OPLUS_BUG_COMPATIBILITY -->
       <Video codec="h264"
              bitRate="20000000"
              width="1920"
              height="1080"
              frameRate="30" />
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
       <Audio codec="aac"
              bitRate="156000"
@@ -1021,8 +1021,8 @@
              channels="2" />
     </EncoderProfile>
 
-<!-- #ifndef VENDOR_EDIT -->
-<!-- huxin@PSW.MM.MediaServer.Record.1951208, 2019/04/11, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Remove for deleting 4K video recording -->
 <!--
     <EncoderProfile quality="qhd" fileFormat="mp4" duration="30">
@@ -1077,7 +1077,7 @@
             channels="2" />
     </EncoderProfile>
 -->
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
     <EncoderProfile quality="qcif" fileFormat="3gp" duration="30">
       <Video codec="h264"
@@ -1120,8 +1120,8 @@
     </EncoderProfile>
 
     <EncoderProfile quality="timelapsehigh" fileFormat="mp4" duration="30">
-<!-- #ifndef VENDOR_EDIT -->
-<!-- huxin@PSW.MM.MediaServer.Record.1951208, 2019/04/11, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Modify for deleting 4K video recording -->
 <!--
       <Video codec="h264"
@@ -1130,13 +1130,13 @@
              height="2160"
              frameRate="30" />
 -->
-<!-- #else  //VENDOR_EDIT -->
+<!-- #else  //OPLUS_BUG_COMPATIBILITY -->
       <Video codec="h264"
              bitRate="20000000"
              width="1920"
              height="1080"
              frameRate="30" />
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
       <!-- audio setting is ignored -->
       <Audio codec="aac"
@@ -1244,8 +1244,8 @@
              channels="2" />
     </EncoderProfile>
 
-<!-- #ifndef VENDOR_EDIT -->
-<!-- huxin@PSW.MM.MediaServer.Record.1951208, 2019/04/11, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Remove for deleting 4K video recording and highspeed recording-->
 <!--
     <EncoderProfile quality="timelapseqhd" fileFormat="mp4" duration="30">
@@ -1352,7 +1352,7 @@
              channels="2" />
     </EncoderProfile>
 -->
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
         <ImageEncoding quality="95" />
         <ImageEncoding quality="80" />
@@ -1361,15 +1361,15 @@
 
     </CamcorderProfiles>
 
-<!-- #ifndef VENDOR_EDIT -->
-<!-- huxin@PSW.MM.MediaServer.Record.1951208, 2019/04/11, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Modify for avoiding video recording signal tone -->
 <!--
     <CamcorderProfiles cameraId="3">
 -->
-<!-- #else  //VENDOR_EDIT -->
+<!-- #else  //OPLUS_BUG_COMPATIBILITY -->
     <CamcorderProfiles cameraId="3" startOffsetMs="600">
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
     <EncoderProfile quality="low" fileFormat="3gp" duration="30">
       <Video codec="h264"
@@ -1385,8 +1385,8 @@
     </EncoderProfile>
 
     <EncoderProfile quality="high" fileFormat="mp4" duration="30">
-<!-- #ifndef VENDOR_EDIT -->
-<!-- huxin@PSW.MM.MediaServer.Record.1951208, 2019/04/11, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Modify for deleting 4K video recording -->
 <!--
       <Video codec="h264"
@@ -1395,13 +1395,13 @@
              height="2160"
              frameRate="30" />
 -->
-<!-- #else  //VENDOR_EDIT -->
+<!-- #else  //OPLUS_BUG_COMPATIBILITY -->
       <Video codec="h264"
              bitRate="20000000"
              width="1920"
              height="1080"
              frameRate="30" />
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
       <Audio codec="aac"
              bitRate="156000"
@@ -1474,8 +1474,8 @@
              channels="2" />
     </EncoderProfile>
 
-<!-- #ifndef VENDOR_EDIT -->
-<!-- huxin@PSW.MM.MediaServer.Record.1951208, 2019/04/11, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Remove for deleting 4K video recording -->
 <!--
     <EncoderProfile quality="qhd" fileFormat="mp4" duration="30">
@@ -1530,7 +1530,7 @@
             channels="2" />
     </EncoderProfile>
 -->
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
     <EncoderProfile quality="qcif" fileFormat="3gp" duration="30">
       <Video codec="h264"
@@ -1573,8 +1573,8 @@
     </EncoderProfile>
 
     <EncoderProfile quality="timelapsehigh" fileFormat="mp4" duration="30">
-<!-- #ifndef VENDOR_EDIT -->
-<!-- huxin@PSW.MM.MediaServer.Record.1951208, 2019/04/11, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Modify for deleting 4K video recording -->
 <!--
       <Video codec="h264"
@@ -1583,13 +1583,13 @@
              height="2160"
              frameRate="30" />
 -->
-<!-- #else  //VENDOR_EDIT -->
+<!-- #else  //OPLUS_BUG_COMPATIBILITY -->
       <Video codec="h264"
              bitRate="20000000"
              width="1920"
              height="1080"
              frameRate="30" />
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
       <!-- audio setting is ignored -->
       <Audio codec="aac"
@@ -1697,8 +1697,8 @@
              channels="2" />
     </EncoderProfile>
 
-<!-- #ifndef VENDOR_EDIT -->
-<!-- huxin@PSW.MM.MediaServer.Record.1951208, 2019/04/11, -->
+<!-- #ifndef OPLUS_BUG_COMPATIBILITY -->
+<!-- HuozhuChen@MULTIMEDIA.MEDIASERVER.RECORD.577842, 2020/11/02, -->
 <!-- Remove for deleting 4K video recording and highspeed recording-->
 <!--
     <EncoderProfile quality="timelapseqhd" fileFormat="mp4" duration="30">
@@ -1805,7 +1805,7 @@
              channels="2" />
     </EncoderProfile>
 -->
-<!-- #endif //VENDOR_EDIT -->
+<!-- #endif //OPLUS_BUG_COMPATIBILITY -->
 
         <ImageEncoding quality="95" />
         <ImageEncoding quality="80" />
