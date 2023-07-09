@@ -97,12 +97,15 @@ static struct {
     bool force_update;
     float hyst_min, hyst_max;
     float last_corrected_value;
+    float last_raw_value[3];
     float last_agc_gain;
 } state = {
     .last_update = 0,
     .force_update = true,
-    .hyst_min = -1.0, .hyst_max = -1.0,
+    .hyst_min = -1.0,
+    .hyst_max = -1.0,
     .last_agc_gain = 0.0,
+    .last_raw_value = {0, 0, 0},
 };
 
 template <typename T>
@@ -171,6 +174,12 @@ void AlsCorrection::init() {
     hysteresis_ranges[0].min = -1.0;
 }
 
+void updateLastRawValue(float last_raw_value[3], float current_raw_value) {
+    last_raw_value[0] = last_raw_value[1];
+    last_raw_value[1] = last_raw_value[2];
+    last_raw_value[2] = current_raw_value;
+}
+
 void AlsCorrection::process(Event& event) {
     /*
     ALOGV("%f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f",
@@ -193,14 +202,19 @@ void AlsCorrection::process(Event& event) {
          );
     */
     ALOGV("Raw sensor reading: %.0f", event.u.scalar);
-		
-	if (conf.rgbw_max_lux[0] == 0.0 && conf.rgbw_max_lux[1] == 0.0 && 
-        conf.rgbw_max_lux[2] == 0.0 && conf.rgbw_max_lux[3] == 0.0) {
-		ALOGE("Art_Chen: Maybe EngSensor not finished when init sensorservice, Trying to init AlsCorrection again! This event will be dropped!");
+
+    if (conf.rgbw_max_lux[0] == 0.0 && conf.rgbw_max_lux[1] == 0.0 &&
+            conf.rgbw_max_lux[2] == 0.0 && conf.rgbw_max_lux[3] == 0.0) {
+        ALOGE("Art_Chen: Maybe EngSensor not finished when init sensorservice, Trying to init AlsCorrection again! This event will be dropped!");
 		AlsCorrection::init();
 		event.sensorHandle = 0;
         return;
-	}
+    }
+
+    updateLastRawValue(state.last_raw_value, event.u.scalar);
+
+    bool isRawValueRapidGrowth = (state.last_raw_value[2] - state.last_raw_value[1]) > 300 || 
+                                (state.last_raw_value[2] - state.last_raw_value[0]) > 800;
 
     if (event.u.scalar > conf.bias) {
         event.u.scalar -= conf.bias;
@@ -220,7 +234,7 @@ void AlsCorrection::process(Event& event) {
         state.last_update = now;
         state.last_forced_update = now;
     } else {
-        if (brightness > 0.0 && (now - state.last_forced_update) > s2ns(3)) {
+        if (brightness > 0.0 && ((now - state.last_forced_update) > s2ns(1) || isRawValueRapidGrowth)) {
             ALOGV("Forcing screenshot");
             state.last_forced_update = now;
             state.force_update = true;
