@@ -351,6 +351,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@2.1-service.oppo_OP4A89
 
+# Lineage Health
+PRODUCT_PACKAGES += \
+    vendor.lineage.health-service.default
+
 # Media
 PRODUCT_PACKAGES += \
     android.hardware.media.omx@1.0-impl \

@@ -126,9 +126,12 @@ GNSS_HIDL_VERSION := 2.1
 TARGET_NO_RPC := true
 USE_DEVICE_SPECIFIC_GPS := true
 
-# HIDL
+# FCM & Manifests
 DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
+
+# Lineage Health
+TARGET_HEALTH_CHARGING_CONTROL_CHARGING_PATH := /sys/class/power_supply/battery/mmi_charging_enable
 
 # Keystore
 TARGET_PROVIDES_KEYMASTER := true
