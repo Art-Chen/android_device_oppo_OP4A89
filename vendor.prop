@@ -278,10 +278,11 @@ debug.stagefright.omx_default_rank=0
 debug.stagefright.ccodec=1
 
 # Dolby
-ro.dolby.model=PAFM00
-ro.dolby.device=OP46C3
-ro.dolby.manufacturer=OPPO
-ro.dolby.brand=OPPO
+ro.vendor.dolby.dax.version=DAX3_3.5.1
+ro.vendor.dolby.model=PAFM00
+ro.vendor.dolby.device=OP46C3
+ro.vendor.dolby.manufacturer=OPLUS
+ro.vendor.dolby.brand=OPLUS
 
 # SoC
 ro.soc.manufacturer=Qualcomm
