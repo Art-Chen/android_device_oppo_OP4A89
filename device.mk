@@ -492,7 +492,7 @@ PRODUCT_COPY_FILES += \
 #     als_correction_service.oppo_OP4A89 \
 #     libsensorndkbridge
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@2.0-service.multihal \
+    android.hardware.sensors@2.1-service.oplus_OP4A89 \
     android.hardware.sensors@2.0.vendor \
     android.hardware.sensors@2.0-ScopedWakelock.vendor \
     android.hardware.audio@4.0.vendor \

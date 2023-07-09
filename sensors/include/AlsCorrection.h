@@ -24,7 +24,7 @@ namespace sensors {
 namespace V1_0 {
 namespace implementation {
 
-static constexpr int SENSOR_TYPE_QTI_HARDWARE_LIGHT = 33171027;
+static constexpr int SENSOR_TYPE_WISE_LIGHT = 33171103;
 
 class AlsCorrection {
   public:

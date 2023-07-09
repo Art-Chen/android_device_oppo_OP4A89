@@ -32,13 +32,13 @@
 #include <sys/un.h>
 #include <utils/Timers.h>
 
-#define ALS_PATH "/proc/oppoAls/"
+#define ALS_PATH "/proc/sensor/als_cali/"
 #define SYSFS_BACKLIGHT "/sys/class/backlight/panel0-backlight/"
 
 namespace android {
 namespace hardware {
 namespace sensors {
-namespace V1_0 {
+namespace V2_1 {
 namespace implementation {
 
 static const std::string rgbw_max_lux_paths[4] = {
