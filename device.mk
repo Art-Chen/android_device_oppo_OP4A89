@@ -496,6 +496,7 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@2.0.vendor \
     android.hardware.sensors@2.0-ScopedWakelock.vendor \
     android.hardware.audio@4.0.vendor \
+    als_correction_service.oppo_OP4A89 \
     libsensorndkbridge
 
 PRODUCT_COPY_FILES += \
