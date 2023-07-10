@@ -16,12 +16,12 @@
 
 #pragma once
 
-#include <android/hardware/sensors/1.0/types.h>
+#include <android/hardware/sensors/2.1/types.h>
 
 namespace android {
 namespace hardware {
 namespace sensors {
-namespace V1_0 {
+namespace V2_1 {
 namespace implementation {
 
 static constexpr int SENSOR_TYPE_WISE_LIGHT = 33171103;
@@ -33,7 +33,7 @@ class AlsCorrection {
 };
 
 }  // namespace implementation
-}  // namespace V1_0
+}  // namespace V2_1
 }  // namespace sensors
 }  // namespace hardware
 }  // namespace android
