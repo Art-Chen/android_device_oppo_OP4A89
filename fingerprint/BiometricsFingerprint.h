@@ -25,6 +25,8 @@
 #include <hidl/Status.h>
 #include <log/log.h>
 
+#include <fstream>
+
 #include <vendor/oplus/hardware/biometrics/fingerprint/2.1/IBiometricsFingerprint.h>
 
 namespace android {
@@ -135,12 +137,12 @@ class BiometricsFingerprint : public IBiometricsFingerprint,
     }
 
     bool setDimlayerHbm(unsigned int value) {
-        set(DIMLAYER_PATH, 0);
+        set(DIMLAYER_PATH, value);
         return isUdfps() && get(DIMLAYER_PATH, 0) == value;
     }
 
     bool setFpPress(unsigned int value) {
-        set(FP_PRESS_PATH, 0);
+        set(FP_PRESS_PATH, value);
         return isUdfps();
     }
 

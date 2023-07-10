@@ -18,6 +18,8 @@
 
 #include "BiometricsFingerprint.h"
 
+#include <algorithm>
+
 namespace android {
 namespace hardware {
 namespace biometrics {
@@ -148,13 +150,19 @@ Return<void> BiometricsFingerprint::onEngineeringInfoUpdated(
 Return<void> BiometricsFingerprint::onFingerprintCmd(int32_t cmdId,
                                                      const hidl_vec<int8_t>& result,
                                                      uint32_t resultLen) {
-    switch (cmdId) {
-        case FINGERPRINT_CALLBACK_CMD_ID_ON_TOUCH_DOWN:
-            ALOGD("onFingerprintCmd: FP Touch Down Detected!");
-            mClientCallback->onAcquired(deviceId, V2_1::FingerprintAcquiredInfo::ACQUIRED_VENDOR, 1);
-        case FINGERPRINT_CALLBACK_CMD_ID_ON_TOUCH_UP:
-            ALOGD("onFingerprintCmd: FP Touch Up Detected!");
-            mClientCallback->onAcquired(deviceId, V2_1::FingerprintAcquiredInfo::ACQUIRED_VENDOR, 0);
+    uint64_t deviceId = -1;
+    std::copy(result.data(), result.data() + resultLen, &deviceId);
+    if (deviceId != -1) {
+        switch (cmdId) {
+            case FINGERPRINT_CALLBACK_CMD_ID_ON_TOUCH_DOWN:
+                ALOGD("onFingerprintCmd: FP Touch Down Detected!");
+                mClientCallback->onAcquired(deviceId, V2_1::FingerprintAcquiredInfo::ACQUIRED_VENDOR, 1);
+                break;
+            case FINGERPRINT_CALLBACK_CMD_ID_ON_TOUCH_UP:
+                ALOGD("onFingerprintCmd: FP Touch Up Detected!");
+                mClientCallback->onAcquired(deviceId, V2_1::FingerprintAcquiredInfo::ACQUIRED_VENDOR, 0);
+                break;
+        }
     }
     return Void();
 }
