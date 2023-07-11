@@ -39,3 +39,4 @@ on boot
     #setprop sys.usb.config adb
     write /sys/class/power_supply/usb/otg_switch 1
     write /proc/touchpanel/tp_fw_update 0
+    setenforce 0
