@@ -39,7 +39,8 @@ BOARD_BOOT_HEADER_VERSION := 2
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom androidboot.console=ttyMSM0 lpm_levels.sleep_disabled=1 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048 loop.max_part=7 androidboot.usbcontroller=a600000.dwc3
 BOARD_KERNEL_CMDLINE += androidboot.vbmeta.avb_version=1.0
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive printk.devkmsg=on androidboot.init_fatal_panic=true
+# BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive 
+BOARD_KERNEL_CMDLINE += printk.devkmsg=on androidboot.init_fatal_panic=true
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_SEPARATED_DTBO := true
@@ -66,7 +67,6 @@ TARGET_SYSTEM_EXT_PROP += $(DEVICE_PATH)/system_ext.prop
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
 # Treble
-PRODUCT_FULL_TREBLE_OVERRIDE := true
 BOARD_VNDK_VERSION := current
 
 # ANT+
@@ -173,7 +173,8 @@ TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE := 614400000 # 600M
 BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 92160000 # 90M
 BOARD_SYSTEM_EXTIMAGE_PARTITION_RESERVED_SIZE := 92160000 # 90M
-BOARD_VENDORIMAGE_PARTITION_RESERVED_SIZE := 943718400 # 900M
+BOARD_VENDORIMAGE_PARTITION_RESERVED_SIZE := 524288000 # 500M
+BOARD_ODMIMAGE_PARTITION_RESERVED_SIZE := 413430400 # 400M
 
 # Power
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
@@ -204,6 +205,12 @@ include device/qcom/sepolicy_vndr-legacy-um/SEPolicy.mk
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
 SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/public
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
+
+# OPlus HIDLs SEPolicy
+BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor/oplus
+
+# Chen System Helper SEPolicy
+BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/chen_syshelper/sepolicy
 
 # Sensor
 USE_SENSOR_MULTI_HAL := true

@@ -210,6 +210,7 @@ PRODUCT_PACKAGES += \
     init.vendor.sensors.rc \
     vendor.sensors.sscrpcd.rc \
     vendor.sensors.qti.rc \
+    vendor.chen.OP4A89.rc \
     ueventd.qcom.rc \
     fstab.qcom
 
@@ -460,6 +461,10 @@ PRODUCT_PACKAGES += \
     rcs_service_api \
     rcs_service_api.xml
 
+# Remount tools
+PRODUCT_PACKAGES += \
+    remount
+
 # RIL
 PRODUCT_PACKAGES += \
     android.hardware.radio@1.5.vendor \
@@ -498,7 +503,9 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@2.0-ScopedWakelock.vendor \
     android.hardware.audio@4.0.vendor \
     als_correction_service.oppo_OP4A89 \
-    libsensorndkbridge
+    libsensorndkbridge \
+    vendor.chen.aidl.syshelper-service \
+    sensors.chen.virt
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf \

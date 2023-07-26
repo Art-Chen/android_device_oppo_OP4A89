@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include <aidl/vendor/chen/aidl/syshelper/IUdfpsHelper.h>
+
 #include <android-base/properties.h>
 #include <android/hardware/biometrics/fingerprint/2.1/types.h>
 #include <android/hardware/biometrics/fingerprint/2.2/IBiometricsFingerprintClientCallback.h>
@@ -25,9 +27,9 @@
 #include <hidl/Status.h>
 #include <log/log.h>
 
-#include <fstream>
-
 #include <vendor/oplus/hardware/biometrics/fingerprint/2.1/IBiometricsFingerprint.h>
+
+#include <fstream>
 
 namespace android {
 namespace hardware {
@@ -50,8 +52,10 @@ using ::android::hardware::biometrics::fingerprint::V2_2::FingerprintAcquiredInf
 using ::android::hardware::biometrics::fingerprint::V2_2::IBiometricsFingerprintClientCallback;
 using ::android::hardware::biometrics::fingerprint::V2_3::IBiometricsFingerprint;
 
+using aidl::vendor::chen::aidl::syshelper::IUdfpsHelper;
+
 using IOplusBiometricsFingerprint =
-        vendor::oplus::hardware::biometrics::fingerprint::V2_1::IBiometricsFingerprint;
+    vendor::oplus::hardware::biometrics::fingerprint::V2_1::IBiometricsFingerprint;
 using ::vendor::oplus::hardware::biometrics::fingerprint::V2_1::
         IBiometricsFingerprintClientCallbackEx;
 
@@ -147,6 +151,7 @@ class BiometricsFingerprint : public IBiometricsFingerprint,
     }
 
     sp<IOplusBiometricsFingerprint> mOplusBiometricsFingerprint;
+    std::shared_ptr<IUdfpsHelper> mChenUdfpsHelper;
     sp<V2_1::IBiometricsFingerprintClientCallback> mClientCallback;
 
     typedef enum fingerprint_callback_cmd_Id {
