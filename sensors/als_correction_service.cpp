@@ -14,19 +14,27 @@
  * limitations under the License.
  */
 
+#include <aidl/vendor/chen/aidl/syshelper/IALSHelper.h>
+#include <aidl/vendor/chen/aidl/syshelper/BnALSHelperCallback.h>
+#include <aidl/vendor/chen/aidl/syshelper/IALSHelperCallback.h>
+#include <aidl/vendor/chen/aidl/syshelper/ScreenShotInfo.h>
+
 #include <android-base/properties.h>
+#include <android-base/logging.h>
+#include <android/binder_manager.h>
+#include <android/binder_process.h>
 #include <binder/IBinder.h>
 #include <binder/ProcessState.h>
 #include <gui/SurfaceComposerClient.h>
 #include <gui/SyncScreenCaptureListener.h>
-#include <ui/DisplayState.h>
-
-#include <cstdio>
 #include <signal.h>
-#include <unistd.h>
 #include <sysutils/FrameworkCommand.h>
 #include <sysutils/FrameworkListener.h>
+#include <ui/DisplayState.h>
+#include <unistd.h>
 #include <utils/Timers.h>
+
+#include <cstdio>
 
 using android::base::SetProperty;
 using android::ui::Rotation;
@@ -38,26 +46,16 @@ using android::sp;
 using android::SurfaceComposerClient;
 using namespace android;
 
+using aidl::vendor::chen::aidl::syshelper::IALSHelper;
+using aidl::vendor::chen::aidl::syshelper::BnALSHelperCallback;
+using aidl::vendor::chen::aidl::syshelper::ScreenShotInfo;
+
 static Rect screenshot_rect(667, 19, 707, 49);
 static Rect screenshot_rect_land(1080 - 707, 2400 - 49, 1080 - 667, 2340 - 19);
 
-class TakeScreenshotCommand : public FrameworkCommand {
-  public:
-    TakeScreenshotCommand() : FrameworkCommand("take_screenshot") {}
-    ~TakeScreenshotCommand() override = default;
-
-    int runCommand(SocketClient* cli, int /*argc*/, char **/*argv*/) {
-        auto screenshot = takeScreenshot();
-        cli->sendData(&screenshot, sizeof(screenshot_t));
-        return 0;
-    }
-  private:
-    struct screenshot_t {
-        uint32_t r, g, b;
-        nsecs_t timestamp;
-    };
-
-    screenshot_t takeScreenshot() {
+class AlsCorrection {
+   public:
+    ScreenShotInfo takeScreenshot() {
         static sp<GraphicBuffer> outBuffer = new GraphicBuffer(
                 screenshot_rect.getWidth(), screenshot_rect.getHeight(),
                 android::PIXEL_FORMAT_RGB_888,
@@ -79,8 +77,8 @@ class TakeScreenshotCommand : public FrameworkCommand {
 
         if (ScreenshotClient::captureDisplay(captureArgs, captureListener) == NO_ERROR) {
             captureResults = captureListener->waitForResults();
-			if (captureResults.result == NO_ERROR) outBuffer = captureResults.buffer;
-		}
+            if (captureResults.result == NO_ERROR) outBuffer = captureResults.buffer;
+        }
 
         uint8_t *out;
         auto resultWidth = outBuffer->getWidth();
@@ -100,22 +98,61 @@ class TakeScreenshotCommand : public FrameworkCommand {
         uint32_t max = resultWidth * resultHeight;
         outBuffer->unlock();
 
-        return { rsum / max, gsum / max, bsum / max, systemTime(SYSTEM_TIME_BOOTTIME) };
+        ScreenShotInfo info = ScreenShotInfo();
+        info.r = rsum / max;
+        info.g = gsum / max;
+        info.b = bsum / max;
+        info.timestamp = systemTime(SYSTEM_TIME_BOOTTIME);
+
+        return info;
     }
+
+    void init();
+
+   private:
+    std::shared_ptr<IALSHelper> mChenALSHelper;
 };
 
-class AlsCorrectionListener : public FrameworkListener {
-  public:
-    AlsCorrectionListener() : FrameworkListener("als_correction") {
-        registerCmd(new TakeScreenshotCommand);
+class ChenALSHelperCallback : public BnALSHelperCallback {
+   public:
+    ChenALSHelperCallback(AlsCorrection* thiz) : mThiz(thiz){};
+
+    ::ndk::ScopedAStatus takeScreenShot(ScreenShotInfo* _aidl_return) override {
+        ScreenShotInfo info = mThiz->takeScreenshot();
+        *_aidl_return = info;
+        return ::ndk::ScopedAStatus::ok();
     }
+
+   private:
+    AlsCorrection* mThiz;
 };
+
+void AlsCorrection::init() {
+    std::string instanceName = std::string() + IALSHelper::descriptor + "/default";
+    bool isSupportChenSysHelper = AServiceManager_isDeclared(instanceName.c_str());
+    if (!isSupportChenSysHelper) {
+        LOG(FATAL) << "Chen System Helper is NOT Declared!! Panic Here!";
+    }
+
+    mChenALSHelper = IALSHelper::fromBinder(ndk::SpAIBinder(AServiceManager_waitForService(instanceName.c_str())));
+
+    const std::shared_ptr<ChenALSHelperCallback> mChenALSCallback = ndk::SharedRefBase::make<ChenALSHelperCallback>(this);
+    mChenALSHelper->registerCallback(mChenALSCallback);
+
+    LOG(INFO) << "Als Screen Shoter init done!";
+}
 
 int main() {
-    ProcessState::self()->setThreadPoolMaxThreadCount(0);
+    ProcessState::self()->setThreadPoolMaxThreadCount(2);
     ProcessState::self()->startThreadPool();
-    auto listener = new AlsCorrectionListener();
-    listener->startListener();
+
+    auto listener = new AlsCorrection();
+    listener->init();
+
+    // Don't know why we should call it first
+    // If it didn't called, the takeScreenshot will hang at waitResult
+    ScreenShotInfo info = listener->takeScreenshot();
+	LOG(INFO) << info.toString();
 
     while (true) {
         pause();

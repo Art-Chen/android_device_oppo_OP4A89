@@ -1,0 +1,8 @@
+# allow binder connection from client to server
+binder_call(hal_chen_syshelper_client, hal_chen_syshelper_server)
+
+# allow client to find the service, allow server to register the service
+hal_attribute_service(hal_chen_syshelper, hal_chen_syshelper_service)
+
+# allow binder communication from server to service_manager
+binder_use(hal_chen_syshelper_server)

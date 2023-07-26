@@ -1,0 +1,6 @@
+service vendor.chen_syshelper /vendor/bin/vendor.chen.aidl.syshelper-service
+    class hal
+    user system
+    group system
+    onrestart restart als_correction_service
+    onrestart restart vendor.fps_hal_oplus

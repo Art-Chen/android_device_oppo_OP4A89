@@ -1,0 +1,3 @@
+attribute hal_chen_syshelper;
+attribute hal_chen_syshelper_client;
+attribute hal_chen_syshelper_server;

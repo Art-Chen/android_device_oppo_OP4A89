@@ -1,0 +1,2 @@
+# Chen System Helper Service
+/(vendor|system/vendor)/bin/vendor.chen.aidl.syshelper-service            u:object_r:hal_chen_syshelper_default_exec:s0

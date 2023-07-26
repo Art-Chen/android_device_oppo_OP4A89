@@ -1,3 +1,7 @@
+subdirs = [
+    "FodVirtualSensor",
+]
+
 cc_binary {
     name: "android.hardware.sensors@2.1-service.oplus_OP4A89",
     stem: "android.hardware.sensors@2.1-service.multihal",
@@ -29,6 +33,8 @@ cc_binary {
         "liblog",
         "libpower",
         "libutils",
+        "libbinder_ndk",
+        "vendor.chen.aidl.syshelper-V1-ndk",
     ],
     static_libs: [
         "android.hardware.sensors@1.0-convert",
@@ -53,6 +59,8 @@ cc_binary {
         "libui",
         "libsysutils",
         "libutils",
+        "libbinder_ndk",
+        "vendor.chen.aidl.syshelper-V1-ndk",
     ],
     cflags: [
         "-DNO_INPUT",

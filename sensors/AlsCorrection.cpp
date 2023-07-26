@@ -21,6 +21,9 @@
 
 #include <android-base/file.h>
 
+#include <android/binder_manager.h>
+#include <android/binder_process.h>
+
 #include <algorithm>
 #include <cmath>
 #include <cutils/properties.h>
@@ -32,8 +35,13 @@
 #include <sys/un.h>
 #include <utils/Timers.h>
 
+#include <aidl/vendor/chen/aidl/syshelper/ScreenShotInfo.h>
+
 #define ALS_PATH "/proc/sensor/als_cali/"
 #define SYSFS_BACKLIGHT "/sys/class/backlight/panel0-backlight/"
+
+using aidl::vendor::chen::aidl::syshelper::IALSHelper;
+using aidl::vendor::chen::aidl::syshelper::ScreenShotInfo;
 
 namespace android {
 namespace hardware {
@@ -117,12 +125,21 @@ static T get(const std::string& path, const T& def) {
     return file.fail() ? def : result;
 }
 
+static std::shared_ptr<IALSHelper> mChenALSHelper;
 void AlsCorrection::init() {
     static bool initialized = false;
     if (initialized) {
         return;
     }
     initialized = true;
+
+    std::string instanceName = std::string() + IALSHelper::descriptor + "/default";
+    bool isSupportChenSysHelper = AServiceManager_isDeclared(instanceName.c_str());
+    if (!isSupportChenSysHelper) {
+        ALOGE("Chen System Helper is NOT Declared!!");
+        abort();
+    }
+    mChenALSHelper = IALSHelper::fromBinder(ndk::SpAIBinder(AServiceManager_waitForService(instanceName.c_str())));
 
     // TODO: Constantly update and persist this
     float screen_on_time = get(ALS_PATH "screenontimebyhours", 0.0);
@@ -253,47 +270,54 @@ void AlsCorrection::process(Event& event) {
             || ((event.u.scalar < state.hyst_min || event.u.scalar > state.hyst_max)
                 && (event.u.data[6] > 2.0
                     || sensor_raw_calibrated < 10.0 || sensor_raw_calibrated > (5.0 / .07)))) {
-        android::base::unique_fd fd(socket(PF_UNIX, SOCK_STREAM | SOCK_CLOEXEC | SOCK_NONBLOCK, 0));
-        if (fd.get() < 0) {
-            ALOGE("Failed to open als correction socket: %s", strerror(errno));
-            // TODO figure out a better way to drop events
-            event.sensorHandle = 0;
-            return;
-        }
+        // android::base::unique_fd fd(socket(PF_UNIX, SOCK_STREAM | SOCK_CLOEXEC | SOCK_NONBLOCK, 0));
+        // if (fd.get() < 0) {
+        //     ALOGE("Failed to open als correction socket: %s", strerror(errno));
+        //     // TODO figure out a better way to drop events
+        //     event.sensorHandle = 0;
+        //     return;
+        // }
 
-        sockaddr_un addr{ AF_UNIX, "/dev/socket/als_correction" };
-        if (connect(fd.get(), reinterpret_cast<sockaddr*>(&addr), sizeof(addr)) == -1) {
-            ALOGE("Failed to connect to als correction socket: %s", strerror(errno));
-            // TODO figure out a better way to drop events
-            event.sensorHandle = 0;
-            return;
-        }
+        // sockaddr_un addr{ AF_UNIX, "/dev/socket/als_correction" };
+        // if (connect(fd.get(), reinterpret_cast<sockaddr*>(&addr), sizeof(addr)) == -1) {
+        //     ALOGE("Failed to connect to als correction socket: %s", strerror(errno));
+        //     // TODO figure out a better way to drop events
+        //     event.sensorHandle = 0;
+        //     return;
+        // }
 
-        const char *cmd = "take_screenshot";
-        if (send(fd.get(), cmd, strlen(cmd) + 1, 0) == -1) {
-            ALOGE("Failed to send command to als correction socket: %s", strerror(errno));
-            // TODO figure out a better way to drop events
-            event.sensorHandle = 0;
-            return;
-        }
+        // const char *cmd = "take_screenshot";
+        // if (send(fd.get(), cmd, strlen(cmd) + 1, 0) == -1) {
+        //     ALOGE("Failed to send command to als correction socket: %s", strerror(errno));
+        //     // TODO figure out a better way to drop events
+        //     event.sensorHandle = 0;
+        //     return;
+        // }
 
-        pollfd fds{ fd.get(), POLLIN, 0 };
-        if (poll(&fds, 1, -1) != 1) {
-            ALOGE("Invalid poll als correction socket fd");
-            // TODO figure out a better way to drop events
-            event.sensorHandle = 0;
-            return;
-        }
+        // pollfd fds{ fd.get(), POLLIN, 0 };
+        // if (poll(&fds, 1, -1) != 1) {
+        //     ALOGE("Invalid poll als correction socket fd");
+        //     // TODO figure out a better way to drop events
+        //     event.sensorHandle = 0;
+        //     return;
+        // }
 
-        struct screenshot_t {
-            uint32_t r, g, b;
-            nsecs_t timestamp;
-        } screenshot;
+        // struct screenshot_t {
+        //     uint32_t r, g, b;
+        //     nsecs_t timestamp;
+        // } screenshot;
 
-        if (read(fd.get(), &screenshot, sizeof(screenshot_t)) != sizeof(screenshot_t)) {
-            ALOGE("Invalid reply from als correction socket");
-            // TODO figure out a better way to drop events
-            event.sensorHandle = 0;
+        // if (read(fd.get(), &screenshot, sizeof(screenshot_t)) != sizeof(screenshot_t)) {
+        //     ALOGE("Invalid reply from als correction socket");
+        //     // TODO figure out a better way to drop events
+        //     event.sensorHandle = 0;
+        //     return;
+        // }
+
+        ScreenShotInfo screenshot = ScreenShotInfo();
+
+        if (!mChenALSHelper->takeScreenShot(&screenshot).isOk()) {
+            ALOGE("ChenALSHelper: takeScreenShot failed, using raw value directly");
             return;
         }
 

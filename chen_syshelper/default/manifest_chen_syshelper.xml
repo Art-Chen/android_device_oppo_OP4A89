@@ -1,0 +1,7 @@
+<manifest version="1.0" type="device">
+    <hal format="aidl">
+        <name>vendor.chen.aidl.syshelper</name>
+        <fqname>IALSHelper/default</fqname>
+        <fqname>IUdfpsHelper/default</fqname>
+    </hal>
+</manifest>

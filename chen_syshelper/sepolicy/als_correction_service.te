@@ -1,0 +1,3 @@
+binder_use(als_correction_service)
+binder_call(hal_chen_syshelper_default, als_correction_service)
+hal_client_domain(als_correction_service, hal_chen_syshelper)

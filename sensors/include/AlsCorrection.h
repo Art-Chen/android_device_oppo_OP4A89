@@ -16,7 +16,9 @@
 
 #pragma once
 
+#include <aidl/vendor/chen/aidl/syshelper/IALSHelper.h>
 #include <android/hardware/sensors/2.1/types.h>
+using aidl::vendor::chen::aidl::syshelper::IALSHelper;
 
 namespace android {
 namespace hardware {
