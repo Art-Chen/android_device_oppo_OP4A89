@@ -1,0 +1,8 @@
+type hal_oplus_misc_default, domain;
+hal_server_domain(hal_oplus_misc_default, hal_oplus_misc)
+
+type hal_oplus_misc_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_oplus_misc_default)
+
+allow hal_oplus_misc_default vendor_persist_engineer_file:dir r_dir_perms;
+allow hal_oplus_misc_default vendor_persist_engineer_file:file rw_file_perms;

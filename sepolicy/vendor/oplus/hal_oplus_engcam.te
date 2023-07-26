@@ -1,0 +1,5 @@
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_oplus_engcam_client, hal_oplus_engcam_server)
+binder_call(hal_oplus_engcam_server, hal_oplus_engcam_client)
+
+hal_attribute_hwservice(hal_oplus_engcam, hal_oplus_engcamera_hwservice)

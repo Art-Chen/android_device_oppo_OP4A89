@@ -1,3 +1,7 @@
-type oplus_vendor_prop, property_type;
-type vendor_ses_prop, property_type;
-type engineer_vendor_prop, property_type;
+vendor_public_prop(vendor_oplus_extra_prop)
+vendor_public_prop(vendor_ses_prop)
+vendor_public_prop(vendor_oplus_engineer_prop)
+vendor_public_prop(vendor_nfc_se_prop)
+vendor_public_prop(vendor_nw_exported_system_prop)
+vendor_public_prop(vendor_oplus_fingeprint_prop)
+#vendor_public_prop(vendor_sensors_als_prop)

@@ -1,8 +1,8 @@
 # Allow vendor_qti_init_shell to write to vendor_sysfs_scsi_host
 allow vendor_qti_init_shell vendor_sysfs_scsi_host:file w_file_perms;
 
-# Allow vendor_qti_init_shell to get oplus_vendor_prop
-get_prop(vendor_qti_init_shell, oplus_vendor_prop)
+# Allow vendor_qti_init_shell to get vendor_oplus_extra_prop
+get_prop(vendor_qti_init_shell, vendor_oplus_extra_prop)
 set_prop(vendor_qti_init_shell, ctl_stop_prop)
 
 allow vendor_qti_init_shell proc_oplus_extra:dir r_dir_perms;

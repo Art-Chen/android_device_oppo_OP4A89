@@ -1,72 +1,56 @@
-# HALs
-attribute hal_ktv;
-attribute hal_ktv_client;
-attribute hal_ktv_server;
+# HAL Attributes
+attribute hal_oplus_engineer;
+attribute hal_oplus_engineer_client;
+attribute hal_oplus_engineer_server;
 
-attribute hal_omdisplay;
-attribute hal_omdisplay_client;
-attribute hal_omdisplay_server;
+attribute hal_oplus_transfer;
+attribute hal_oplus_transfer_client;
+attribute hal_oplus_transfer_server;
 
-attribute oplus_remosaic;
-attribute oplus_remosaic_client;
-attribute oplus_remosaic_server;
+attribute hal_oplus_transmessage;
+attribute hal_oplus_transmessage_client;
+attribute hal_oplus_transmessage_server;
 
-attribute oplusalgo_daemon;
-attribute oplusalgo_daemon_client;
-attribute oplusalgo_daemon_server;
+attribute hal_oplus_fingerprintpay;
+attribute hal_oplus_fingerprintpay_client;
+attribute hal_oplus_fingerprintpay_server;
 
-attribute nxpnfc;
-attribute nxpnfc_client;
-attribute nxpnfc_server;
+attribute hal_oplus_eid;
+attribute hal_oplus_eid_client;
+attribute hal_oplus_eid_server;
 
-attribute nxpese;
-attribute nxpese_client;
-attribute nxpese_server;
+attribute hal_oplus_charger;
+attribute hal_oplus_charger_client;
+attribute hal_oplus_charger_server;
 
-attribute hal_oiface;
-attribute hal_oiface_client;
-attribute hal_oiface_server;
+attribute hal_oplus_engcam;
+attribute hal_oplus_engcam_client;
+attribute hal_oplus_engcam_server;
 
-attribute hal_hypnus;
-attribute hal_hypnus_client;
-attribute hal_hypnus_server;
+attribute hal_oplus_felica;
+attribute hal_oplus_felica_client;
+attribute hal_oplus_felica_server;
 
-attribute hal_wifi_sniffer;
-attribute hal_wifi_sniffer_client;
-attribute hal_wifi_sniffer_server;
+attribute hal_oplus_misc;
+attribute hal_oplus_misc_client;
+attribute hal_oplus_misc_server;
 
-attribute hal_oplusalgoprocessservice;
-attribute hal_oplusalgoprocessservice_client;
-attribute hal_oplusalgoprocessservice_server;
+attribute hal_oplus_sensor;
+attribute hal_oplus_sensor_client;
+attribute hal_oplus_sensor_server;
 
-attribute oplus_hal_engineer;
-attribute oplus_hal_engineer_client;
-attribute oplus_hal_engineer_server;
+attribute hal_oplus_stability_op_project;
+attribute hal_oplus_stability_op_project_client;
+attribute hal_oplus_stability_op_project_server;
 
-attribute oplus_hal_transfer;
-attribute oplus_hal_transfer_client;
-attribute oplus_hal_transfer_server;
+attribute hal_oplus_touch;
+attribute hal_oplus_touch_client;
+attribute hal_oplus_touch_server;
 
-attribute oplus_hal_engsensor;
-attribute oplus_hal_engsensor_client;
-attribute oplus_hal_engsensor_server;
-
-attribute hal_cryptoeng;
-attribute hal_cryptoeng_client;
-attribute hal_cryptoeng_server;
-
-attribute hal_fingerprintpay;
-attribute hal_fingerprintpay_client;
-attribute hal_fingerprintpay_server;
-
-attribute hal_eid;
-attribute hal_eid_client;
-attribute hal_eid_server;
+attribute hal_oplus_wifi;
+attribute hal_oplus_wifi_client;
+attribute hal_oplus_wifi_server;
 
 attribute hal_dms;
 attribute hal_dms_client;
 attribute hal_dms_server;
-
-attribute hal_oplus_nfc;
-attribute hal_oplus_nfc_client;
-attribute hal_oplus_nfc_server;

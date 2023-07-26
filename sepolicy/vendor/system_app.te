@@ -1,8 +1,8 @@
 allow system_app sysfs_vibrator:file rw_file_perms;
 allow system_app sysfs_vibrator:dir r_dir_perms;
 
-allow system_app vendor_sysfs_graphics_ffl:dir r_dir_perms;
-allow system_app vendor_sysfs_graphics_ffl:file rw_file_perms;
+allow system_app vendor_sysfs_oplus_display:dir r_dir_perms;
+allow system_app vendor_sysfs_oplus_display:file rw_file_perms;
 
 r_dir_file(system_app, vendor_sysfs_battery_supply)
 allow system_app proc_oplus_extra:file r_file_perms;
@@ -10,9 +10,10 @@ allow system_app proc_oplus_extra:file r_file_perms;
 # Allow system_app to read, open and get attributes of vendor_sysfs_graphics
 allow system_app vendor_sysfs_graphics:file r_file_perms;
 
-allow system_app exported_system_prop:file read;
+get_prop(system_app, exported_system_prop)
 
-allow system_app hal_fingerprintpay_hwservice:hwservice_manager find;
-binder_call(system_app, hal_fingerprintpay_oplus)
+hal_client_domain(system_app, hal_oplus_fingerprintpay)
+# allow system_app hal_oplus_fingerprintpay_hwservice:hwservice_manager find;
+binder_call(system_app, hal_oplus_fingerprintpay)
 
-get_prop(system_app, oplus_vendor_prop)
+get_prop(system_app, vendor_oplus_extra_prop)

@@ -6,11 +6,11 @@ allow hal_camera_default mnt_vendor_file:file { setattr create };
 allow hal_camera_default proc_oplus_extra:dir search;
 allow hal_camera_default proc_oplus_extra:file rw_file_perms;
 
-allow hal_camera_default sysfs_vl53l1:dir r_dir_perms;
-allow hal_camera_default sysfs_vl53l1:file rw_file_perms;
+allow hal_camera_default vendor_sysfs_vl53l1:dir r_dir_perms;
+allow hal_camera_default vendor_sysfs_vl53l1:file rw_file_perms;
 allow hal_camera_default proc_flash:file rw_file_perms;
 set_prop(hal_camera_default, vendor_camera_prop)
 get_prop(hal_camera_default, vendor_camera_prop)
 
-get_prop(hal_camera_default, oplus_vendor_prop)
-set_prop(hal_camera_default, oplus_vendor_prop)
+get_prop(hal_camera_default, vendor_oplus_extra_prop)
+set_prop(hal_camera_default, vendor_oplus_extra_prop)

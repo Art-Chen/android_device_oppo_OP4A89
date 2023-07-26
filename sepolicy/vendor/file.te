@@ -1,26 +1,30 @@
-# data
-type cryptoeng_data_file, file_type, data_file_type;
+# Cryptoeng
+type vendor_oplus_cryptoeng_data_file, file_type, data_file_type;
 
 # persist
-type persist_camera_file, file_type;
-type media_persist_file, file_type;
-type oplus_fingerprint_file, file_type, data_file_type;
+type vendor_persist_media_file, file_type;
+type vendor_oplus_fp_data_file, file_type, data_file_type;
+type vendor_persist_engineer_file, file_type;
 
 # proc
 type proc_sensor, fs_type, proc_type;
 type proc_touchpanel, fs_type, proc_type;
 type proc_oplus_extra, fs_type, proc_type;
 type proc_flash, fs_type, proc_type;
+type proc_oplus_charger, fs_type, proc_type;
+type proc_oplus_sensor, fs_type, proc_type;
+type proc_oplus_fp_misc, fs_type, proc_type;
 
-# rootfs
-type oplus_reserve, file_type;
+# add for label OPlus Reserve files
+type vendor_oplus_reserve, file_type;
 
 # sockets
-type als_correction_socket, file_type;
+#type als_correction_socket, file_type;
 type vl53l1_socket, file_type;
 
 # sysfs
-type sysfs_dtb_model, sysfs_type, fs_type;
-type alpha_sysfs, sysfs_type, fs_type;
-type sysfs_vl53l1, sysfs_type, fs_type;
+type vendor_sysfs_dtb_model, sysfs_type, fs_type;
+type vendor_sysfs_vl53l1, sysfs_type, fs_type;
 type vendor_sysfs_ac_supply, fs_type, sysfs_type;
+type vendor_sysfs_oplus_display, fs_type, sysfs_type;
+type vendor_sysfs_sensorfb, fs_type, sysfs_type;

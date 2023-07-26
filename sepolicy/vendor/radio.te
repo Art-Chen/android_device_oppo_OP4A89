@@ -1,5 +1,8 @@
 binder_call(radio, vendor_cnd)
 
+# hal_client_domain(radio, vendor_hal_datafactory)
+# hal_client_domain(radio, vendor_hal_iwlan)
+# hal_client_domain(radio, vendor_hal_cacert)
 allow radio vendor_hal_datafactory_hwservice:hwservice_manager find;
 allow radio vendor_hal_iwlan_hwservice:hwservice_manager find;
 allow radio vendor_hal_cacert_hwservice:hwservice_manager find;

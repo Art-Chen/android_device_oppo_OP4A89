@@ -1,7 +1,7 @@
 # Allow init to create vl53l1_socket
 allow init vl53l1_socket:sock_file create_file_perms;
 
-allow init oplus_reserve:dir mounton;
+allow init vendor_oplus_reserve:dir mounton;
 allow init vendor_data_file:dir mounton;
 
 allow init sysfs_vibrator:lnk_file rw_file_perms;
@@ -9,3 +9,5 @@ allow init sysfs_vibrator:lnk_file rw_file_perms;
 # Allow init to read and write to proc_oplus_extra
 allow init proc_oplus_extra:dir r_dir_perms;
 allow init proc_oplus_extra:file rw_file_perms;
+
+allow init self:{ qipcrtr_socket } create_socket_perms_no_ioctl;

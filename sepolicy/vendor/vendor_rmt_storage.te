@@ -2,9 +2,9 @@
 allow vendor_rmt_storage oplus_block_device:blk_file rw_file_perms;
 allow vendor_rmt_storage vendor_modem_efs_partition_device:blk_file rw_file_perms;
 
-# Allow vendor_rmt_storage to get oplus_vendor_prop
-get_prop(vendor_rmt_storage, oplus_vendor_prop)
-set_prop(vendor_rmt_storage, oplus_vendor_prop)
+# Allow vendor_rmt_storage to get vendor_oplus_extra_prop
+get_prop(vendor_rmt_storage, vendor_oplus_extra_prop)
+set_prop(vendor_rmt_storage, vendor_oplus_extra_prop)
 
 # Allow vendor_rmt_storage access to sysfs nodes
 allow vendor_rmt_storage proc_oplus_extra:dir r_dir_perms;

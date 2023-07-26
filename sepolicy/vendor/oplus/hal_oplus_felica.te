@@ -1,0 +1,5 @@
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_oplus_felica_client, hal_oplus_felica_server)
+binder_call(hal_oplus_felica_server, hal_oplus_felica_client)
+
+hal_attribute_hwservice(hal_oplus_felica, hal_oplus_felica_hwservice)

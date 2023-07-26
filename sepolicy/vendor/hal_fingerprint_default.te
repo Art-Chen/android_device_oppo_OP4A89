@@ -1,14 +1,11 @@
 allow hal_fingerprint_default self:netlink_socket create_socket_perms_no_ioctl;
 
-# Allow binder communication with hal_perf_default
+# Allow binder communication with hal_perf_default and self
 binder_call(hal_fingerprint_default, hal_perf_default)
 binder_call(hal_fingerprint_default, hal_fingerprint_default)
-binder_call(hal_fingerprint_default, hal_hypnus_oplus)
 
-# Allow hal_fingerprint_default to find vendor_hal_perf_hwservice
-allow hal_fingerprint_default vendor_hal_perf_hwservice:hwservice_manager find;
-
-allow hal_fingerprint_default hal_hypnus_hwservice:hwservice_manager find;
+# Allow hal_fingerprint_default to get vendor_hal_perf
+hal_client_domain(hal_fingerprint_default, vendor_hal_perf)
 
 # Allow hal_fingerprint_default to read and write to fingerprintd_device
 allow hal_fingerprint_default fingerprintd_device:chr_file rw_file_perms;
@@ -31,15 +28,22 @@ allow hal_fingerprint_default proc_oplus_extra:dir search;
 allow hal_fingerprint_default proc_oplus_extra:file rw_file_perms;
 
 # Allow hal_fingerprint_default access to sysfs nodes
-allow hal_fingerprint_default vendor_sysfs_graphics_ffl:dir r_dir_perms;
-allow hal_fingerprint_default vendor_sysfs_graphics_ffl:file rw_file_perms;
-allow hal_fingerprint_default alpha_sysfs:file r_file_perms;
+allow hal_fingerprint_default vendor_sysfs_oplus_display:dir r_dir_perms;
+allow hal_fingerprint_default vendor_sysfs_oplus_display:file rw_file_perms;
+
+allow hal_fingerprint_default vendor_sysfs_graphics:dir r_dir_perms;
+allow hal_fingerprint_default vendor_sysfs_graphics:file rw_file_perms;
+
+allow hal_fingerprint_default proc_oplus_fp_misc:dir r_dir_perms;
+allow hal_fingerprint_default proc_oplus_fp_misc:file rw_file_perms;
 
 allow hal_fingerprint_default mnt_vendor_file:dir { getattr search };
 r_dir_file(hal_fingerprint_default, mnt_vendor_file);
 
 # Allow hal_fingerprint_default to get vendor_adsprpc_prop
 get_prop(hal_fingerprint_default, vendor_adsprpc_prop)
+get_prop(hal_fingerprint_default, vendor_oplus_fingeprint_prop)
 
-set_prop(hal_fingerprint_default, oplus_vendor_prop)
+set_prop(hal_fingerprint_default, vendor_oplus_extra_prop)
+set_prop(hal_fingerprint_default, vendor_oplus_fingeprint_prop)
 

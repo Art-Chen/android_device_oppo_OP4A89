@@ -1,0 +1,5 @@
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_oplus_sensor_client, hal_oplus_sensor_server)
+binder_call(hal_oplus_sensor_server, hal_oplus_sensor_client)
+
+hal_attribute_hwservice(hal_oplus_sensor, hal_oplus_sensor_hwservice)

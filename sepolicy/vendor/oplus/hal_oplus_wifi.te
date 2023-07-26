@@ -1,0 +1,5 @@
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_oplus_wifi_client, hal_oplus_wifi_server)
+binder_call(hal_oplus_wifi_server, hal_oplus_wifi_client)
+
+hal_attribute_hwservice(hal_oplus_wifi, hal_oplus_wifi_hwservice)

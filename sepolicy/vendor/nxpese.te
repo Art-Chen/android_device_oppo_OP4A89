@@ -1,6 +1,0 @@
-# HwBinder IPC from client to server, and callbacks
-binder_call(nxpese_client, nxpese_server)
-binder_call(nxpese_server, nxpese_client)
-
-add_hwservice(nxpese_server, nxpese_hwservice)
-allow nxpese_client nxpese_hwservice:hwservice_manager find;

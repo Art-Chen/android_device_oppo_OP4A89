@@ -1,0 +1,5 @@
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_oplus_stability_op_project_client, hal_oplus_stability_op_project_server)
+binder_call(hal_oplus_stability_op_project_server, hal_oplus_stability_op_project_client)
+
+hal_attribute_hwservice(hal_oplus_stability_op_project, hal_oplus_project_hwservice)

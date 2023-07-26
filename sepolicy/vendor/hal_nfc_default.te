@@ -9,7 +9,25 @@ allow hal_nfc_default proc_oplus_extra:file rw_file_perms;
 
 get_prop(hal_nfc_default, hwservicemanager_prop)
 
+add_hwservice(hal_nfc_default, hal_nfc_hwservice)
 add_hwservice(hal_nfc_default, hal_oplus_nfc_hwservice)
 hwbinder_use(hal_nfc_default)
 
-set_prop(hal_nfc_default, engineer_vendor_prop)
+set_prop(hal_nfc_default, vendor_oplus_engineer_prop)
+
+# Allow hal_nfc_default to get hal_secure_element_hwservice
+hal_client_domain(hal_nfc_default, hal_secure_element)
+
+# Allow hal_nfc_default to read and write to proc_touchpanel
+allow hal_nfc_default proc_touchpanel:dir search;
+allow hal_nfc_default proc_touchpanel:file rw_file_perms;
+
+# Allow hal_nfc_default to read, write and create files in vendor_nfc_vendor_data_file
+allow hal_nfc_default vendor_nfc_vendor_data_file:dir search;
+allow hal_nfc_default vendor_nfc_vendor_data_file:file create_file_perms;
+
+# Allow hal_nfc_default to get vendor_oplus_engineer_prop
+get_prop(hal_nfc_default, vendor_oplus_engineer_prop)
+get_prop(hal_nfc_default, vendor_oplus_extra_prop)
+get_prop(hal_nfc_default, vendor_nfc_se_prop)
+set_prop(hal_nfc_default, vendor_nfc_se_prop)
