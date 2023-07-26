@@ -1,0 +1,27 @@
+aidl_interface {
+    name: "vendor.chen.aidl.syshelper",
+    srcs: [
+        "vendor/chen/aidl/syshelper/*.aidl",
+    ],
+    vendor_available: true,
+    system_ext_specific: true,
+    owner: "Art_Chen",
+    local_include_dir: ".",
+    stability: "vintf",
+    backend: {
+        java: {
+            platform_apis: true,
+            sdk_version: "current",
+        },
+        cpp: {
+            enabled: false,
+        },
+    },
+    versions_with_info: [
+        {
+            version: "1",
+            imports: [],
+        },
+    ],
+
+}
