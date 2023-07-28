@@ -29,3 +29,19 @@ PRODUCT_PACKAGES += \
 # OPPO
 PRODUCT_PACKAGES += \
     ozip_decrypt
+
+# Dynamic Partitions
+PRODUCT_RETROFIT_DYNAMIC_PARTITIONS := true
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
+
+# fastbootd
+PRODUCT_PACKAGES += \
+    fastbootd \
+    android.hardware.fastboot@1.0-impl-mock \
+    android.hardware.fastboot@1.0-impl-mock.recovery
+
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.fastbootd.available=true
+
+PRODUCT_PACKAGES += \
+    erofs-utils

@@ -40,3 +40,34 @@ on boot
     write /sys/class/power_supply/usb/otg_switch 1
     write /proc/touchpanel/tp_fw_update 0
     setenforce 0
+
+on boot
+    chown system system /sys/class/leds/vibrator/haptic_audio
+    chown system system /sys/class/leds/vibrator/waveform_index
+    chown system system /sys/class/leds/vibrator/activate
+    chown system system /sys/class/leds/vibrator/brightness
+    chown system system /sys/class/leds/vibrator/duration
+    chown system system /sys/class/leds/vibrator/gain
+    chown system system /sys/class/leds/vibrator/loop
+    chown system system /sys/class/leds/vibrator/seq
+    chown system system /sys/class/leds/vibrator/state
+    chown system system /sys/class/leds/vibrator/vmax
+    chmod 0666 /sys/class/leds/vibrator/haptic_audio
+    chmod 0666 /sys/class/leds/vibrator/waveform_index
+    chmod 0666 /sys/class/leds/vibrator/activate
+    chmod 0666 /sys/class/leds/vibrator/brightness
+    chmod 0666 /sys/class/leds/vibrator/duration
+    chmod 0666 /sys/class/leds/vibrator/gain
+    chmod 0666 /sys/class/leds/vibrator/loop
+    chmod 0666 /sys/class/leds/vibrator/seq
+    chmod 0666 /sys/class/leds/vibrator/state
+    chmod 0666 /sys/class/leds/vibrator/vmax
+    write /sys/class/leds/vibrator/gain 0x30
+    start vendor.qti.vibrator
+
+service vendor.qti.vibrator /vendor/bin/hw/vendor.qti.hardware.vibrator.service
+    class hal
+    disabled
+    user system
+    group system input
+

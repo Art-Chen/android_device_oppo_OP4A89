@@ -38,11 +38,18 @@
 # Currently we dont have e2fsck compiled. So fs check would failed.
 
 #<src>                                                 <mnt_point>            <type>  <mnt_flags and options>                            <fs_mgr_flags>
-/dev/block/by-name/system                               /system                ext4    ro,barrier=1,discard                                 wait,avb,first_stage_mount
-/dev/block/by-name/system                               /system                erofs   ro                                                   wait,avb,first_stage_mount
-/dev/block/by-name/vendor                               /vendor                ext4    ro,barrier=1,discard                                 wait,avb,first_stage_mount
+system                                                  /system                erofs   ro                                                 wait,first_stage_mount,logical,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey:/avb/t-gsi.avbpubkey:/avb/u-gsi.avbpubkey
+system                                                  /system                ext4    ro,barrier=1,discard                               wait,first_stage_mount,logical,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey:/avb/t-gsi.avbpubkey:/avb/u-gsi.avbpubkey
+system_ext                                              /system_ext            erofs   ro                                                 wait,first_stage_mount,logical
+system_ext                                              /system_ext            ext4    ro,barrier=1,discard                               wait,first_stage_mount,logical
+product                                                 /product               erofs   ro                                                 wait,first_stage_mount,logical
+product                                                 /product               ext4    ro,barrier=1,discard                               wait,first_stage_mount,logical
+odm                                                     /odm                   erofs   ro                                                 wait,first_stage_mount,logical
+odm                                                     /odm                   ext4    ro,barrier=1,discard                               wait,first_stage_mount,logical
+vendor                                                  /vendor                erofs   ro                                                 wait,first_stage_mount,logical
+vendor                                                  /vendor                ext4    ro,barrier=1,discard                               wait,first_stage_mount,logical
 /dev/block/bootdevice/by-name/cache                     /cache                 ext4    nosuid,noatime,nodev,barrier=1                               wait,check
-/dev/block/bootdevice/by-name/metadata                  /metadata              ext4    noatime,nosuid,nodev                         wait,formattable
+/dev/block/by-name/metadata                             /metadata              ext4    noatime,nosuid,nodev,discard                       wait,formattable,first_stage_mount
 /dev/block/bootdevice/by-name/userdata                  /data                  ext4    noatime,nosuid,nodev,barrier=1,noauto_da_alloc,errors=panic,inlinecrypt latemount,wait,check,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,wrappedkey,keydirectory=/metadata/vold/metadata_encryption,quota,reservedsize=128M,resize,checkpoint=fs
 /dev/block/bootdevice/by-name/userdata                  /data                  f2fs    noatime,nosuid,nodev,inlinecrypt latemount,wait,check,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,wrappedkey,keydirectory=/metadata/vold/metadata_encryption,quota,formattable,reservedsize=128M,resize,checkpoint=fs
 /dev/block/bootdevice/by-name/modem                     /firmware   vfat    ro,shortname=lower,uid=1000,gid=1000,dmask=222,fmask=333,context=u:object_r:firmware_file:s0 wait

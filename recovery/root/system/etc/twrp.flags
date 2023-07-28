@@ -4,20 +4,27 @@
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
 # mount point       fstype    device                                                                flags
+/system             ext4   system                                                    flags=display="System";logical
+/vendor             ext4   vendor                                                    flags=display="Vendor";logical
+                               
+/system_image       emmc   system                                                    flags=backup=1;flashimg=1
+/vendor_image       emmc   vendor                                                    flags=backup=1;flashimg=1
+/product            ext4   product                                                   flags=backup=1;display="Product";logical
+/product_image      emmc   product                                                   flags=backup=1;display="Product Image";flashimg=1
+/system_ext         ext4   system_ext                                                flags=backup=1;display="System_Ext";logical
+/system_ext_image   emmc   system_ext                                                flags=backup=1;display="System_Ext Image";flashimg=1
+/odm                ext4   odm                                                       flags=backup=1;display="Odm";logical
+/odm_image          emmc   odm                                                       flags=backup=1;display="Odm Image";flashimg=1
 /metadata           ext4   /dev/block/bootdevice/by-name/metadata                    flags=backup=1;display="Metadata";wrappedkey;
 /boot               emmc   /dev/block/bootdevice/by-name/boot                        flags=backup=1;display="Boot";flashimg=1
 /dtbo               emmc   /dev/block/bootdevice/by-name/dtbo                        flags=backup=1;display="Dtbo";flashimg=1
 /cache              ext4   /dev/block/bootdevice/by-name/cache                       flags=backup=1;wipeingui;wipeduringfactoryreset
 /storage            f2fs   /data/media/0                                             flags=display="Internal Storage";backup=1;usermrf;fsflags="bind";removable
 /recovery           emmc   /dev/block/bootdevice/by-name/recovery                    flags=backup=1;display="Recovery";flashimg=1
-/system_root        ext4   /dev/block/by-name/system                      flags=display="System";backup=1;wipeingui
-/system_root        erofs  /dev/block/by-name/system                     flags=display="System";backup=1;wipeingui
-/vendor             ext4   /dev/block/by-name/vendor                      flags=display="Vendor";backup=1;
+/super_system       emmc   /dev/block/by-name/system                                 flags=display="Super_System";backup=1;flashimg=1
+/super_vendor       emmc   /dev/block/by-name/vendor                                 flags=display="Super_Vendor";backup=1;flashimg=1
 
-/system_image       emmc   /dev/block/by-name/system                      flags=display="System Image";backup=1;flashimg=1
-/vendor_image       emmc   /dev/block/by-name/vendor                      flags=display="Vendor Image";backup=1;flashimg=1
-
-/data               f2fs   /dev/block/by-name/userdata                    flags=display="Data";fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized;wrappedkey;keydirectory=/metadata/vold/metadata_encryption
+/data               f2fs   /dev/block/by-name/userdata                               flags=display="Data";fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized;wrappedkey;keydirectory=/metadata/vold/metadata_encryption
 /firmware           vfat   /dev/block/bootdevice/by-name/modem                       flags=display="Firmware";mounttodecrypt
 /misc               emmc   /dev/block/bootdevice/by-name/misc
 /modem              emmc   /dev/block/bootdevice/by-name/modem                       flags=backup=1;display="Modem"
@@ -33,4 +40,4 @@
 /firmware_image     emmc   /dev/block/bootdevice/by-name/modem                       flags=display="Firmware";backup=1
 
 # Removable storage
-/usb-otg       vfat   /dev/block/sdg1                    /dev/block/sdg         flags=fsflags=utf8;display="USB-Storage";storage;wipeingui;removable
+/usb-otg            vfat   /dev/block/sdg1                    /dev/block/sdg         flags=fsflags=utf8;display="USB-Storage";storage;wipeingui;removable
