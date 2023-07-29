@@ -218,6 +218,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_RAMDISK)/fstab.qcom
 
+# Fastboot
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.fastbootd.available=true
+
+PRODUCT_PACKAGES += \
+    fastbootd
+
 # Cryptfshw
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.cryptfshw@1.0.vendor

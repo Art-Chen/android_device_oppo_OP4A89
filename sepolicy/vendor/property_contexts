@@ -229,3 +229,6 @@ vendor.fingerprint.cali u:object_r:vendor_oplus_fingeprint_prop:s0
 persist.vendor.fingerprint.optical.circlenumber u:object_r:vendor_oplus_fingeprint_prop:s0
 persist.vendor.fingerprint.sensor_type u:object_r:vendor_oplus_fingeprint_prop:s0
 persist.vendor.fingerprint.version u:object_r:vendor_oplus_fingeprint_prop:s0
+
+# Fastbootd
+ro.fastbootd.available                 u:object_r:exported_default_prop:s0
