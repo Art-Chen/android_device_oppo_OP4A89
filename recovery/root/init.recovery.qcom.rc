@@ -40,6 +40,7 @@ on boot
     write /sys/class/power_supply/usb/otg_switch 1
     write /proc/touchpanel/tp_fw_update 0
     setenforce 0
+    start health-hal-2-1
 
 on boot
     chown system system /sys/class/leds/vibrator/haptic_audio
@@ -62,7 +63,7 @@ on boot
     chmod 0666 /sys/class/leds/vibrator/seq
     chmod 0666 /sys/class/leds/vibrator/state
     chmod 0666 /sys/class/leds/vibrator/vmax
-    write /sys/class/leds/vibrator/gain 0x30
+    write /sys/class/leds/vibrator/gain 0x10
     start vendor.qti.vibrator
 
 service vendor.qti.vibrator /vendor/bin/hw/vendor.qti.hardware.vibrator.service
