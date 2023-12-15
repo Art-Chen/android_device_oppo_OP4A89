@@ -46,3 +46,6 @@ vendor.oplus.hardware.wifi.hostapd::IOplusHostapd             u:object_r:hal_wif
 vendor.oplus.hardware.virtual_device.audio::IStatusProvider    u:object_r:hal_audio_hwservice:s0
 vendor.oplus.hardware.bluetooth_audio_extend::IBluetoothAudioProvidersFactory u:object_r:hal_audio_hwservice:s0
 vendor.oplus.hardware.cameraMDM::IOPlusCameraMDM u:object_r:hal_cameraMDM_hwservice:s0
+
+# Chen Flyme Add
+vendor.meizu.sensor_aux::ISensorAux            u:object_r:hal_sensors_hwservice:s0

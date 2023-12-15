@@ -232,3 +232,6 @@ persist.vendor.fingerprint.version u:object_r:vendor_oplus_fingeprint_prop:s0
 
 # Fastbootd
 ro.fastbootd.available                 u:object_r:exported_default_prop:s0
+
+# Chen Prop
+ro.chen.                               u:object_r:vendor_chen_prop:s0

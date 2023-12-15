@@ -1,2 +1,8 @@
 # Allow system_server to read Fast Charging status
 allow system_server vendor_sysfs_battery_supply:file { getattr open read };
+
+# Flyme Add
+binder_call(system_server, hal_sensors_default)
+allow system_server hal_sensors_hwservice:hwservice_manager find;
+
+get_prop(system_server, vendor_chen_prop)

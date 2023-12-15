@@ -8,4 +8,3 @@ allow vendor_sensors proc_oplus_extra:file rw_file_perms;
 
 allow vendor_sensors proc_touchpanel:dir search;
 allow vendor_sensors proc_touchpanel:file rw_file_perms;
-

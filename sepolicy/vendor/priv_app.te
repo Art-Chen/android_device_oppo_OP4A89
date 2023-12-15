@@ -1,2 +1,3 @@
 hal_client_domain(priv_app, hal_oplus_fingerprintpay)
 binder_call(priv_app, hal_oplus_fingerprintpay)
+get_prop(priv_app, vendor_chen_prop)

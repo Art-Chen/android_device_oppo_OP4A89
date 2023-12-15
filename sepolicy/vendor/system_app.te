@@ -17,3 +17,7 @@ hal_client_domain(system_app, hal_oplus_fingerprintpay)
 binder_call(system_app, hal_oplus_fingerprintpay)
 
 get_prop(system_app, vendor_oplus_extra_prop)
+get_prop(system_app, vendor_chen_prop)
+get_prop(system_app, logpersistd_logging_prop)
+set_prop(system_app, logpersistd_logging_prop)
+
