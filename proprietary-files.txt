@@ -1,8 +1,7 @@
 # All unpinned blobs below are extracted from RenoAce_C12.1_H16
 
 # ACDB Data
-vendor/etc/acdbdata/adsp_avs_config.acdb
-odm/etc/acdbdata/adsp_avs_config.acdb
+vendor/etc/acdbdata/adsp_avs_config.acdb:odm/etc/acdbdata/adsp_avs_config.acdb
 odm/etc/acdbdata/Audio_Parameter_Version.txt
 odm/etc/acdbdata/Bluetooth_cal.acdb
 odm/etc/acdbdata/Codec_cal.acdb
@@ -2439,7 +2438,6 @@ vendor/lib/libsns_registry_skel.so
 vendor/lib64/libsns_registry_skel.so
 
 # Soter
--system_ext/app/SoterService/SoterService.apk
 vendor/bin/hw/vendor.qti.hardware.soter@1.0-service
 vendor/bin/vendor.qti.hardware.soter@1.0-provision
 vendor/etc/init/vendor.qti.hardware.soter@1.0-service.rc
