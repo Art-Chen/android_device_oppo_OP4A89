@@ -35,3 +35,23 @@ vendor                                                  /vendor                e
 /dev/block/bootdevice/by-name/recovery                  /recovery              emmc    defaults                                           recoveryonly
 
 /dev/block/bootdevice/by-name/opporeserve2              /mnt/vendor/opporeserve  ext4  nosuid,nodev,noatime,barrier=1                     wait,check
+
+# Mount Chen Overlay if exist
+chen_ext                                                /mnt/vendor/chen_ext   f2fs    ro                                                 wait,logical,first_stage_mount,nofail
+chen_overlay                                            /product/etc           overlay ro,lowerdir=/mnt/vendor/chen_ext/product/etc/:/product/etc check,first_stage_mount,nofail
+chen_overlay                                            /vendor/overlay        overlay ro,lowerdir=/mnt/vendor/chen_ext/vendor/overlay/:/vendor/overlay check,first_stage_mount,nofail
+chen_overlay                                            /vendor/firmware       overlay ro,lowerdir=/mnt/vendor/chen_ext/vendor/firmware/:/vendor/firmware check,first_stage_mount,nofail
+chen_overlay                                            /vendor/bin            overlay ro,lowerdir=/mnt/vendor/chen_ext/vendor/bin/:/vendor/bin check,first_stage_mount,nofail
+chen_overlay                                            /vendor/etc            overlay ro,lowerdir=/mnt/vendor/chen_ext/vendor/etc/:/vendor/etc check,first_stage_mount,nofail
+chen_overlay                                            /vendor/lib            overlay ro,lowerdir=/mnt/vendor/chen_ext/vendor/lib/:/vendor/lib check,first_stage_mount,nofail
+chen_overlay                                            /vendor/lib64          overlay ro,lowerdir=/mnt/vendor/chen_ext/vendor/lib64/:/vendor/lib64 check,first_stage_mount,nofail
+chen_overlay                                            /vendor/usr            overlay ro,lowerdir=/mnt/vendor/chen_ext/vendor/usr/:/vendor/usr check,first_stage_mount,nofail
+chen_overlay                                            /system/etc            overlay ro,lowerdir=/mnt/vendor/chen_ext/system/etc/:/system/etc check,first_stage_mount,nofail
+chen_overlay                                            /system/bin            overlay ro,lowerdir=/mnt/vendor/chen_ext/system/bin/:/system/bin check,first_stage_mount,nofail
+chen_overlay                                            /system/lib            overlay ro,lowerdir=/mnt/vendor/chen_ext/system/lib/:/system/lib check,first_stage_mount,nofail
+chen_overlay                                            /system/lib64          overlay ro,lowerdir=/mnt/vendor/chen_ext/system/lib64/:/system/lib64 check,first_stage_mount,nofail
+chen_overlay                                            /system/framework      overlay ro,lowerdir=/mnt/vendor/chen_ext/system/framework/:/system/framework check,first_stage_mount,nofail
+chen_overlay                                            /system_ext/app        overlay ro,lowerdir=/mnt/vendor/chen_ext/system_ext/app/:/system_ext/app check,first_stage_mount,nofail
+chen_overlay                                            /system_ext/etc        overlay ro,lowerdir=/mnt/vendor/chen_ext/system_ext/etc/:/system_ext/etc check,first_stage_mount,nofail
+chen_overlay                                            /system_ext/lib        overlay ro,lowerdir=/mnt/vendor/chen_ext/system_ext/lib/:/system_ext/lib check,first_stage_mount,nofail
+chen_overlay                                            /system_ext/lib64      overlay ro,lowerdir=/mnt/vendor/chen_ext/system_ext/lib64/:/system_ext/lib64 check,first_stage_mount,nofail
