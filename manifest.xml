@@ -194,8 +194,7 @@
         </interface>
         <fqname>@2.2::IImsCmService/qti.ims.connectionmanagerservice</fqname>
     </hal>
-    <!-- Disabled due to unsupported ims rcs, the uceservice will never registered -->
-    <!--hal format="hidl">
+    <hal format="hidl">
         <name>com.qualcomm.qti.uceservice</name>
         <transport>hwbinder</transport>
         <version>2.2</version>
@@ -204,7 +203,7 @@
             <instance>com.qualcomm.qti.uceservice</instance>
         </interface>
         <fqname>@2.2::IUceService/com.qualcomm.qti.uceservice</fqname>
-    </hal-->
+    </hal>
     <hal format="hidl">
         <name>vendor.display.color</name>
         <transport>hwbinder</transport>
