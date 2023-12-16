@@ -50,8 +50,20 @@ using aidl::vendor::chen::aidl::syshelper::IALSHelper;
 using aidl::vendor::chen::aidl::syshelper::BnALSHelperCallback;
 using aidl::vendor::chen::aidl::syshelper::ScreenShotInfo;
 
-static Rect screenshot_rect(667, 19, 707, 49);
-static Rect screenshot_rect_land(1080 - 707, 2400 - 49, 1080 - 667, 2340 - 19);
+constexpr int ALS_POS_X = 692;
+constexpr int ALS_POS_Y = 34;
+constexpr int ALS_RADIUS = 15;
+
+static Rect screenshot_rect_0(ALS_POS_X - ALS_RADIUS, ALS_POS_Y - ALS_RADIUS, ALS_POS_X + ALS_RADIUS, ALS_POS_Y + ALS_RADIUS);
+static Rect screenshot_rect_land_90(ALS_POS_Y - ALS_RADIUS, 1080 - ALS_POS_X - ALS_RADIUS, ALS_POS_Y + ALS_RADIUS, 1080 - ALS_POS_X + ALS_RADIUS);
+static Rect screenshot_rect_180(1080 - ALS_POS_X - ALS_RADIUS, 2400 - ALS_POS_Y - ALS_RADIUS, 1080 - ALS_POS_X + ALS_RADIUS, 2400 - ALS_POS_Y + ALS_RADIUS);
+static Rect screenshot_rect_land_270(2400 - (ALS_POS_Y + ALS_RADIUS),ALS_POS_X - ALS_RADIUS, 2400 - (ALS_POS_Y - ALS_RADIUS), ALS_POS_X + ALS_RADIUS);
+
+static sp<IBinder> getInternalDisplayToken() {
+    const auto displayIds = SurfaceComposerClient::getPhysicalDisplayIds();
+    sp<IBinder> token = SurfaceComposerClient::getPhysicalDisplayToken(displayIds[0]);
+    return token;
+}
 
 class AlsCorrection {
    public:
@@ -63,21 +75,33 @@ class AlsCorrection {
 
         sp<SyncScreenCaptureListener> captureListener = new SyncScreenCaptureListener();
         gui::ScreenCaptureResults captureResults;
-        sp<IBinder> display = SurfaceComposerClient::getInternalDisplayToken();
+        sp<IBinder> display = getInternalDisplayToken();
         DisplayCaptureArgs captureArgs = {};
         android::ui::DisplayState state = {};
+        Rect screenshot_rect;
+        switch (state.orientation) {
+             case Rotation::Rotation90:  screenshot_rect = screenshot_rect_land_90;
+                                         break;
+             case Rotation::Rotation180: screenshot_rect = screenshot_rect_180;
+                                         break;
+             case Rotation::Rotation270: screenshot_rect = screenshot_rect_land_270;
+                                         break;
+             default:                    screenshot_rect = screenshot_rect_0;
+                                         break;
+        }
+
         SurfaceComposerClient::getDisplayState(display, &state);
+        
         captureArgs.displayToken = display;
         captureArgs.pixelFormat = android::ui::PixelFormat::RGBA_8888;
-        captureArgs.sourceCrop = (state.orientation == Rotation::Rotation0 || state.orientation == Rotation::Rotation180) ? screenshot_rect : screenshot_rect_land;
+        captureArgs.sourceCrop = screenshot_rect;
         captureArgs.width = screenshot_rect.getWidth();
         captureArgs.height = screenshot_rect.getHeight();
         captureArgs.useIdentityTransform = true;
         captureArgs.captureSecureLayers = true;
-
         if (ScreenshotClient::captureDisplay(captureArgs, captureListener) == NO_ERROR) {
-            captureResults = captureListener->waitForResults();
-            if (captureResults.result == NO_ERROR) outBuffer = captureResults.buffer;
+             captureResults = captureListener->waitForResults();
+             if (captureResults.result == NO_ERROR) outBuffer = captureResults.buffer;
         }
 
         uint8_t *out;
@@ -152,7 +176,7 @@ int main() {
     // Don't know why we should call it first
     // If it didn't called, the takeScreenshot will hang at waitResult
     ScreenShotInfo info = listener->takeScreenshot();
-	LOG(INFO) << info.toString();
+    LOG(INFO) << info.toString();
 
     while (true) {
         pause();
