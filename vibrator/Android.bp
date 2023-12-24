@@ -4,16 +4,20 @@ Common_CFlags += ["-Werror"]
 cc_library_shared {
     name: "vendor.qti.hardware.vibrator.impl.oppo_OP4A89",
     stem: "vendor.qti.hardware.vibrator.impl",
+    defaults: [
+        "qti_vibrator_hal_defaults",
+    ],
     vendor: true,
     cflags: Common_CFlags,
     srcs: [
         "Vibrator.cpp",
+        "VibratorOffload.cpp",
     ],
     shared_libs: [
         "libcutils",
         "libutils",
         "liblog",
-        "libqtivibratoreffect",
+        "libqtivibratoreffectoffload",
         "libbinder_ndk",
         "android.hardware.vibrator-V2-ndk",
     ],
