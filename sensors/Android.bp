@@ -1,7 +1,3 @@
-subdirs = [
-    "FodVirtualSensor",
-]
-
 cc_binary {
     name: "android.hardware.sensors@2.1-service.oplus_OP4A89",
     stem: "android.hardware.sensors@2.1-service.multihal",
@@ -48,7 +44,9 @@ cc_binary {
 cc_binary {
     name: "als_correction_service.oppo_OP4A89",
     stem: "als_correction_service",
+    system_ext_specific: true,
     init_rc: ["als_correction_service.rc"],
+    vintf_fragments: ["manifest_chen_als_helper.xml"],
     srcs: [
         "als_correction_service.cpp",
     ],

@@ -1,0 +1,6 @@
+<manifest version="1.0" type="framework">
+    <hal format="aidl">
+        <name>vendor.chen.aidl.syshelper</name>
+        <fqname>IALSHelper/default</fqname>
+    </hal>
+</manifest>

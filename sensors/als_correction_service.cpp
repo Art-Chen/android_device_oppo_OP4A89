@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-#include <aidl/vendor/chen/aidl/syshelper/IALSHelper.h>
-#include <aidl/vendor/chen/aidl/syshelper/BnALSHelperCallback.h>
-#include <aidl/vendor/chen/aidl/syshelper/IALSHelperCallback.h>
+#include <aidl/vendor/chen/aidl/syshelper/BnALSHelper.h>
 #include <aidl/vendor/chen/aidl/syshelper/ScreenShotInfo.h>
 
 #include <android-base/properties.h>
@@ -46,8 +44,6 @@ using android::sp;
 using android::SurfaceComposerClient;
 using namespace android;
 
-using aidl::vendor::chen::aidl::syshelper::IALSHelper;
-using aidl::vendor::chen::aidl::syshelper::BnALSHelperCallback;
 using aidl::vendor::chen::aidl::syshelper::ScreenShotInfo;
 
 constexpr int ALS_POS_X = 692;
@@ -68,11 +64,6 @@ static sp<IBinder> getInternalDisplayToken() {
 class AlsCorrection {
    public:
     ScreenShotInfo takeScreenshot() {
-        static sp<GraphicBuffer> outBuffer = new GraphicBuffer(
-                screenshot_rect.getWidth(), screenshot_rect.getHeight(),
-                android::PIXEL_FORMAT_RGB_888,
-                GraphicBuffer::USAGE_SW_READ_OFTEN | GraphicBuffer::USAGE_SW_WRITE_OFTEN);
-
         sp<SyncScreenCaptureListener> captureListener = new SyncScreenCaptureListener();
         gui::ScreenCaptureResults captureResults;
         sp<IBinder> display = getInternalDisplayToken();
@@ -89,6 +80,10 @@ class AlsCorrection {
              default:                    screenshot_rect = screenshot_rect_0;
                                          break;
         }
+        static sp<GraphicBuffer> outBuffer = new GraphicBuffer(
+            screenshot_rect.getWidth(), screenshot_rect.getHeight(),
+            android::PIXEL_FORMAT_RGB_888,
+            GraphicBuffer::USAGE_SW_READ_OFTEN | GraphicBuffer::USAGE_SW_WRITE_OFTEN);
 
         SurfaceComposerClient::getDisplayState(display, &state);
         
@@ -101,7 +96,7 @@ class AlsCorrection {
         captureArgs.captureSecureLayers = true;
         if (ScreenshotClient::captureDisplay(captureArgs, captureListener) == NO_ERROR) {
              captureResults = captureListener->waitForResults();
-             if (captureResults.result == NO_ERROR) outBuffer = captureResults.buffer;
+             if (captureResults.fenceResult.ok()) outBuffer = captureResults.buffer;
         }
 
         uint8_t *out;
@@ -130,57 +125,39 @@ class AlsCorrection {
 
         return info;
     }
-
-    void init();
-
-   private:
-    std::shared_ptr<IALSHelper> mChenALSHelper;
 };
 
-class ChenALSHelperCallback : public BnALSHelperCallback {
+class ALSHelper : public ::aidl::vendor::chen::aidl::syshelper::BnALSHelper {
    public:
-    ChenALSHelperCallback(AlsCorrection* thiz) : mThiz(thiz){};
+    ALSHelper(AlsCorrection* listener) : listener_(listener) {}
+    ::ndk::ScopedAStatus takeScreenShot(::aidl::vendor::chen::aidl::syshelper::ScreenShotInfo* _aidl_return) override {
+        ScreenShotInfo ret = listener_->takeScreenshot();
+        _aidl_return->r = ret.r;
+        _aidl_return->g = ret.g;
+        _aidl_return->b = ret.b;
+        _aidl_return->timestamp = ret.timestamp;
+        return ndk::ScopedAStatus::ok();
+    };
 
-    ::ndk::ScopedAStatus takeScreenShot(ScreenShotInfo* _aidl_return) override {
-        ScreenShotInfo info = mThiz->takeScreenshot();
-        *_aidl_return = info;
-        return ::ndk::ScopedAStatus::ok();
-    }
-
-   private:
-    AlsCorrection* mThiz;
+   protected:
+    AlsCorrection* listener_;
 };
-
-void AlsCorrection::init() {
-    std::string instanceName = std::string() + IALSHelper::descriptor + "/default";
-    bool isSupportChenSysHelper = AServiceManager_isDeclared(instanceName.c_str());
-    if (!isSupportChenSysHelper) {
-        LOG(FATAL) << "Chen System Helper is NOT Declared!! Panic Here!";
-    }
-
-    mChenALSHelper = IALSHelper::fromBinder(ndk::SpAIBinder(AServiceManager_waitForService(instanceName.c_str())));
-
-    const std::shared_ptr<ChenALSHelperCallback> mChenALSCallback = ndk::SharedRefBase::make<ChenALSHelperCallback>(this);
-    mChenALSHelper->registerCallback(mChenALSCallback);
-
-    LOG(INFO) << "Als Screen Shoter init done!";
-}
 
 int main() {
     ProcessState::self()->setThreadPoolMaxThreadCount(2);
     ProcessState::self()->startThreadPool();
 
+    ABinderProcess_setThreadPoolMaxThreadCount(2);
     auto listener = new AlsCorrection();
-    listener->init();
 
-    // Don't know why we should call it first
-    // If it didn't called, the takeScreenshot will hang at waitResult
-    ScreenShotInfo info = listener->takeScreenshot();
-    LOG(INFO) << info.toString();
+    std::shared_ptr<ALSHelper> alsHelper = ndk::SharedRefBase::make<ALSHelper>(listener);
 
-    while (true) {
-        pause();
-    }
+    std::string instance = std::string() + ALSHelper::descriptor + "/default";
+    binder_status_t status =
+        AServiceManager_addService(alsHelper->asBinder().get(), instance.c_str());
+    CHECK_EQ(status, STATUS_OK);
 
+    LOG(INFO) << "Als Screen Shoter init done!";
+    ABinderProcess_joinThreadPool();
     return 0;
 }
