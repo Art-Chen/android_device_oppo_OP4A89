@@ -4,7 +4,6 @@ cc_binary {
     init_rc: ["chen_syshelper.rc"],
     vintf_fragments: ["manifest_chen_syshelper.xml"],
     srcs: [
-        "ALSHelper.cpp",
         "UdfpsHelper.cpp",
         "LinkedCallback.cpp",
         "main.cpp",

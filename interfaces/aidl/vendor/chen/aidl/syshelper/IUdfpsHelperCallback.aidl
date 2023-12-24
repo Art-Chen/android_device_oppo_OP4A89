@@ -1,6 +1,6 @@
 package vendor.chen.aidl.syshelper;
 
 @VintfStability
-interface IUdfpsHelperCallback {
+oneway interface IUdfpsHelperCallback {
     void onUdfpsTouchStatusChanged(boolean isDown);
 }

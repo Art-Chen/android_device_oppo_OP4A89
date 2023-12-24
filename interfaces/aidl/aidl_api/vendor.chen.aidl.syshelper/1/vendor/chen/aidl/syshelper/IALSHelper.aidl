@@ -20,6 +20,4 @@ package vendor.chen.aidl.syshelper;
 @VintfStability
 interface IALSHelper {
   vendor.chen.aidl.syshelper.ScreenShotInfo takeScreenShot();
-  void registerCallback(in vendor.chen.aidl.syshelper.IALSHelperCallback callback);
-  void unregisterCallback(in vendor.chen.aidl.syshelper.IALSHelperCallback callback);
 }

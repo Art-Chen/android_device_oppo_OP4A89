@@ -39,24 +39,21 @@ UdfpsHelper::UdfpsHelper()
 }
 
 ::ndk::ScopedAStatus UdfpsHelper::touchDown() {
-    std::unique_lock<decltype(fpdown_mutex_lock)> lock(fpdown_mutex_lock);
+    std::scoped_lock lock(fpdown_mutex_lock);
 
     LOG(INFO) << "FP Touch Down!";
     currentIsDownState = true;
-    // OnUdfpsTouchStatusChanged(true);
+    OnUdfpsTouchStatusChanged(true);
     mWaitCV.notify_all();
-    lock.unlock();
 
     return ndk::ScopedAStatus::ok();
 }
 ::ndk::ScopedAStatus UdfpsHelper::touchUp() {
-    std::unique_lock<decltype(fpdown_mutex_lock)> lock(fpdown_mutex_lock);
-
+    std::scoped_lock lock(fpdown_mutex_lock);
     LOG(INFO) << "FP Touch Up!";
     currentIsDownState = false;
-    // OnUdfpsTouchStatusChanged(false);
+    OnUdfpsTouchStatusChanged(false);
     mWaitCV.notify_all();
-    lock.unlock();
 
     return ndk::ScopedAStatus::ok();
 }
