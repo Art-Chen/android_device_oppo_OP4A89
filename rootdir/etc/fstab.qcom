@@ -37,7 +37,7 @@ vendor                                                  /vendor                e
 /dev/block/bootdevice/by-name/opporeserve2              /mnt/vendor/opporeserve  ext4  nosuid,nodev,noatime,barrier=1                     wait,check
 
 # Mount Chen Overlay if exist
-chen_ext                                                /mnt/vendor/chen_ext   f2fs    ro                                                 wait,logical,first_stage_mount,nofail
+#chen_ext                                                /mnt/vendor/chen_ext   f2fs    ro                                                 wait,logical,first_stage_mount,nofail
 chen_overlay                                            /product/etc           overlay ro,lowerdir=/mnt/vendor/chen_ext/product/etc/:/product/etc check,first_stage_mount,nofail
 chen_overlay                                            /vendor/overlay        overlay ro,lowerdir=/mnt/vendor/chen_ext/vendor/overlay/:/vendor/overlay check,first_stage_mount,nofail
 chen_overlay                                            /vendor/firmware       overlay ro,lowerdir=/mnt/vendor/chen_ext/vendor/firmware/:/vendor/firmware check,first_stage_mount,nofail

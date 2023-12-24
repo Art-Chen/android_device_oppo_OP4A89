@@ -499,16 +499,11 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/codec2.vendor.ext.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/codec2.vendor.ext.policy \
     $(LOCAL_PATH)/seccomp/codec2.vendor.base.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/codec2.vendor.base.policy
 
-# Sensors
-# PRODUCT_PACKAGES += \
-#     android.hardware.sensors@1.0-impl.oppo_OP4A89 \
-#     android.hardware.sensors@1.0-service \
-#     als_correction_service.oppo_OP4A89 \
-#     libsensorndkbridge
 PRODUCT_PACKAGES += \
     android.hardware.sensors@2.1-service.oplus_OP4A89 \
     android.hardware.sensors@2.0.vendor \
     android.hardware.sensors@2.0-ScopedWakelock.vendor \
+    android.frameworks.sensorservice@1.0.vendor \
     android.hardware.audio@4.0.vendor \
     als_correction_service.oppo_OP4A89 \
     libsensorndkbridge \
@@ -569,7 +564,7 @@ PRODUCT_COPY_FILES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service \
+    android.hardware.wifi-service \
     android.hardware.wifi@1.5.vendor \
     hostapd \
     libwpa_client \
@@ -597,7 +592,8 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.surface_flinger.protected_contents=true \
     ro.surface_flinger.use_color_management=true \
     ro.surface_flinger.wcg_composition_dataspace=143261696 \
-    ro.surface_flinger.supports_background_blur=1
+    ro.surface_flinger.supports_background_blur=1 \
+    ro.sf.blurs_are_expensive=1
 
 # Wfd
 PRODUCT_COPY_FILES += \

@@ -36,7 +36,7 @@ class MoveDetectSensor(private val context: Context, sensorType: String) : Senso
         if (event.values[0] == 2.0f) {
             if (Utils.isMoveDetectSetToWake(context)) {
                 wakeLock.acquire(WAKELOCK_TIMEOUT_MS)
-                powerManager.wakeUpWithProximityCheck(
+                powerManager.wakeUp(
                     SystemClock.uptimeMillis(), PowerManager.WAKE_REASON_GESTURE, TAG
                 )
             } else {

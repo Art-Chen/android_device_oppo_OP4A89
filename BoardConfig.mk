@@ -105,12 +105,17 @@ WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY ?= true
 # Display
 MAX_VIRTUAL_DISPLAY_DIMENSION := 4096
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+TARGET_USES_COLOR_METADATA := true
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 TARGET_USES_DISPLAY_RENDER_INTENTS := true
 TARGET_USES_DRM_PP := true
 TARGET_USES_GRALLOC1 := true
+TARGET_USES_GRALLOC4 := true
 TARGET_USES_HWC2 := true
 TARGET_USES_ION := true
+TARGET_USES_QCOM_DISPLAY_BSP := true
+TARGET_USES_QTI_MAPPER_2_0 := true
+TARGET_USES_QTI_MAPPER_EXTENSIONS_1_1 := true
 
 TARGET_SCREEN_DENSITY := 420
 
@@ -127,7 +132,9 @@ TARGET_NO_RPC := true
 USE_DEVICE_SPECIFIC_GPS := true
 
 # FCM & Manifests
-DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
+DEVICE_MATRIX_FILE := \
+  $(DEVICE_PATH)/compatibility_matrix.xml \
+  $(DEVICE_PATH)/sensors/compatibility_matrix_chen_als_helper.xml
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
 
 # Lineage Health
@@ -200,7 +207,7 @@ TARGET_RIL_VARIANT := caf
 VENDOR_SECURITY_PATCH := 2022-10-05
 
 # SELinux
-include device/qcom/sepolicy_vndr-legacy-um/SEPolicy.mk
+include device/qcom/sepolicy_vndr/legacy-um/SEPolicy.mk
 
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
 SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/public
