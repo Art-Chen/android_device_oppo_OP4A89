@@ -2608,3 +2608,9 @@ vendor/etc/init/ipa_fws.rc
 -vendor/app/CACertService/CACertService.apk
 vendor/lib/libjnihelper.so
 vendor/lib64/libjnihelper.so
+
+# Mi SDE
+vendor/lib64/vendor.xiaomi.hardware.citsensorservice@1.0.so
+vendor/lib64/vendor.xiaomi.hardware.citsensorservice@1.1.so
+vendor/lib64/vendor.xiaomi.hardware.displayfeature@1.0.so
+vendor/lib64/libclient2slpi.notifier.so
