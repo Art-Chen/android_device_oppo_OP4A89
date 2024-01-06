@@ -35,7 +35,9 @@ BiometricsFingerprint::BiometricsFingerprint() {
     mOplusBiometricsFingerprint->setHalCallback(this);
 
     std::string instanceName = std::string() + IUdfpsHelper::descriptor + "/default";
-    mChenUdfpsHelper = IUdfpsHelper::fromBinder(ndk::SpAIBinder(AServiceManager_waitForService(instanceName.c_str())));
+    if (AServiceManager_isDeclared(instanceName.c_str())) {
+        mChenUdfpsHelper = IUdfpsHelper::fromBinder(ndk::SpAIBinder(AServiceManager_waitForService(instanceName.c_str())));
+    }
 }
 
 Return<uint64_t> BiometricsFingerprint::setNotify(
@@ -103,7 +105,8 @@ Return<void> BiometricsFingerprint::onFingerUp() {
 Return<void> BiometricsFingerprint::onEnrollResult(uint64_t deviceId, uint32_t fingerId,
                                                    uint32_t groupId, uint32_t remaining) {
     mClientCallback->onAcquired(deviceId, V2_1::FingerprintAcquiredInfo::ACQUIRED_VENDOR, 0);
-    mChenUdfpsHelper->touchUp();
+    if (mChenUdfpsHelper)
+        mChenUdfpsHelper->touchUp();
     return mClientCallback->onEnrollResult(deviceId, fingerId, groupId, remaining);
 }
 
@@ -122,7 +125,8 @@ Return<void> BiometricsFingerprint::onAuthenticated(uint64_t deviceId, uint32_t 
     setFpPress(0);
     ALOGD("onAuthenticated: Send FP Touch Up");
     mClientCallback->onAcquired(deviceId, V2_1::FingerprintAcquiredInfo::ACQUIRED_VENDOR, 0);
-    mChenUdfpsHelper->touchUp();
+    if (mChenUdfpsHelper)
+        mChenUdfpsHelper->touchUp();
     return mClientCallback->onAuthenticated(deviceId, fingerId, groupId, token);
 }
 
@@ -164,14 +168,16 @@ Return<void> BiometricsFingerprint::onFingerprintCmd(int32_t cmdId,
     switch (cmdId) {
         case FINGERPRINT_CALLBACK_CMD_ID_ON_TOUCH_DOWN:
             ALOGD("onFingerprintCmd: FP Touch Down Detected!");
-            mChenUdfpsHelper->touchDown();
+            if (mChenUdfpsHelper)
+                mChenUdfpsHelper->touchDown();
             if (deviceId != -1) {
                 mClientCallback->onAcquired(deviceId, V2_1::FingerprintAcquiredInfo::ACQUIRED_VENDOR, 1);
             }
             break;
         case FINGERPRINT_CALLBACK_CMD_ID_ON_TOUCH_UP:
             ALOGD("onFingerprintCmd: FP Touch Up Detected!");
-            mChenUdfpsHelper->touchUp();
+            if (mChenUdfpsHelper)
+                mChenUdfpsHelper->touchUp();
             if (deviceId != -1) {
                 mClientCallback->onAcquired(deviceId, V2_1::FingerprintAcquiredInfo::ACQUIRED_VENDOR, 0);
             }

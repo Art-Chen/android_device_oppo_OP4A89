@@ -49,3 +49,6 @@ vendor.oplus.hardware.cameraMDM::IOPlusCameraMDM u:object_r:hal_cameraMDM_hwserv
 
 # Chen Flyme Add
 vendor.meizu.sensor_aux::ISensorAux            u:object_r:hal_sensors_hwservice:s0
+
+# Chen HyperOS Added
+

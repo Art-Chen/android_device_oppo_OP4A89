@@ -43,3 +43,7 @@ genfscon sysfs /firmware/devicetree/base/model                  u:object_r:vendo
 genfscon sysfs /module/stmvl53l1                                u:object_r:vendor_sysfs_vl53l1:s0
 genfscon sysfs /class/leds/vibrator                             u:object_r:sysfs_vibrator:s0
 genfscon sysfs /devices/platform/soc/soc:sensor_fb/adsp_notify  u:object_r:vendor_sysfs_sensorfb:s0
+
+# Vibrator
+genfscon sysfs /devices/platform/soc/89c000.i2c/i2c-2/2-005a u:object_r:sysfs_vibrator:s0
+genfscon sysfs /bus/i2c/drivers/awinic_haptic u:object_r:sysfs_vibrator:s0

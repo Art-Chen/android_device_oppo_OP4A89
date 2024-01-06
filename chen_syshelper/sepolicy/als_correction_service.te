@@ -5,3 +5,10 @@ binder_call(hal_chen_syshelper_default, als_correction_service)
 hal_server_domain(als_correction_service, hal_chen_syshelper)
 
 init_daemon_domain(hal_chen_syshelper_default)
+
+binder_use(surfaceflinger)
+binder_call(hal_chen_syshelper_default, surfaceflinger)
+
+# Register as System AIDL
+hal_server_domain(surfaceflinger, hal_chen_syshelper)
+

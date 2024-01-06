@@ -235,3 +235,25 @@ ro.fastbootd.available                 u:object_r:exported_default_prop:s0
 
 # Chen Prop
 ro.chen.                               u:object_r:vendor_chen_prop:s0
+
+# Mi Prop
+ro.hardware.fp.fod                     u:object_r:vendor_chen_prop:s0
+persist.vendor.sys.fp.fod              u:object_r:vendor_chen_prop:s0
+ro.product.real_model                  u:object_r:vendor_chen_prop:s0
+ro.vendor.colorpick_adjust              u:object_r:vendor_chen_prop:s0
+ro.vendor.all_modes.colorpick_adjust              u:object_r:vendor_chen_prop:s0
+ro.vendor.display.type              u:object_r:vendor_chen_prop:s0
+ro.vendor.xiaomi.bl.poll              u:object_r:vendor_chen_prop:s0
+ro.vendor.whitepoint_calibration_enable              u:object_r:vendor_chen_prop:s0
+ro.vendor.histogram.enable              u:object_r:vendor_chen_prop:s0
+ro.vendor.cabc.enable              u:object_r:vendor_chen_prop:s0
+ro.vendor.bcbc.enable              u:object_r:vendor_chen_prop:s0
+ro.vendor.dfps.enable              u:object_r:vendor_chen_prop:s0
+ro.vendor.fps.switch.default              u:object_r:vendor_chen_prop:s0
+ro.vendor.gcp.enable              u:object_r:vendor_chen_prop:s0
+ro.vendor.display.default_fps              u:object_r:vendor_chen_prop:s0
+ro.vendor.sre.enable              u:object_r:vendor_chen_prop:s0
+ro.vendor.display.ai_disp.enable              u:object_r:vendor_chen_prop:s0
+ro.vendor.standard.video.enable              u:object_r:vendor_chen_prop:s0
+vendor.display.use_layer_ext              u:object_r:vendor_chen_prop:s0
+persist.radio.sar_sar_sensor              u:object_r:vendor_chen_prop:s0

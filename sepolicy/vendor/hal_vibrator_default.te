@@ -1,2 +1,5 @@
 allow hal_vibrator_default sysfs_vibrator:lnk_file rw_file_perms;
+allow hal_vibrator_default sysfs_vibrator:file rw_file_perms;
+
+allow hal_vibrator_default sysfs_vibrator:dir r_dir_perms;
 

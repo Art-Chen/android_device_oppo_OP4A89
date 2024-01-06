@@ -26,6 +26,8 @@ allow hal_nfc_default proc_touchpanel:file rw_file_perms;
 allow hal_nfc_default vendor_nfc_vendor_data_file:dir search;
 allow hal_nfc_default vendor_nfc_vendor_data_file:file create_file_perms;
 
+hal_client_domain(vendor_hal_esepowermanager_qti, hal_nfc)
+
 # Allow hal_nfc_default to get vendor_oplus_engineer_prop
 get_prop(hal_nfc_default, vendor_oplus_engineer_prop)
 get_prop(hal_nfc_default, vendor_oplus_extra_prop)
