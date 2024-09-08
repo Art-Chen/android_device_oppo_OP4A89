@@ -43,7 +43,7 @@ UdfpsHelper::UdfpsHelper()
 
     LOG(INFO) << "FP Touch Down!";
     currentIsDownState = true;
-    // OnUdfpsTouchStatusChanged(true);
+    OnUdfpsTouchStatusChanged(true);
     mWaitCV.notify_all();
 
     return ndk::ScopedAStatus::ok();
@@ -52,7 +52,7 @@ UdfpsHelper::UdfpsHelper()
     std::scoped_lock lock(fpdown_mutex_lock);
     LOG(INFO) << "FP Touch Up!";
     currentIsDownState = false;
-    // OnUdfpsTouchStatusChanged(false);
+    OnUdfpsTouchStatusChanged(false);
     mWaitCV.notify_all();
 
     return ndk::ScopedAStatus::ok();

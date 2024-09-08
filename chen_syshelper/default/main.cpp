@@ -17,6 +17,7 @@ int main() {
 
     LOG(INFO) << "Chen SysHelper Registered!";
 
+    ABinderProcess_startThreadPool();
     ABinderProcess_joinThreadPool();
     return EXIT_FAILURE;  // Unreachable
 }

@@ -144,10 +144,9 @@ class ALSHelper : public ::aidl::vendor::chen::aidl::syshelper::BnALSHelper {
 };
 
 int main() {
-    ProcessState::self()->setThreadPoolMaxThreadCount(2);
+    ProcessState::self()->setThreadPoolMaxThreadCount(3);
     ProcessState::self()->startThreadPool();
 
-    ABinderProcess_setThreadPoolMaxThreadCount(2);
     auto listener = new AlsCorrection();
 
     std::shared_ptr<ALSHelper> alsHelper = ndk::SharedRefBase::make<ALSHelper>(listener);

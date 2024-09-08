@@ -507,8 +507,8 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@4.0.vendor \
     als_correction_service.oppo_OP4A89 \
     libsensorndkbridge \
-    # vendor.chen.aidl.syshelper-service \
-    # sensors.chen.virt
+    vendor.chen.aidl.syshelper-service \
+    sensors.chen.virt
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf \

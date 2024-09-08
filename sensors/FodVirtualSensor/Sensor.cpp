@@ -55,7 +55,7 @@ Sensor::Sensor(int32_t sensorHandle, ISensorsEventCallback* callback)
     mSensorInfo.fifoMaxEventCount = 0;
     mSensorInfo.requiredPermission = "";
     mSensorInfo.flags = 0;
-    mRunThread = std::thread(startThread, this);
+    // mRunThread = std::thread(startThread, this);
 }
 
 Sensor::~Sensor() {
@@ -67,7 +67,7 @@ Sensor::~Sensor() {
         mIsEnabled = false;
         mWaitCV.notify_all();
     }
-    mRunThread.join();
+    // mRunThread.join();
 }
 
 const SensorInfo& Sensor::getSensorInfo() const {
@@ -194,6 +194,19 @@ OneShotSensor::OneShotSensor(int32_t sensorHandle, ISensorsEventCallback* callba
     mSensorInfo.flags |= SensorFlagBits::ONE_SHOT_MODE;
 }
 
+class UdfpsCallback : public IUdfpsHelperCallback {
+   public:
+    UdfpsCallback(UdfpsSensor* s) : uSensor(s) {};
+    ::ndk::ScopedAStatus onUdfpsTouchStatusChanged(bool in_isDown) {
+        if (in_isDown && uSensor) {
+            uSensor->postEventChen(540, 2150);
+        }
+    }
+
+   private:
+    UdfpsSensor* uSensor;
+}
+
 UdfpsSensor::UdfpsSensor(int32_t sensorHandle, ISensorsEventCallback* callback)
     : OneShotSensor(sensorHandle, callback) {
     mSensorInfo.name = "Chen Udfps Long Press Sensor";
@@ -213,6 +226,10 @@ UdfpsSensor::UdfpsSensor(int32_t sensorHandle, ISensorsEventCallback* callback)
         ALOGE("Chen System Helper is NOT Declared!!");
     }
     mChenUdfpsHelper = IUdfpsHelper::fromBinder(ndk::SpAIBinder(AServiceManager_waitForService(instanceName.c_str())));
+    mChenUdfpsHelperCallback = std::make_shared<UdfpsCallback>(this);
+    if (mChenUdfpsHelperCallback) {
+        mChenUdfpsHelper->registerCallback(mChenUdfpsHelperCallback);
+    }
     ALOGI("Loaded mChenUdfpsHelper!");
 
     ALOGI("Udfps Init Done!");
@@ -225,11 +242,11 @@ UdfpsSensor::~UdfpsSensor() {
 }
 
 void UdfpsSensor::postEventChen(int x, int y) {
-    ALOGI("postEventChen %d %d!", x, y);
+    ALOGD("postEventChen %d %d!", x, y);
 
     mScreenX = x;
     mScreenY = y;
-    // mCallback->postEvents(readEvents(), isWakeUpSensor());
+    mCallback->postEvents(readEvents(), isWakeUpSensor());
 }
 
 void UdfpsSensor::activate(bool enable) {
@@ -242,37 +259,7 @@ void UdfpsSensor::setOperationMode(OperationMode mode) {
 }
 
 void UdfpsSensor::run() {
-    std::unique_lock<std::mutex> runLock(mRunMutex);
-    constexpr int64_t kNanosecondsInSeconds = 1000 * 1000 * 1000;
-
-    while (!mStopThread) {
-        if (!mIsEnabled || mMode == OperationMode::DATA_INJECTION) {
-            mWaitCV.wait(runLock, [&] {
-                return ((mIsEnabled && mMode == OperationMode::NORMAL) || mStopThread);
-            });
-        } else {
-            timespec curTime;
-            clock_gettime(CLOCK_REALTIME, &curTime);
-            int64_t now = (curTime.tv_sec * kNanosecondsInSeconds) + curTime.tv_nsec;
-            int64_t nextSampleTime = mLastSampleTimeNs + mSamplingPeriodNs;
-
-            if (now >= nextSampleTime) {
-                mLastSampleTimeNs = now;
-                nextSampleTime = mLastSampleTimeNs + mSamplingPeriodNs;
-                if (mChenUdfpsHelper->getTouchStatus(&currentPressedDown).isOk()) {
-                    if (currentPressedDown) {
-                        postEventChen(540, 2150);
-                        ALOGI("get TouchDown, post Events and disable the sensor!!");
-                        mCallback->postEvents(readEvents(), isWakeUpSensor());
-                        currentPressedDown = false;
-                        mIsEnabled = false;
-                    }
-                }
-            }
-
-            mWaitCV.wait_for(runLock, std::chrono::nanoseconds(nextSampleTime - now));
-        }
-    }
+    // no thread to run, put event from callback
 }
 
 std::vector<Event> UdfpsSensor::readEvents() {
