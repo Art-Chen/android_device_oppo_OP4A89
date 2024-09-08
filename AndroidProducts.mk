@@ -5,4 +5,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/rising_OP4A89.mk
+    $(LOCAL_DIR)/yaap_OP4A89.mk

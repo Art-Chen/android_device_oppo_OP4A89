@@ -92,7 +92,6 @@ class AlsCorrection {
         captureArgs.sourceCrop = screenshot_rect;
         captureArgs.width = screenshot_rect.getWidth();
         captureArgs.height = screenshot_rect.getHeight();
-        captureArgs.useIdentityTransform = true;
         captureArgs.captureSecureLayers = true;
         if (ScreenshotClient::captureDisplay(captureArgs, captureListener) == NO_ERROR) {
              captureResults = captureListener->waitForResults();

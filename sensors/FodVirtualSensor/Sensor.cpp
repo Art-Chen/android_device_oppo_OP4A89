@@ -194,18 +194,19 @@ OneShotSensor::OneShotSensor(int32_t sensorHandle, ISensorsEventCallback* callba
     mSensorInfo.flags |= SensorFlagBits::ONE_SHOT_MODE;
 }
 
-class UdfpsCallback : public IUdfpsHelperCallback {
+class UdfpsCallback : public BnUdfpsHelperCallback {
    public:
     UdfpsCallback(UdfpsSensor* s) : uSensor(s) {};
     ::ndk::ScopedAStatus onUdfpsTouchStatusChanged(bool in_isDown) {
         if (in_isDown && uSensor) {
             uSensor->postEventChen(540, 2150);
         }
+        return ndk::ScopedAStatus::ok();
     }
 
    private:
     UdfpsSensor* uSensor;
-}
+};
 
 UdfpsSensor::UdfpsSensor(int32_t sensorHandle, ISensorsEventCallback* callback)
     : OneShotSensor(sensorHandle, callback) {
@@ -226,7 +227,7 @@ UdfpsSensor::UdfpsSensor(int32_t sensorHandle, ISensorsEventCallback* callback)
         ALOGE("Chen System Helper is NOT Declared!!");
     }
     mChenUdfpsHelper = IUdfpsHelper::fromBinder(ndk::SpAIBinder(AServiceManager_waitForService(instanceName.c_str())));
-    mChenUdfpsHelperCallback = std::make_shared<UdfpsCallback>(this);
+    mChenUdfpsHelperCallback = ndk::SharedRefBase::make<UdfpsCallback>(this);
     if (mChenUdfpsHelperCallback) {
         mChenUdfpsHelper->registerCallback(mChenUdfpsHelperCallback);
     }
