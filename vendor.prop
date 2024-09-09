@@ -289,10 +289,6 @@ ro.vendor.dolby.device=OP46C3
 ro.vendor.dolby.manufacturer=OPLUS
 ro.vendor.dolby.brand=OPLUS
 
-# SoC
-ro.soc.manufacturer=Qualcomm
-ro.soc.model=SM8150
-
 # USB
 vendor.usb.diag.func.name=diag
 vendor.usb.dpl.inst.name=dpl

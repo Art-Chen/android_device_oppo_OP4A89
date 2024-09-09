@@ -14,6 +14,13 @@ $(call inherit-product, vendor/oppo/OP4A89/OP4A89-vendor.mk)
 # Project ID Quota
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
+# Get Qcom components
+#TARGET_EXCLUDE_QCOM_SEPOLICY := true
+TARGET_BOARD_PLATFORM := msmnile
+TARGET_COMMON_QTI_COMPONENTS := \
+    media \
+    av
+
 # Additional native libraries
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
@@ -273,7 +280,7 @@ PRODUCT_PACKAGES += \
 
 # Doze
 PRODUCT_PACKAGES += \
-    OPlusDoze
+ #   OPlusDoze
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -531,18 +538,19 @@ PRODUCT_PACKAGES += \
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
 
-# Telephony
-PRODUCT_PACKAGES += \
-    ims-ext-common \
-    ims_ext_common.xml \
-    qti-telephony-hidl-wrapper \
-    qti_telephony_hidl_wrapper.xml \
-    qti-telephony-utils \
-    qti_telephony_utils.xml \
-    telephony-ext
+# Already included on yaap source and caused dex2oat failed
+# # Telephony
+# PRODUCT_PACKAGES += \
+#     ims-ext-common \
+#     ims_ext_common.xml \
+#     qti-telephony-hidl-wrapper \
+#     qti_telephony_hidl_wrapper.xml \
+#     qti-telephony-utils \
+#     qti_telephony_utils.xml \
+#     telephony-ext
 
-PRODUCT_BOOT_JARS += \
-    telephony-ext
+# PRODUCT_BOOT_JARS += \
+#     telephony-ext
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/privapp-permissions-ims.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-ims.xml
