@@ -41,6 +41,7 @@ BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom androidboot.console=ttyMSM0 lp
 BOARD_KERNEL_CMDLINE += androidboot.vbmeta.avb_version=1.0
 # BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive 
 BOARD_KERNEL_CMDLINE += printk.devkmsg=on androidboot.init_fatal_panic=true
+BOARD_KERNEL_CMDLINE += msm-poweroff.panic_on_reboot=on
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_SEPARATED_DTBO := true
@@ -133,9 +134,16 @@ TARGET_NO_RPC := true
 USE_DEVICE_SPECIFIC_GPS := true
 
 # FCM & Manifests
-DEVICE_MATRIX_FILE := \
-  $(DEVICE_PATH)/compatibility_matrix.xml \
-  $(DEVICE_PATH)/sensors/compatibility_matrix_chen_als_helper.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
+    hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
+    $(DEVICE_PATH)/chen_syshelper/default/compatibility_matrix_chen_fod_helper.xml \
+    $(DEVICE_PATH)/oplus_vendor_framework_compatibility_matrix.xml \
+    vendor/yaap/config/device_framework_matrix.xml
+
+DEVICE_MATRIX_FILE += \
+    hardware/qcom-caf/common/compatibility_matrix.xml \
+    $(DEVICE_PATH)/sensors/compatibility_matrix_chen_als_helper.xml
+
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
 
 # Lineage Health
