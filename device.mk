@@ -27,12 +27,19 @@ PRODUCT_COPY_FILES += \
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-derp
+    $(LOCAL_PATH)/overlay-custom
 
-PRODUCT_ENFORCE_RRO_TARGETS := *
-PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += \
-    $(LOCAL_PATH)/overlay/packages/apps/Bluetooth
+# Build custom overlay as rro only
+PRODUCT_ENFORCE_RRO_TARGETS += *
+
+PRODUCT_PACKAGES += \
+    AospFrameworkRes_OP4A89 \
+    AospSettingsProvider_rro_OP4A89 \
+    AospSettingsRes_OP4A89 \
+    AospSystemUI_rro_OP4A89 \
+    CarrierConfigRes_OP4A89 \
+    DocumentsUIRes_OP4A89 \
+    TelephonyRes_OP4A89
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -110,6 +117,7 @@ PRODUCT_PACKAGES += \
     libaudioroute \
     libhdmiedid \
     libhfp \
+    libprocessgroup.vendor \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
@@ -285,7 +293,8 @@ PRODUCT_PACKAGES += \
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.3.vendor \
-    android.hardware.drm@1.4-service-lazy.clearkey
+    android.hardware.drm@1.4-service-lazy.clearkey \
+    libcrypto-v33
 
 # Fingerprint
 PRODUCT_PACKAGES += \
@@ -392,10 +401,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/system_properties.xml:$(TARGET_COPY_OUT_VENDOR)/etc/system_properties.xml
 
 PRODUCT_COPY_FILES += \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml
+    frameworks/av/media/libstagefright/data/media_codecs_google_c2_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_c2_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_c2_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2_video.xml
 
 # Misc
 PRODUCT_PACKAGES += \
@@ -491,7 +499,8 @@ PRODUCT_PACKAGES += \
     android.hardware.radio.deprecated@1.0.vendor \
     libprotobuf-cpp-full \
     librmnetctl \
-    libxml2
+    libxml2 \
+    libsqlite.vendor
 
 # Vendor libstdc++
 PRODUCT_PACKAGES += \
@@ -519,7 +528,8 @@ PRODUCT_PACKAGES += \
     als_correction_service.oppo_OP4A89 \
     libsensorndkbridge \
     vendor.chen.aidl.syshelper-service \
-    sensors.chen.virt
+    sensors.chen.virt \
+    libdumpstateutil.vendor
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf \
@@ -608,5 +618,8 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.sf.blurs_are_expensive=1
 
 # Wfd
+PRODUCT_PACKAGES += \
+    libpng.vendor
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wfdconfig.xml:$(TARGET_COPY_OUT_VENDOR)/etc/wfdconfig.xml 

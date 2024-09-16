@@ -1,0 +1,6 @@
+runtime_resource_overlay {
+    name: "AospSettingsProvider_rro_OP4A89",
+    theme: "AospSettingsProvider_rro_OP4A89",
+    sdk_version: "current",
+    vendor: true,
+}

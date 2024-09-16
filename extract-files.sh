@@ -81,6 +81,9 @@ function blob_fixup() {
             sed -i "s/qti.sensor.wise_light/android.sensor.light\x00/" "${2}"
             "${SIGSCAN}" -p "F1 E9 D3 84 52 49 3F A0 72" -P "F1 A9 00 80 52 09 00 A0 72" -f "${2}"
             ;;
+        odm/lib64/libwvhidl.so)
+            "${PATCHELF}" --replace-needed "libcrypto.so" "libcrypto-v33.so" "${2}"
+            ;;
     esac
 }
 

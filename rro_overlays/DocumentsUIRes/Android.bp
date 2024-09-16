@@ -1,0 +1,6 @@
+runtime_resource_overlay {
+    name: "DocumentsUIRes_OP4A89",
+    theme: "DocumentsUIRes_OP4A89",
+    sdk_version: "current",
+    vendor: true,
+}
