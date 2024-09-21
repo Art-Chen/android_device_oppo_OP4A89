@@ -35,7 +35,7 @@ int main() {
         CHECK_EQ(status, STATUS_OK);
         AServiceManager_forceLazyServicesPersist(true);
     } else {
-        LOG(ERROR) << "Fingerprint HAL is not connected";
+        LOG(FATAL) << "Fingerprint HAL is not connected";
     }
 
     ABinderProcess_joinThreadPool();
