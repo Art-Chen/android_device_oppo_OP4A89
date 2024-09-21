@@ -39,3 +39,9 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRIVATE_BUILD_DESC="OP4A89-user 10 QKQ1.191021.002 1587105942 release-keys"
 
 PRODUCT_GMS_CLIENTID_BASE := android-oppo
+
+# enable blur
+TARGET_ENABLE_BLUR := true
+
+# Build Gapps by default
+#TARGET_BUILD_GAPPS ?= true
