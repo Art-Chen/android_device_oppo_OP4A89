@@ -3,5 +3,4 @@ service vendor.fingerprint-oplus_OP4A89 /vendor/bin/hw/android.hardware.biometri
     user system
     group system
     interface aidl android.hardware.biometrics.fingerprint.IFingerprint/default
-    oneshot
     onrestart restart fps_hal
