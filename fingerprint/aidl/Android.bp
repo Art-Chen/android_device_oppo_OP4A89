@@ -1,0 +1,58 @@
+cc_binary {
+    name: "android.hardware.biometrics.fingerprint-service.oplus_OP4A89",
+    vendor: true,
+    relative_install_path: "hw",
+    init_rc: ["fingerprint-oplus_OP4A89.rc"],
+    vintf_fragments: ["fingerprint-oplus_OP4A89.xml"],
+    local_include_dirs: ["include"],
+    srcs: [
+        "LockoutTracker.cpp",
+        "Fingerprint.cpp",
+        "Session.cpp",
+        "CancellationSignal.cpp",
+        "main.cpp",
+    ],
+    shared_libs: [
+        "libbinder_ndk",
+        "liblog",
+        "libhardware",
+        "libutils",
+        "libhidlbase",
+        "android.hardware.biometrics.fingerprint@2.1",
+        "android.hardware.biometrics.fingerprint@2.2",
+        "android.hardware.biometrics.fingerprint@2.3",
+        "vendor.oplus.hardware.biometrics.fingerprint@2.1",
+    ],
+    static_libs: [
+        "libbase",
+        "android.hardware.biometrics.fingerprint-V5-ndk",
+        "android.hardware.biometrics.common-V4-ndk",
+        "android.hardware.biometrics.common.thread",
+        "android.hardware.biometrics.common.util",
+        "android.hardware.biometrics.common.config",
+        "android.hardware.keymaster-V4-ndk",
+        "vendor.chen.aidl.syshelper-V1-ndk",
+    ],
+}
+
+
+cc_library {
+    name: "libshims_fingerprint.oplus_OP4A89",
+    srcs: ["FingerprintShim.cpp"],
+    shared_libs: [
+        "libcutils",
+        "liblog",
+    ],
+    device_specific: true,
+}
+
+cc_library_static {
+    name: "libudfps_extension.oplus_OP4A89",
+    srcs: ["UdfpsExtension.cpp"],
+    include_dirs: [
+        "frameworks/native/services/surfaceflinger/CompositionEngine/include",
+    ],
+    header_libs: [
+        "generated_kernel_headers",
+    ],
+}

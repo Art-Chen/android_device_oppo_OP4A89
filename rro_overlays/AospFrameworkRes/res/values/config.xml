@@ -719,14 +719,6 @@
          and one pSIM) -->
     <integer name="config_num_physical_slots">2</integer>
 
-    <!-- List of biometric sensors on the device, in decreasing strength. Consumed by AuthService
-         when registering authenticators with BiometricService. Format must be ID:Modality:Strength,
-         where: IDs are unique per device, Modality as defined in BiometricAuthenticator.java,
-         and Strength as defined in Authenticators.java -->
-    <string-array name="config_biometric_sensors" translatable="false" >
-        <item>0:2:15</item> <!-- ID0:Fingerprint:Strong -->
-    </string-array>
-
     <string translatable="false" name="config_mainBuiltInDisplayCutout">
         M150,0c-5,.33-9.93.53-14.88,1-13.71,1.37-27.67,1.68-41.05,4.6-18.18,4-31.95,15.49-43.52,29.93A157.53,157.53,0,0,1,30.46,57C14.93,70.26-14.91,70.23-30.47,57A133.45,133.45,0,0,1-49.92,36.35C-66.46,14.69-88.2,3.47-115.18,2c-9.47-.52-18.95-.73-28.43-1.17C-145.75.71-147.87.28-150,0Z
     </string>
@@ -766,17 +758,6 @@
 
     <!-- Specifies the maximum burn-in offset vertically. -->
     <integer name="config_burnInProtectionMaxVerticalOffset">40</integer>
-    
-    
-    <!-- The properties of a UDFPS sensor in pixels, in the order listed below: -->
-    <integer-array name="config_udfps_sensor_props" translatable="false" >
-        <item>540</item>  <!-- <item>sensorLocationX</item> -->
-        <item>2156</item> <!-- <item>sensorLocationY</item> -->
-        <item>95</item>   <!-- <item>sensorRadius</item> -->
-    </integer-array>
-
-    <!-- How long it takes for the HW to start illuminating after the illumination is requested. -->
-    <integer name="config_udfps_illumination_transition_ms">0</integer>
     
     <!-- Whether the new Auto Selection Network UI should be shown -->
     <bool name="config_enableNewAutoSelectNetworkUI">true</bool>

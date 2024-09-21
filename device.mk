@@ -298,8 +298,7 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.3-service.oplus_OP4A89 \
-    android.hardware.biometrics.fingerprint@2.3.vendor \
+    android.hardware.biometrics.fingerprint-service.oplus_OP4A89 \
     libshims_fingerprint.oplus_OP4A89
 
 # For config.fs

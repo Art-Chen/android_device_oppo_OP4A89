@@ -1,0 +1,7 @@
+service vendor.fingerprint-oplus_OP4A89 /vendor/bin/hw/android.hardware.biometrics.fingerprint-service.oplus_OP4A89
+    class late_start
+    user system
+    group system
+    interface aidl android.hardware.biometrics.fingerprint.IFingerprint/default
+    oneshot
+    onrestart restart fps_hal
