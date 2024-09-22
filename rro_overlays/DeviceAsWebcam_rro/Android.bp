@@ -1,0 +1,5 @@
+runtime_resource_overlay {
+    name: "DeviceAsWebcam_rro_OP4A89",
+    sdk_version: "current",
+    vendor: true,
+}

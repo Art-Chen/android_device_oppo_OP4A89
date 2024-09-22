@@ -39,7 +39,8 @@ PRODUCT_PACKAGES += \
     AospSystemUI_rro_OP4A89 \
     CarrierConfigRes_OP4A89 \
     DocumentsUIRes_OP4A89 \
-    TelephonyRes_OP4A89
+    TelephonyRes_OP4A89 \
+    DeviceAsWebcam_rro_OP4A89
 
 # Permissions
 PRODUCT_COPY_FILES += \
