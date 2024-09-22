@@ -18,6 +18,25 @@
 <resources>
     <dimen name="rounded_corner_content_padding">50px</dimen>
 
-    <!-- Bottom margin size when fingerprint in display is active -->
-    <dimen name="keyguard_indication_margin_bottom_fingerprint_in_display">150dp</dimen>
+    <!-- Location on the screen of the center of the physical power button. -->
+    <dimen name="physical_power_button_center_screen_location_y">960px</dimen>
+
+    <!-- Location on the screen of the center of the physical volume up/down buttons. -->
+    <dimen name="physical_volume_up_button_center_screen_location_y">790px</dimen>
+    <dimen name="physical_volume_down_button_center_screen_location_y">990px</dimen>
+
+    <!-- Padding for the lock icon on the keyguard. In pixels - should not scale with
+         display size. -->
+    <dimen name="lock_icon_padding">50px</dimen>
+
+    <!-- Offset should not be more than 1mm -->
+    <dimen name="udfps_burn_in_offset_x">2px</dimen>
+    <dimen name="udfps_burn_in_offset_y">2px</dimen>
+
+    <dimen name="keyguard_indication_margin_bottom">10dp</dimen>
+
+    <!-- Pixel pitch of the device. um/px -->
+    <item name="pixel_pitch" format="float" type="dimen">59.1</item>
+
+    
 </resources>
