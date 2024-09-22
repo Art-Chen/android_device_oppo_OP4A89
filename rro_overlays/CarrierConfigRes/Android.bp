@@ -1,6 +1,5 @@
 runtime_resource_overlay {
     name: "CarrierConfigRes_OP4A89",
-    theme: "CarrierConfigRes_OP4A89",
     sdk_version: "current",
     vendor: true,
 }

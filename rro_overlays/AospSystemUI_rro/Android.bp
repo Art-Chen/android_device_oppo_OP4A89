@@ -1,6 +1,5 @@
 runtime_resource_overlay {
     name: "AospSystemUI_rro_OP4A89",
-    theme: "AospSystemUI_rro_OP4A89",
     sdk_version: "current",
     vendor: true,
 }
