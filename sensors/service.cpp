@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
+#include <android/binder_manager.h>
+#include <android/binder_process.h>
+
 #include <android/hardware/sensors/2.1/ISensors.h>
 #include <hidl/HidlTransportSupport.h>
 #include <log/log.h>
 #include <utils/StrongPointer.h>
+
 #include "HalProxy.h"
 
 using android::hardware::configureRpcThreadpool;
@@ -26,6 +30,7 @@ using android::hardware::sensors::V2_1::ISensors;
 using android::hardware::sensors::V2_1::implementation::HalProxyV2_1;
 
 int main(int /* argc */, char** /* argv */) {
+    ABinderProcess_setThreadPoolMaxThreadCount(1);
     configureRpcThreadpool(1, true);
 
     android::sp<ISensors> halProxy = new HalProxyV2_1();
@@ -34,6 +39,7 @@ int main(int /* argc */, char** /* argv */) {
         return -1;
     }
 
+    ABinderProcess_startThreadPool();
     joinRpcThreadpool();
     return 1;  // joinRpcThreadpool shouldn't exit
 }
