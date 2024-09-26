@@ -526,7 +526,6 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@4.0.vendor \
     als_correction_service.oppo_OP4A89 \
     libsensorndkbridge \
-    vendor.chen.aidl.syshelper-service \
     sensors.chen.virt \
     libdumpstateutil.vendor
 

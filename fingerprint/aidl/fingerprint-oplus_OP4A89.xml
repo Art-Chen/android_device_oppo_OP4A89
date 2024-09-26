@@ -4,4 +4,8 @@
         <version>5</version>
         <fqname>IFingerprint/default</fqname>
     </hal>
+    <hal format="aidl">
+        <name>vendor.chen.aidl.syshelper</name>
+        <fqname>IUdfpsHelper/default</fqname>
+    </hal>
 </manifest>

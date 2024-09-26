@@ -194,10 +194,11 @@ OneShotSensor::OneShotSensor(int32_t sensorHandle, ISensorsEventCallback* callba
     mSensorInfo.flags |= SensorFlagBits::ONE_SHOT_MODE;
 }
 
-class UdfpsCallback : public BnUdfpsHelperCallback {
+class UdfpsCallback : public BnUdfpsCallback {
    public:
     UdfpsCallback(UdfpsSensor* s) : uSensor(s) {};
-    ::ndk::ScopedAStatus onUdfpsTouchStatusChanged(bool in_isDown) {
+    ::ndk::ScopedAStatus onUdfpsTouchStatusChanged(bool in_isDown) override {
+        ALOGI("UdfpsCallback: onUdfpsTouchStatusChanged: %s", in_isDown ? "down" : "up");
         if (in_isDown && uSensor) {
             uSensor->postEventChen(540, 2150);
         }
@@ -216,7 +217,7 @@ UdfpsSensor::UdfpsSensor(int32_t sensorHandle, ISensorsEventCallback* callback)
     mSensorInfo.typeAsString = "moe.chenxy.sensor.udfps.longpress";
     mSensorInfo.maxRange = 2048.0f;
     mSensorInfo.resolution = 1.0f;
-    mSensorInfo.power = 0;
+    mSensorInfo.power = 0.1f;
     mSensorInfo.flags |= SensorFlagBits::WAKE_UP;
 
     currentPressedDown = false;
@@ -226,20 +227,16 @@ UdfpsSensor::UdfpsSensor(int32_t sensorHandle, ISensorsEventCallback* callback)
     if (!isSupportChenSysHelper) {
         ALOGE("Chen System Helper is NOT Declared!!");
     }
-    mChenUdfpsHelper = IUdfpsHelper::fromBinder(ndk::SpAIBinder(AServiceManager_waitForService(instanceName.c_str())));
-    mChenUdfpsHelperCallback = ndk::SharedRefBase::make<UdfpsCallback>(this);
-    if (mChenUdfpsHelperCallback) {
-        mChenUdfpsHelper->registerCallback(mChenUdfpsHelperCallback);
-    }
-    ALOGI("Loaded mChenUdfpsHelper!");
 
-    ALOGI("Udfps Init Done!");
+    ALOGI("Waiting Chen Udfps Helper...");
+    mChenUdfpsHelper = IUdfpsHelper::fromBinder(ndk::SpAIBinder(AServiceManager_waitForService(instanceName.c_str())));
+    ALOGI("Found Chen Udfps Helper!");
+
+    ALOGI("UdfpsLPSensor Init Done!");
 }
 
 UdfpsSensor::~UdfpsSensor() {
-    if (mChenUdfpsHelperCallback != nullptr) {
-        mChenUdfpsHelper->unregisterCallback(mChenUdfpsHelperCallback);
-    }
+
 }
 
 void UdfpsSensor::postEventChen(int x, int y) {
@@ -251,8 +248,14 @@ void UdfpsSensor::postEventChen(int x, int y) {
 }
 
 void UdfpsSensor::activate(bool enable) {
+    if (enable && mChenUdfpsHelper) {
+        mChenUdfpsHelperCallback = ndk::SharedRefBase::make<UdfpsCallback>(this);
+        mChenUdfpsHelper->registerCallback(mChenUdfpsHelperCallback);
+    } else if (mChenUdfpsHelper && mChenUdfpsHelperCallback) {
+        mChenUdfpsHelper->unregisterCallback(mChenUdfpsHelperCallback);
+        mChenUdfpsHelperCallback = nullptr;
+    }
     Sensor::activate(enable);
-    ALOGI("activate %d!", enable);
 }
 
 void UdfpsSensor::setOperationMode(OperationMode mode) {

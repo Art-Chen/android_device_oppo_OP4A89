@@ -134,7 +134,7 @@ USE_DEVICE_SPECIFIC_GPS := true
 # FCM & Manifests
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
-    $(DEVICE_PATH)/chen_syshelper/default/compatibility_matrix_chen_fod_helper.xml \
+    $(DEVICE_PATH)/fingerprint/aidl/compatibility_matrix_chen_fod_helper.xml \
     $(DEVICE_PATH)/oplus_vendor_framework_compatibility_matrix.xml \
     vendor/yaap/config/device_framework_matrix.xml
 

@@ -42,7 +42,7 @@ constexpr char SW_VERSION[] = "Art_Chen/1/0";
 
 }  // namespace
 
-Fingerprint::Fingerprint() : mWorker(MAX_WORKER_QUEUE_SIZE) {
+Fingerprint::Fingerprint(std::shared_ptr<UdfpsHelper> helper) : mWorker(MAX_WORKER_QUEUE_SIZE), mChenUdfpsHelper(helper) {
     mSensorType = FingerprintSensorType::UNDER_DISPLAY_OPTICAL;
     mOplusBiometricsFingerprint = IOplusBiometricsFingerprint::getService();
 }
@@ -80,10 +80,6 @@ ndk::ScopedAStatus Fingerprint::createSession(int32_t sensorId, int32_t userId,
                                               std::shared_ptr<ISession>* out) {
     CHECK(mSession == nullptr || mSession->isClosed()) << "Open session already exists!";
 
-    std::string instanceName = std::string() + IUdfpsHelper::descriptor + "/default";
-    if (AServiceManager_isDeclared(instanceName.c_str())) {
-        mChenUdfpsHelper = IUdfpsHelper::fromBinder(ndk::SpAIBinder(AServiceManager_waitForService(instanceName.c_str())));
-    }
     mSession = SharedRefBase::make<Session>(sensorId, userId, cb, mOplusBiometricsFingerprint.get(), mChenUdfpsHelper
                                             , mLockoutTracker, &mWorker);
     *out = mSession;

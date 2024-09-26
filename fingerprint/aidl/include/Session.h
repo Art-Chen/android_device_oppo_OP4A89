@@ -19,6 +19,7 @@
 #include <aidl/android/hardware/biometrics/fingerprint/BnSession.h>
 #include <aidl/android/hardware/biometrics/fingerprint/ISessionCallback.h>
 #include <aidl/vendor/chen/aidl/syshelper/IUdfpsHelper.h>
+#include "UdfpsHelper.h"
 
 #include <android-base/properties.h>
 #include <android-base/logging.h>
@@ -59,7 +60,7 @@ using ::android::hardware::biometrics::fingerprint::V2_3::IBiometricsFingerprint
 
 using namespace ::android::hardware::biometrics::fingerprint;
 
-using aidl::vendor::chen::aidl::syshelper::IUdfpsHelper;
+using aidl::vendor::chen::aidl::syshelper::UdfpsHelper;
 
 using IOplusBiometricsFingerprint =
     ::vendor::oplus::hardware::biometrics::fingerprint::V2_1::IBiometricsFingerprint;
@@ -131,7 +132,7 @@ class FingerprintCallback;
 class Session : public BnSession {
    public:
     Session(int sensorId, int userId, std::shared_ptr<ISessionCallback> cb,
-            IOplusBiometricsFingerprint* oplusFp, std::shared_ptr<IUdfpsHelper> helper,
+            IOplusBiometricsFingerprint* oplusFp, std::shared_ptr<UdfpsHelper> helper,
             LockoutTracker lockoutTracker, WorkerThread* worker);
 
     ndk::ScopedAStatus generateChallenge() override;
@@ -232,7 +233,7 @@ class Session : public BnSession {
 
     sp<FingerprintCallback> mOplusFpCallback;
 
-    std::shared_ptr<IUdfpsHelper> mHelper;
+    std::shared_ptr<UdfpsHelper> mHelper;
 
     // Worker thread that allows to schedule tasks for asynchronous execution.
     WorkerThread* mWorker;
@@ -248,7 +249,6 @@ class Session : public BnSession {
     LockoutTracker mLockoutTracker;
 
     sp<IOplusBiometricsFingerprint> mOplusBiometricsFingerprint;
-    std::shared_ptr<IUdfpsHelper> mChenUdfpsHelper;
     sp<V2_1::IBiometricsFingerprintClientCallback> mClientCallback;
 };
 
@@ -256,7 +256,7 @@ class FingerprintCallback : public IBiometricsFingerprintClientCallback,
                             public IBiometricsFingerprintClientCallbackEx {
    public:
     FingerprintCallback(std::shared_ptr<ISessionCallback> cb,
-                        std::shared_ptr<IUdfpsHelper> helper,
+                        std::shared_ptr<UdfpsHelper> helper,
                         Session* session,
                         LockoutTracker& tracker) 
                         : mCb(cb), 
@@ -294,7 +294,7 @@ class FingerprintCallback : public IBiometricsFingerprintClientCallback,
 
    private:
     std::shared_ptr<ISessionCallback> mCb;
-    std::shared_ptr<IUdfpsHelper> mHelper;
+    std::shared_ptr<UdfpsHelper> mHelper;
     LockoutTracker& mLockoutTracker;
     Session* mSession;
 };

@@ -20,12 +20,16 @@
 #include <android/binder_manager.h>
 #include <android/binder_process.h>
 
+#include "UdfpsHelper.h"
+
 using aidl::android::hardware::biometrics::fingerprint::Fingerprint;
+using aidl::vendor::chen::aidl::syshelper::UdfpsHelper;
 
 int main() {
     LOG(INFO) << "Fingerprint HAL started";
-    ABinderProcess_setThreadPoolMaxThreadCount(0);
-    std::shared_ptr<Fingerprint> hal = ndk::SharedRefBase::make<Fingerprint>();
+    ABinderProcess_setThreadPoolMaxThreadCount(5);
+    std::shared_ptr<UdfpsHelper> udfpsHelper = ndk::SharedRefBase::make<UdfpsHelper>();
+    std::shared_ptr<Fingerprint> hal = ndk::SharedRefBase::make<Fingerprint>(udfpsHelper);
     auto binder = hal->asBinder();
 
     if (hal->connected()) {
@@ -38,6 +42,14 @@ int main() {
         LOG(FATAL) << "Fingerprint HAL is not connected";
     }
 
+    const std::string instance = std::string(UdfpsHelper::descriptor) + "/default";
+    binder_status_t status =
+        AServiceManager_addService(udfpsHelper->asBinder().get(), instance.c_str());
+    CHECK_EQ(status, STATUS_OK);
+
+    LOG(INFO) << "Chen Udfps Helper Registered!";
+
+    ABinderProcess_startThreadPool();
     ABinderProcess_joinThreadPool();
     return EXIT_FAILURE;  // should not reach
 }

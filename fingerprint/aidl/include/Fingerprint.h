@@ -29,9 +29,11 @@
 #include <fstream>
 
 #include "Session.h"
+#include "UdfpsHelper.h"
 #include "thread/WorkerThread.h"
 namespace aidl::android::hardware::biometrics::fingerprint {
 
+using ::aidl::vendor::chen::aidl::syshelper::UdfpsHelper;
 using ::android::sp;
 using ::android::base::GetProperty;
 using ::android::hardware::hidl_string;
@@ -42,13 +44,12 @@ using ::android::hardware::biometrics::fingerprint::V2_1::RequestStatus;
 using ::android::hardware::biometrics::fingerprint::V2_2::FingerprintAcquiredInfo;
 using ::android::hardware::biometrics::fingerprint::V2_2::IBiometricsFingerprintClientCallback;
 using ::android::hardware::biometrics::fingerprint::V2_3::IBiometricsFingerprint;
-
 using IOplusBiometricsFingerprint =
     ::vendor::oplus::hardware::biometrics::fingerprint::V2_1::IBiometricsFingerprint;
 
 class Fingerprint : public BnFingerprint {
   public:
-    Fingerprint();
+    Fingerprint(std::shared_ptr<UdfpsHelper> helper);
 
     ndk::ScopedAStatus getSensorProps(std::vector<SensorProps>* out) override;
 
@@ -67,7 +68,7 @@ class Fingerprint : public BnFingerprint {
     std::shared_ptr<Session> mSession;
     FingerprintSensorType mSensorType;
     sp<IOplusBiometricsFingerprint> mOplusBiometricsFingerprint;
-    std::shared_ptr<IUdfpsHelper> mChenUdfpsHelper;
+    std::shared_ptr<UdfpsHelper> mChenUdfpsHelper;
 };
 
 }  // namespace aidl::android::hardware::biometrics::fingerprint

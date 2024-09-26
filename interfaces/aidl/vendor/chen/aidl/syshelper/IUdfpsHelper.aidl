@@ -1,12 +1,10 @@
 package vendor.chen.aidl.syshelper;
 
-import vendor.chen.aidl.syshelper.IUdfpsHelperCallback;
+import vendor.chen.aidl.syshelper.IUdfpsCallback;
 
 @VintfStability
 interface IUdfpsHelper {
-    oneway void touchDown();
-    oneway void touchUp();
     boolean getTouchStatus();
-    void registerCallback(in IUdfpsHelperCallback callback);
-    void unregisterCallback(in IUdfpsHelperCallback callback);
+    void registerCallback(in IUdfpsCallback cb);
+    void unregisterCallback(in IUdfpsCallback cb);
 }

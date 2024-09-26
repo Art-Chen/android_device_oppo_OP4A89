@@ -16,8 +16,7 @@
 
 #pragma once
 
-#include <aidl/vendor/chen/aidl/syshelper/IUdfpsHelperCallback.h>
-#include <aidl/vendor/chen/aidl/syshelper/BnUdfpsHelperCallback.h>
+#include <aidl/vendor/chen/aidl/syshelper/BnUdfpsCallback.h>
 #include <aidl/vendor/chen/aidl/syshelper/IUdfpsHelper.h>
 
 #include <android/binder_manager.h>
@@ -40,8 +39,7 @@ using ::android::hardware::sensors::V2_1::SensorInfo;
 using ::android::hardware::sensors::V2_1::SensorType;
 
 using ::aidl::vendor::chen::aidl::syshelper::IUdfpsHelper;
-using ::aidl::vendor::chen::aidl::syshelper::IUdfpsHelperCallback;
-using ::aidl::vendor::chen::aidl::syshelper::BnUdfpsHelperCallback;
+using ::aidl::vendor::chen::aidl::syshelper::BnUdfpsCallback;
 
 namespace android {
 namespace hardware {
@@ -101,6 +99,7 @@ class OneShotSensor : public Sensor {
     virtual Result flush() override { return Result::BAD_VALUE; }
 };
 
+class UdfpsCallback;
 class UdfpsSensor : public OneShotSensor {
   public:
     UdfpsSensor(int32_t sensorHandle, ISensorsEventCallback* callback);
@@ -117,7 +116,7 @@ class UdfpsSensor : public OneShotSensor {
 
   private:
     std::shared_ptr<IUdfpsHelper> mChenUdfpsHelper;
-    std::shared_ptr<IUdfpsHelperCallback> mChenUdfpsHelperCallback;
+    std::shared_ptr<UdfpsCallback> mChenUdfpsHelperCallback;
 
     int mScreenX;
     int mScreenY;

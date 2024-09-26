@@ -5,11 +5,13 @@
 
 #include <aidl/vendor/chen/aidl/syshelper/BnUdfpsHelper.h>
 // #include <aidl/vendor/chen/aidl/syshelper/IUdfpsHelper.h>
-#include <aidl/vendor/chen/aidl/syshelper/IUdfpsHelperCallback.h>
+#include <aidl/vendor/chen/aidl/syshelper/IUdfpsCallback.h>
+#include <utils/Errors.h>
 
+#include <condition_variable>
+#include <map>
 #include <mutex>
 #include <thread>
-#include <condition_variable>
 
 namespace aidl {
 namespace vendor {
@@ -22,23 +24,23 @@ class LinkedCallback;
 class UdfpsHelper : public BnUdfpsHelper {
    public:
     UdfpsHelper();
-    ::ndk::ScopedAStatus touchDown() override;
-    ::ndk::ScopedAStatus touchUp() override;
+    void touchDown();
+    void touchUp();
     ::ndk::ScopedAStatus getTouchStatus(bool *aidl_return) override;
-    ::ndk::ScopedAStatus registerCallback(const std::shared_ptr<::aidl::vendor::chen::aidl::syshelper::IUdfpsHelperCallback>& in_callback) override;
-    ::ndk::ScopedAStatus unregisterCallback(const std::shared_ptr<::aidl::vendor::chen::aidl::syshelper::IUdfpsHelperCallback>& in_callback) override;
+    ::ndk::ScopedAStatus registerCallback(const std::shared_ptr<::aidl::vendor::chen::aidl::syshelper::IUdfpsCallback>& in_callback) override;
+    ::ndk::ScopedAStatus unregisterCallback(const std::shared_ptr<::aidl::vendor::chen::aidl::syshelper::IUdfpsCallback>& in_callback) override;
 
    private:
     friend LinkedCallback;  // for exposing death_recipient_
 
     static void startThread(UdfpsHelper* helper);
     void run();
-    void OnUdfpsTouchStatusChanged(bool isDowned);
+    void CallListeners(bool isDown);
     bool currentIsDownState;
     std::mutex fpdown_mutex_lock;
     std::mutex run_mutex_lock;
     std::mutex callback_mutex_lock;
-    std::vector<std::unique_ptr<LinkedCallback>> callbacks_;
+    std::map<LinkedCallback*, std::shared_ptr<::aidl::vendor::chen::aidl::syshelper::IUdfpsCallback>> callbacks_;
     std::thread mThread;
     std::condition_variable mWaitCV;
     ndk::ScopedAIBinder_DeathRecipient death_recipient_;

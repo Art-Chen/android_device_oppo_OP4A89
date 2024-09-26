@@ -16,9 +16,10 @@
 
 #pragma once
 
-#include <aidl/vendor/chen/aidl/syshelper/IUdfpsHelperCallback.h>
+#include <aidl/vendor/chen/aidl/syshelper/IUdfpsCallback.h>
 
 #include <android-base/macros.h>
+#include <android-base/result.h>
 #include <android/binder_auto_utils.h>
 #include "UdfpsHelper.h"
 
@@ -27,23 +28,14 @@
 namespace aidl::vendor::chen::aidl::syshelper {
 
 // Type of the cookie pointer in linkToDeath.
-// A (UdfpsHelper, IUdfpsHelperCallback) tuple.
+// A (UdfpsHelper, IUdfpsCallback) tuple.
 class LinkedCallback {
   public:
     // Automatically linkToDeath upon construction with the returned object as the cookie.
-    // service->death_reciepient() should be from CreateDeathRecipient().
-    // Not using a strong reference to |service| to avoid circular reference. The lifetime
-    // of |service| must be longer than this LinkedCallback object.
-   static std::unique_ptr<LinkedCallback> Make(std::shared_ptr<UdfpsHelper> service,
-                                               std::shared_ptr<IUdfpsHelperCallback> callback);
-
-   // Automatically unlinkToDeath upon destruction. So, it is always safe to reinterpret_cast
-   // the cookie back to the LinkedCallback object.
-   ~LinkedCallback();
-
-   // The wrapped IUdfpsHelperCallback object.
-   const std::shared_ptr<IUdfpsHelperCallback>& callback() const { return callback_; }
-
+    // The deathRecipient owns the LinkedCallback object and will delete it with
+    // cookie when it's unlinked.
+    static ::android::base::Result<LinkedCallback*> Make(
+            std::shared_ptr<UdfpsHelper> service, std::shared_ptr<IUdfpsCallback> callback);
    // On callback died, unreigster it from the service.
    void OnCallbackDied();
 
@@ -54,7 +46,7 @@ class LinkedCallback {
     std::shared_ptr<UdfpsHelper> service();
 
     std::weak_ptr<UdfpsHelper> service_;
-    std::shared_ptr<IUdfpsHelperCallback> callback_;
+    std::weak_ptr<IUdfpsCallback> callback_;
 };
 
 }  // namespace aidl::vendor::chen::aidl::syshelper

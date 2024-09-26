@@ -89,7 +89,7 @@ Error HidlToAidlFingerprintError(::android::hardware::biometrics::fingerprint::V
 }
 
 Session::Session(int sensorId, int userId, std::shared_ptr<ISessionCallback> cb,
-                 IOplusBiometricsFingerprint* oplusFp, std::shared_ptr<IUdfpsHelper> helper,
+                 IOplusBiometricsFingerprint* oplusFp, std::shared_ptr<UdfpsHelper> helper,
                  LockoutTracker lockoutTracker, WorkerThread* worker)
     : mSensorId(sensorId),
       mUserId(userId),
