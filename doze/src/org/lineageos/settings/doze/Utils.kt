@@ -79,36 +79,36 @@ object Utils {
         return AmbientDisplayConfiguration(context).alwaysOnAvailable()
     }
 
-    private fun isGestureEnabled(context: Context?, gesture: String?): Boolean {
+    private fun isGestureEnabled(context: Context, gesture: String?): Boolean {
         return PreferenceManager.getDefaultSharedPreferences(context)
             .getBoolean(gesture, false)
     }
 
-    fun isPickUpEnabled(context: Context?): Boolean {
+    fun isPickUpEnabled(context: Context): Boolean {
         return PreferenceManager.getDefaultSharedPreferences(context)
             .getString(GESTURE_PICK_UP_KEY, "0") != "0"
     }
 
-    fun isPickUpSetToWake(context: Context?): Boolean {
+    fun isPickUpSetToWake(context: Context): Boolean {
         return PreferenceManager.getDefaultSharedPreferences(context)
             .getString(GESTURE_PICK_UP_KEY, "0") == "2"
     }
 
-    fun isMoveDetectEnabled(context: Context?): Boolean {
+    fun isMoveDetectEnabled(context: Context): Boolean {
         return PreferenceManager.getDefaultSharedPreferences(context)
             .getString(GESTURE_MOVE_DETECT_KEY, "1") != "0"
     }
 
-    fun isMoveDetectSetToWake(context: Context?): Boolean {
+    fun isMoveDetectSetToWake(context: Context): Boolean {
         return PreferenceManager.getDefaultSharedPreferences(context)
             .getString(GESTURE_MOVE_DETECT_KEY, "1") == "2"
     }
 
-    fun isPocketEnabled(context: Context?): Boolean {
+    fun isPocketEnabled(context: Context): Boolean {
         return isGestureEnabled(context, GESTURE_POCKET_KEY)
     }
 
-    private fun areGesturesEnabled(context: Context?): Boolean {
+    private fun areGesturesEnabled(context: Context): Boolean {
         return isPickUpEnabled(context) || isPocketEnabled(context) || isMoveDetectEnabled(context)
     }
 

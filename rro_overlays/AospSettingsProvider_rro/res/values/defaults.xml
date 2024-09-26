@@ -22,4 +22,7 @@
 
     <!-- Default for Settings.Secure.VOLUME_PANEL_ON_LEFT -->
     <bool name="def_volume_panel_on_left">true</bool>
+
+    <!-- Default for Settings.Secure.DOZE_ENABLED -->
+    <bool name="def_doze_enabled">true</bool>
 </resources>

@@ -16,7 +16,7 @@ import android.util.Log
 import java.util.concurrent.Executors
 
 class PocketSensor(private val context: Context, sensorType: String) : SensorEventListener {
-    private val sensorManager = context.getSystemService(SensorManager::class.java)
+    private val sensorManager = context.getSystemService(SensorManager::class.java)!!
     private val sensor = Utils.getSensor(sensorManager, sensorType)
 
     private val executorService = Executors.newSingleThreadExecutor()

@@ -11,13 +11,15 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Switch
+import android.widget.CompoundButton
+import android.widget.CompoundButton.*
 import androidx.preference.*
 
 import com.android.settingslib.widget.MainSwitchPreference
-import com.android.settingslib.widget.OnMainSwitchChangeListener
+
 
 class DozeSettingsFragment : PreferenceFragment(), Preference.OnPreferenceChangeListener,
-    OnMainSwitchChangeListener {
+    OnCheckedChangeListener {
     private lateinit var alwaysOnDisplayPreference: SwitchPreference
     private lateinit var switchBar: MainSwitchPreference
 
@@ -54,13 +56,17 @@ class DozeSettingsFragment : PreferenceFragment(), Preference.OnPreferenceChange
         val pickupSensorCategory =
             preferenceScreen.findPreference<PreferenceCategory>(Utils.CATEGORY_PICKUP_SENSOR)
         if (getString(R.string.pickup_sensor_type).isEmpty()) {
-            preferenceScreen.removePreference(pickupSensorCategory)
+            pickupSensorCategory?.apply {
+                preferenceScreen.removePreference(this)
+            }
         }
 
         val proximitySensorCategory =
             preferenceScreen.findPreference<PreferenceCategory>(Utils.CATEGORY_PROXIMITY_SENSOR)
         if (getString(R.string.pocket_sensor_type).isEmpty()) {
-            preferenceScreen.removePreference(proximitySensorCategory)
+            proximitySensorCategory?.apply {
+                preferenceScreen.removePreference(this)
+            }
         }
 
         pickUpPreference = findPreference(Utils.GESTURE_PICK_UP_KEY)
@@ -92,7 +98,7 @@ class DozeSettingsFragment : PreferenceFragment(), Preference.OnPreferenceChange
         return true
     }
 
-    override fun onSwitchChanged(switchView: Switch, isChecked: Boolean) {
+    override fun onCheckedChanged(switchView: CompoundButton, isChecked: Boolean) {
         Utils.enableDoze(context, isChecked)
         Utils.checkDozeService(context)
 

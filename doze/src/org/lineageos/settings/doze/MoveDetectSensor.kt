@@ -17,10 +17,10 @@ import android.util.Log
 import java.util.concurrent.Executors
 
 class MoveDetectSensor(private val context: Context, sensorType: String) : SensorEventListener {
-    private val powerManager = context.getSystemService(PowerManager::class.java)
+    private val powerManager = context.getSystemService(PowerManager::class.java)!!
     private val wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG)
 
-    private val sensorManager = context.getSystemService(SensorManager::class.java)
+    private val sensorManager = context.getSystemService(SensorManager::class.java)!!
     private val sensor = Utils.getSensor(sensorManager, sensorType)
 
     private val executorService = Executors.newSingleThreadExecutor()
