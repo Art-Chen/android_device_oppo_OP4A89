@@ -221,6 +221,7 @@ UdfpsSensor::UdfpsSensor(int32_t sensorHandle, ISensorsEventCallback* callback)
     mSensorInfo.flags |= SensorFlagBits::WAKE_UP;
 
     currentPressedDown = false;
+    mActivated = false;
 
     std::string instanceName = std::string() + IUdfpsHelper::descriptor + "/default";
     bool isSupportChenSysHelper = AServiceManager_isDeclared(instanceName.c_str());
@@ -231,16 +232,25 @@ UdfpsSensor::UdfpsSensor(int32_t sensorHandle, ISensorsEventCallback* callback)
     ALOGI("Waiting Chen Udfps Helper...");
     mChenUdfpsHelper = IUdfpsHelper::fromBinder(ndk::SpAIBinder(AServiceManager_waitForService(instanceName.c_str())));
     ALOGI("Found Chen Udfps Helper!");
-
+    mChenUdfpsHelperCallback = ndk::SharedRefBase::make<UdfpsCallback>(this);
+    mChenUdfpsHelper->registerCallback(mChenUdfpsHelperCallback);
     ALOGI("UdfpsLPSensor Init Done!");
 }
 
 UdfpsSensor::~UdfpsSensor() {
-
+    if (mChenUdfpsHelperCallback && mChenUdfpsHelper) {
+        mChenUdfpsHelper->unregisterCallback(mChenUdfpsHelperCallback);
+        mChenUdfpsHelperCallback = nullptr;
+    }
 }
 
 void UdfpsSensor::postEventChen(int x, int y) {
     ALOGD("postEventChen %d %d!", x, y);
+
+    if (!mActivated) {
+        ALOGD("drop event because of sensor is not active");
+        return;
+    }
 
     mScreenX = x;
     mScreenY = y;
@@ -248,13 +258,7 @@ void UdfpsSensor::postEventChen(int x, int y) {
 }
 
 void UdfpsSensor::activate(bool enable) {
-    if (enable && mChenUdfpsHelper) {
-        mChenUdfpsHelperCallback = ndk::SharedRefBase::make<UdfpsCallback>(this);
-        mChenUdfpsHelper->registerCallback(mChenUdfpsHelperCallback);
-    } else if (mChenUdfpsHelper && mChenUdfpsHelperCallback) {
-        mChenUdfpsHelper->unregisterCallback(mChenUdfpsHelperCallback);
-        mChenUdfpsHelperCallback = nullptr;
-    }
+    mActivated = enable;
     Sensor::activate(enable);
 }
 

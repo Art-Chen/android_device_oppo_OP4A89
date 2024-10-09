@@ -118,6 +118,7 @@ class UdfpsSensor : public OneShotSensor {
     std::shared_ptr<IUdfpsHelper> mChenUdfpsHelper;
     std::shared_ptr<UdfpsCallback> mChenUdfpsHelperCallback;
 
+    bool mActivated;
     int mScreenX;
     int mScreenY;
 };
