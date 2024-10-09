@@ -18,5 +18,5 @@
     <!-- Sensor types -->
     <string name="pickup_sensor_type">android.sensor.tilt_detector</string>
     <string name="pocket_sensor_type">android.sensor.proximity</string>
-    <string name="move_detect_sensor_type">qti.sensor.move_detect</string>
+    <string name="move_detect_sensor_type">qti.sensor.amd</string>
 </resources>
